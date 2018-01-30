@@ -7,10 +7,14 @@ import { StoreInfoComponent } from './wechat-program/store-info/store-info.compo
 import { StoreActivityComponent } from './wechat-program/store-activity/store-activity.component';
 import { StoreEffectComponent } from './wechat-program/store-effect/store-effect.component';
 import { WechatProgramService } from './wechat-program/wechat-program.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     WechatRoutingModule,
     NgZorroAntdModule
   ],

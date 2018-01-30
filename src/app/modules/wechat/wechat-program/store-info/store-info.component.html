@@ -1,3 +1,165 @@
-<p>
-  store-info works!
-</p>
+<div class="container">
+
+  <form nz-form [formGroup]="formModel">
+
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col  [nzXl]="4" [nzLg]="6">
+        <label nz-form-item-required>门店名称</label>
+      </div>
+      <div nz-col nz-form-control [nzValidateStatus]="getFormControl('storeName')"  [nzXl]="8" [nzLg]="12">
+        <nz-input formControlName="storeName" [nzType]="'text'" nzPlaceHolder="请输入门店名称" [nzSize]="'large'"></nz-input>
+        <div nz-form-explain *ngIf="getFormControl('storeName').dirty && getFormControl('storeName').hasError('required')">请输入门店名称</div>
+      </div>
+    </div>
+
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col  [nzXl]="4" [nzLg]="6">
+        <label>大众点评名称</label>
+      </div>
+      <div nz-col nz-form-control [nzXl]="8" [nzLg]="12">
+        <nz-input formControlName="commentName" [nzType]="'text'" nzPlaceHolder="请输入大众点评名称" [nzSize]="'large'"></nz-input>
+      </div>
+    </div>
+
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col  [nzXl]="4" [nzLg]="6">
+        <label>美团名称</label>
+      </div>
+      <div nz-col nz-form-control [nzXl]="8" [nzLg]="12">
+        <nz-input formControlName="meituanName" [nzType]="'text'" nzPlaceHolder="请输入美团名称" [nzSize]="'large'"></nz-input>
+      </div>
+    </div>
+
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzXl]="4" [nzLg]="6">
+        <label nz-form-item-required>省市区</label>
+      </div>
+      <div nz-col nz-form-control [nzValidateStatus]="getFormControl('cityAddress')" [nzXl]="8" [nzLg]="12">
+        <nz-cascader [nzAllowClear]="false" [nzOptions]="init_options" formControlName="cityAddress" nzPlaceHolder="请选择门店所在省市区"></nz-cascader>
+        <div nz-form-explain *ngIf="getFormControl('cityAddress').dirty && getFormControl('cityAddress').hasError('required')">请选择门店所在省市区</div>
+      </div>
+    </div>
+
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzXl]="4" [nzLg]="6">
+        <label nz-form-item-required>详细地址</label>
+      </div>
+      <div nz-col nz-form-control [nzValidateStatus]="getFormControl('address')" [nzXl]="14" [nzLg]="16">
+        <nz-input formControlName="address" [nzType]="'text'" nzPlaceHolder="请输入门店所在详细地址" [nzSize]="'large'"></nz-input>
+        <div nz-form-explain *ngIf="getFormControl('address').dirty && getFormControl('address').hasError('required')">请输入门店所在详细地址</div>
+      </div>
+    </div>
+
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzXl]="4" [nzLg]="6">
+        <label nz-form-item-required>门店封面图</label>
+      </div>
+      <div nz-col nz-form-control [nzXl]="8" [nzLg]="12">
+        <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" nzListType="picture-card" [(nzFileList)]="fileList" [nzShowButton]="fileList.length < 1"
+          [nzPreview]="handlePreview">
+          <i class="anticon anticon-plus"></i>
+          <div class="ant-upload-text">点击选择图片</div>
+        </nz-upload>
+        <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible = false">
+          <ng-template #modalContent>
+            <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+          </ng-template>
+        </nz-modal>
+        <div nz-form-explain *ngIf="getFormControl('coverImg').dirty && getFormControl('coverImg').hasError('required')">请上传门店封面图</div>
+      </div>
+    </div>
+
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzXl]="4" [nzLg]="6">
+        <label nz-form-item-required>
+          门店图片
+          <nz-tooltip>
+            <i class="anticon anticon-question-circle" nz-tooltip [ngStyle]="{'vertical-align': 'baseline', 'margin-left': '3px', 'cursor': 'ponter', 'color': '#333', 'font-size': '14px'}"></i>
+            <ng-template #nzTemplate>
+              <i class="anticon anticon-file"></i>
+              <span>最多6张；支持png、jepg、gif格式的图片，宽高750px*400px展示更好；图片大小小于2M</span>
+            </ng-template>
+          </nz-tooltip>
+        </label>
+      </div>
+      <div nz-col nz-form-control [nzXl]="20" [nzLg]="18">
+        <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" nzListType="picture-card" [(nzFileList)]="fileList2" [nzShowButton]="fileList2.length < 6"
+          [nzPreview]="handlePreview">
+          <i class="anticon anticon-plus"></i>
+          <div class="ant-upload-text">点击选择图片</div>
+        </nz-upload>
+        <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible = false">
+          <ng-template #modalContent>
+            <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+          </ng-template>
+        </nz-modal>
+        <div nz-form-explain *ngIf="getFormControl('storeImg').dirty && getFormControl('storeImg').hasError('required')">请上传门店图片</div>
+      </div>
+    </div>
+
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzXl]="4" [nzLg]="6">
+        <label>包含设施</label>
+      </div>
+      <div nz-col nz-form-control [nzXl]="20" [nzLg]="18">
+        <nz-checkbox-group formControlName="facilities" [ngModel]="checkOptionsOne"></nz-checkbox-group>
+      </div>
+    </div>
+
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzXl]="4" [nzLg]="6">
+        <label nz-form-item-required>营业时间</label>
+      </div>
+      <div nz-col nz-form-control [nzValidateStatus]="getFormControl('businessHours')" [nzXl]="14" [nzLg]="16">
+        <nz-input formControlName="businessHours" [nzType]="'text'" nzPlaceHolder="请输入营业时间" [nzSize]="'large'"></nz-input>
+        <div nz-form-explain *ngIf="getFormControl('businessHours').dirty && getFormControl('businessHours').hasError('required')">请输入营业时间</div>
+      </div>
+    </div>
+
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzXl]="4" [nzLg]="6">
+        <label>卫生安全</label>
+      </div>
+      <div nz-col nz-form-control [nzXl]="14" [nzLg]="16">
+        <nz-input formControlName="healthSafety" [nzType]="'textarea'" [nzRows]="'3'" nzPlaceHolder="请输入卫生安全" [nzSize]="'large'"></nz-input>
+      </div>
+    </div>
+
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzXl]="4" [nzLg]="6">
+        <label>温馨提示</label>
+      </div>
+      <div nz-col nz-form-control [nzXl]="14" [nzLg]="16">
+        <nz-input formControlName="reminder" [nzType]="'textarea'" [nzRows]="'3'" nzPlaceHolder="请输入温馨提示" [nzSize]="'large'"></nz-input>
+      </div>
+    </div>
+
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzXl]="4" [nzLg]="6">
+        <label>交通信息</label>
+      </div>
+      <div nz-col nz-form-control [nzXl]="14" [nzLg]="16">
+        <nz-input formControlName="traffic" [nzType]="'textarea'" [nzRows]="'3'" nzPlaceHolder="请输入交通信息" [nzSize]="'large'"></nz-input>
+      </div>
+    </div>
+
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzXl]="4" [nzLg]="6">
+        <label>停车场信息</label>
+      </div>
+      <div nz-col nz-form-control [nzXl]="14" [nzLg]="16">
+        <nz-input formControlName="parking" [nzType]="'textarea'" [nzRows]="'3'" nzPlaceHolder="请输入停车场信息" [nzSize]="'large'"></nz-input>
+      </div>
+    </div>
+
+    <div nz-form-item nz-row>
+      <div nz-col align="center" nz-form-control>
+        <button nz-button [nzType]="'primary'" [nzSize]="'large'" [disabled]="!formModel.valid">Submit</button>
+        <button nz-button [nzSize]="'large'" (click)="resetForm($event)">Reset</button>
+      </div>
+    </div>
+
+  </form>
+
+</div>
+
