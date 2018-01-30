@@ -9,6 +9,12 @@
         <span>Welcome</span>
       </span>
     </li>
+    <li nz-menu-item [routerLink]="['/home/wechat/wechat-program']">
+      <span title>
+        <i class="anticon anticon-mail"></i>
+        <span>微信小程序</span>
+      </span>
+    </li>
     <li nz-submenu>
       <span title>
         <i class="anticon anticon-appstore"></i>
@@ -16,11 +22,6 @@
       </span>
       <ul>
         <li nz-menu-item [routerLink]="['/home/customer/1']">全部客户</li>
-        <li nz-menu-item [routerLink]="['/home/customer/2']">新进客户</li>
-        <li nz-menu-item [routerLink]="['/home/customer/3']">已跟进客户</li>
-        <li nz-menu-item [routerLink]="['/home/customer/4']">预约分配客户</li>
-        <li nz-menu-item [routerLink]="['/home/customer/5']">体验办卡客户</li>
-        <li nz-menu-item [routerLink]="['/home/customer/6']">无效客户</li>
       </ul>
     </li>
   </ul>
