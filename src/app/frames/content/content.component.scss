@@ -1,0 +1,17 @@
+.ui-content{
+  height: 100%;
+  padding: 20px;
+  overflow: auto;
+
+  & > div {
+    height: 100%;
+    padding: 15px;
+    background: #fff;
+    border-radius: 5px;
+    position: relative;
+  }
+
+  &.has-breadcrumb{
+    padding-top: 70px;
+  }
+}
