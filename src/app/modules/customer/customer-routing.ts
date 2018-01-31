@@ -1,3 +1,4 @@
+import { TrackingRecordComponent } from './tracking-record/tracking-record.component';
 import { RecycleBinComponent } from './recycle-bin/recycle-bin.component';
 import { PublicSeaPoolComponent } from './public-sea-pool/public-sea-pool.component';
 import { AllCustomerComponent } from './all/all.component';
@@ -22,6 +23,11 @@ const routes: Routes = [
 		path: 'allocated',
 		data: { title: '已分配客户' },
 		component: AllocatedComponent
+	},
+	{
+		path: 'tracking-record',
+		data: { title: '跟踪记录' },
+		component: TrackingRecordComponent
 	},
 	{
 		path: 'public-sea-pool',
