@@ -1,6 +1,6 @@
 .ui-logo{
   height: 64px;
-  background: #00284d;
+  background: #002140;
   overflow: hidden;
   & > img{
     height: 36px;
@@ -9,45 +9,62 @@
   }
 }
 
-.ant-menu-submenu,
-.ant-menu-item{
-  outline: none;
-  background: #000f2d;
-  &:hover{
-    color: #fff !important;
-    background: #000c18 !important;
+:host ::ng-deep {
+  span {
+    font-size: 14px;
   }
-  .ant-menu-item-selected,
-  &.ant-menu-item-selected,
-  &.ant-menu-submenu-selected{
-    color: #fff !important;
-    background-color: #108ee9 !important;
-    div{
-      color: #fff !important;
-    }
+  .ant-menu.ant-menu-root {
+    background: #001529;
+  }
+
+  .ant-menu.ant-menu-sub.ng-star-inserted{
+    background: #000c17;
+  }
+  .ant-menu-item{
+    outline: none;
   }
 }
-.ant-menu-submenu.ant-menu-submenu-open{
-  background: #000c18;
-  .ant-menu-item,
-  .ant-menu-submenu{
-    background: #000c18;
-  }
-}
-.ant-menu-submenu-inline,
-.ant-menu-vertical .ant-menu-item,
-.ant-menu-inline .ant-menu-item,
-.ant-menu-vertical .ant-menu-submenu-title,
-.ant-menu-inline .ant-menu-submenu-title{
-  color: #a5aab6;
-  font-size: 14px !important;
-  span{
-    font-size: 14px !important;
-  }
-  i{
-    font-size: 16px !important;
-  }
-  div::after{
-    font-size: 18px !important;
-  }
-}
+
+
+// .ant-menu-submenu,
+// .ant-menu-item{
+//   outline: none;
+//   background: #000f2d;
+//   &:hover{
+//     color: #fff !important;
+//     background: #000c18 !important;
+//   }
+//   .ant-menu-item-selected,
+//   &.ant-menu-item-selected,
+//   &.ant-menu-submenu-selected{
+//     color: #fff !important;
+//     background-color: #108ee9 !important;
+//     div{
+//       color: #fff !important;
+//     }
+//   }
+// }
+// .ant-menu-submenu.ant-menu-submenu-open{
+//   background: #000c18;
+//   .ant-menu-item,
+//   .ant-menu-submenu{
+//     background: #000c18;
+//   }
+// }
+// .ant-menu-submenu-inline,
+// .ant-menu-vertical .ant-menu-item,
+// .ant-menu-inline .ant-menu-item,
+// .ant-menu-vertical .ant-menu-submenu-title,
+// .ant-menu-inline .ant-menu-submenu-title{
+//   color: #a5aab6;
+//   font-size: 14px !important;
+//   span{
+//     font-size: 14px !important;
+//   }
+//   i{
+//     font-size: 16px !important;
+//   }
+//   div::after{
+//     font-size: 18px !important;
+//   }
+// }
