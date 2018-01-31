@@ -27,6 +27,11 @@ const routes: Routes = [
         path: 'wechat',
         data: { title: '微信' },
         loadChildren: 'app/modules/wechat/wechat.module#WechatModule'
+      },
+      {
+        path: 'customer',
+        data: { title: '客户管理' },
+        loadChildren: 'app/modules/customer/customer.module#CustomerModule'
       }
     ]
   },
