@@ -122,8 +122,9 @@ export class StoreInfoComponent implements OnInit {
   }
 
   checkOptionsOne = [
-    { label: 'Apple', value: '1', checked: true },
-    { label: 'Pear', value: '2' },
-    { label: 'Orange', value: '3' },
+    { label: '家长休息期', value: '1', checked: true },
+    { label: '寄存区', value: '2' },
+    { label: '停车场', value: '3' },
+    { label: '免费WIFI', value: '4' },
   ];
 }

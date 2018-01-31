@@ -1,8 +1,7 @@
-
 /* base */
-.ant-layout{
+.ant-layout {
   height: 100%;
-  overflow: hidden;
+  background: #fff;
 }
 
 /* header */
@@ -16,8 +15,10 @@
 }
 /* content */
 .ant-layout-content {
-  height: 100%;
-  padding-bottom: 64px;
-  background: #f0f2f5;
   position: relative;
+}
+
+.ant-layout-footer {
+  padding: 0;
+  background: #fff;
 }

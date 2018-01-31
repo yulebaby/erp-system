@@ -3,7 +3,7 @@
 </div>
 <div class="ui-menu">
   <ul nz-menu [nzMode]="'inline'" nzTheme='dark'>
-    <li nz-menu-item [routerLink]="['/home/welcome']">
+    <li nz-menu-item [routerLink]="['/home/test/testlist']">
       <span title>
         <i class="anticon anticon-mail"></i>
         <span>Welcome</span>
@@ -21,8 +21,20 @@
         <span>客户管理</span>
       </span>
       <ul>
-        <li nz-menu-item [routerLink]="['/home/customer/1']">全部客户</li>
+        <li nz-submenu>
+          <span title>全部客户</span>
+          <ul>
+            <li nz-menu-item>待分配客户</li>
+            <li nz-menu-item>已分配客户</li>
+          </ul>
+        </li>
+        <li nz-menu-item>跟踪记录</li>
+        <li nz-menu-item>到访</li>
+        <li nz-menu-item>公海池</li>
+        <li nz-menu-item>回收站</li>
+        <li nz-menu-item>分配规则设置</li>
       </ul>
     </li>
+
   </ul>
 </div>

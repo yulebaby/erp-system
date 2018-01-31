@@ -11,6 +11,7 @@
 
 .ant-menu-submenu,
 .ant-menu-item{
+  outline: none;
   background: #000f2d;
   &:hover{
     color: #fff !important;
