@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BaseComponent implements OnInit {
 
+  public isCollapsed: boolean = false;
+
   constructor() { }
 
   ngOnInit() {

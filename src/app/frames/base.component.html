@@ -1,10 +1,10 @@
 <nz-layout>
-  <nz-sider nzWidth="240">
-    <app-menu></app-menu>
+  <nz-sider [nzWidth]="isCollapsed ? 64 : 240">
+    <app-menu [isCollapsed]="isCollapsed"></app-menu>
   </nz-sider>
   <nz-layout>
     <nz-header>
-      <app-header></app-header>
+      <app-header [(isCollapsed)]="isCollapsed"></app-header>
     </nz-header>
     <nz-content>
       <app-content></app-content>

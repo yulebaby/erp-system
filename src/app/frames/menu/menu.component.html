@@ -1,8 +1,8 @@
-<div class="ui-logo">
-  <img src="./assets/images/logo.png" alt="">
-</div>
 <div class="ui-menu">
-  <ul nz-menu [nzMode]="'inline'" nzTheme='dark'>
+  <div class="ui-logo">
+    <img src="./assets/images/logo.png" alt="logo">
+  </div>
+  <ul nz-menu [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed" nzTheme='dark'>
     <li nz-menu-item [routerLink]="['/home/test/testlist']">
       <span title>
         <i class="anticon anticon-mail"></i>
