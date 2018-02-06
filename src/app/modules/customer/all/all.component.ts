@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-all',
@@ -7,9 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllCustomerComponent implements OnInit {
 
-  constructor() { }
+  queryForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder = new FormBuilder()
+  ) { }
 
   ngOnInit() {
+    this.queryForm = this.fb.group({
+      babyName: [],
+      status: [],
+      source: [],
+      name: [],
+      phone: [],
+      sex: [],
+      birthdayStart: [],
+      birthdayEnd: [],
+      createStart: [],
+      createEnd: []
+    })
+  }
+
+  _queryForm():void {
+    console.log(1)
   }
 
 }

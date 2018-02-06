@@ -8,11 +8,16 @@ import { PublicSeaPoolComponent } from './public-sea-pool/public-sea-pool.compon
 import { CustomerRoutingModule } from './customer-routing';
 import { RecycleBinComponent } from './recycle-bin/recycle-bin.component';
 import { DistributionComponent } from './distribution/distribution.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgZorroAntdModule } from 'ng-zorro-antd';
 
 @NgModule({
   imports: [
     CommonModule,
-    CustomerRoutingModule
+    FormsModule,
+    ReactiveFormsModule,
+    CustomerRoutingModule,
+    NgZorroAntdModule
   ],
   declarations: [AllCustomerComponent, UnassignedComponent, AllocatedComponent, TrackingRecordComponent, PublicSeaPoolComponent, RecycleBinComponent, DistributionComponent]
 })
