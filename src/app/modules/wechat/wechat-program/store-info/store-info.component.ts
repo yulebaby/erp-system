@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentChecked, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UploadFile } from 'ng-zorro-antd';
 
@@ -7,7 +7,7 @@ import { UploadFile } from 'ng-zorro-antd';
   templateUrl: './store-info.component.html',
   styleUrls: ['./store-info.component.scss']
 })
-export class StoreInfoComponent implements OnInit {
+export class StoreInfoComponent implements OnInit, AfterContentChecked {
 
   public formModel: FormGroup;
 
@@ -17,10 +17,6 @@ export class StoreInfoComponent implements OnInit {
 
   ngOnInit() {
     this.formModel = this.fb.group({
-      storeName: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(3)]],
-      commentName: [],
-      meituanName: [],
-      cityAddress: [],
       address: [],
       traffic: [],
       coverImg: [],
@@ -30,9 +26,34 @@ export class StoreInfoComponent implements OnInit {
       businessHours: [],
       healthSafety: [],
       reminder: [],
-      parking: []
+      parking: [],
+
+      shopName: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(3)]],       // 门店名称
+      publicCommentName: [],                                                                          // 大宗点评名称
+      meituanName: [],                                                                                // 美团名称
+      shopAddress: [],                                                                                // 详细地址
+      cityAddress: [],                                                                                // 省市区
+      facilitie: [],                                                                                  // 包含设施
+      businessTime: [],                                                                               // 营业时间
+      healthSafe: [],                                                                                 // 卫生安全
+      warmPrompt: [],                                                                                 // 温馨提示
+      trafficInformation: [],                                                                         // 交通信息
+      parkingInformation: []                                                                          // 停车场信息
     })
   }
+
+  @Output()
+  private storeInfoChange: EventEmitter<object> = new EventEmitter();
+  @Input()
+  private storeInfo: object;
+  private formModelValueString: string;
+  ngAfterContentChecked() {
+    if (JSON.stringify(this.formModel.value) !== this.formModelValueString) {
+      this.formModelValueString = JSON.stringify(this.formModel.value);
+      this.storeInfoChange.emit(this.formModel.value);
+    }
+  }
+
 
   getFormControl(name) {
     return this.formModel.controls[name];
@@ -82,31 +103,31 @@ export class StoreInfoComponent implements OnInit {
       url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
     },
     {
-      uid: -1,
+      uid: -2,
       name: 'xxx.png',
       status: 'done',
       url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
     },
     {
-      uid: -1,
+      uid: -3,
       name: 'xxx.png',
       status: 'done',
       url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
     },
     {
-      uid: -1,
+      uid: -4,
       name: 'xxx.png',
       status: 'done',
       url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
     },
     {
-      uid: -1,
+      uid: -5,
       name: 'xxx.png',
       status: 'done',
       url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
     },
     {
-      uid: -1,
+      uid: -6,
       name: 'xxx.png',
       status: 'done',
       url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
@@ -121,10 +142,15 @@ export class StoreInfoComponent implements OnInit {
     this.previewVisible = true;
   }
 
+  beforeUpload = (file, fileList): boolean => {
+    console.log(file, fileList);
+    return false;
+  }
+
   checkOptionsOne = [
     { label: '家长休息期', value: '1', checked: true },
     { label: '寄存区', value: '2' },
     { label: '停车场', value: '3' },
-    { label: '免费WIFI', value: '4' },
+    { label: '免费WIFI', value: '4' }
   ];
 }

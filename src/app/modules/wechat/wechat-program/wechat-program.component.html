@@ -2,7 +2,7 @@
 
   <div class="wechat-store-effect">
   
-    <app-store-effect></app-store-effect>
+    <app-store-effect [storeInfo]="storeInfo"></app-store-effect>
 
   </div>
 
@@ -15,7 +15,7 @@
           门店信息
         </ng-template>
         
-        <app-store-info></app-store-info>
+        <app-store-info [(storeInfo)]="storeInfo"></app-store-info>
 
       </nz-tab>
       <nz-tab>

@@ -7,9 +7,8 @@ import { WechatProgramService } from './wechat-program.service';
   styleUrls: ['./wechat-program.component.scss']
 })
 export class WechatProgramComponent implements OnInit {
-
+  public storeInfo: object = {};
   constructor(
-    private storeInfo: WechatProgramService
   ) { }
 
   ngOnInit() {

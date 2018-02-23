@@ -6,9 +6,9 @@
       <div nz-form-label nz-col  [nzXl]="4" [nzLg]="6">
         <label nz-form-item-required>门店名称</label>
       </div>
-      <div nz-col nz-form-control [nzValidateStatus]="getFormControl('storeName')"  [nzXl]="8" [nzLg]="12">
-        <nz-input formControlName="storeName" [nzType]="'text'" nzPlaceHolder="请输入门店名称" [nzSize]="'large'"></nz-input>
-        <div nz-form-explain *ngIf="getFormControl('storeName').dirty && getFormControl('storeName').hasError('required')">请输入门店名称</div>
+      <div nz-col nz-form-control [nzValidateStatus]="getFormControl('shopName')"  [nzXl]="8" [nzLg]="12">
+        <nz-input formControlName="shopName" [nzType]="'text'" nzPlaceHolder="请输入门店名称" [nzSize]="'large'"></nz-input>
+        <div nz-form-explain *ngIf="getFormControl('shopName').dirty && getFormControl('shopName').hasError('required')">请输入门店名称</div>
       </div>
     </div>
 
@@ -17,7 +17,7 @@
         <label>大众点评名称</label>
       </div>
       <div nz-col nz-form-control [nzXl]="8" [nzLg]="12">
-        <nz-input formControlName="commentName" [nzType]="'text'" nzPlaceHolder="请输入大众点评名称" [nzSize]="'large'"></nz-input>
+        <nz-input formControlName="publicCommentName" [nzType]="'text'" nzPlaceHolder="请输入大众点评名称" [nzSize]="'large'"></nz-input>
       </div>
     </div>
 
@@ -44,9 +44,9 @@
       <div nz-form-label nz-col [nzXl]="4" [nzLg]="6">
         <label nz-form-item-required>详细地址</label>
       </div>
-      <div nz-col nz-form-control [nzValidateStatus]="getFormControl('address')" [nzXl]="14" [nzLg]="16">
-        <nz-input formControlName="address" [nzType]="'text'" nzPlaceHolder="请输入门店所在详细地址" [nzSize]="'large'"></nz-input>
-        <div nz-form-explain *ngIf="getFormControl('address').dirty && getFormControl('address').hasError('required')">请输入门店所在详细地址</div>
+      <div nz-col nz-form-control [nzValidateStatus]="getFormControl('shopAddress')" [nzXl]="14" [nzLg]="16">
+        <nz-input formControlName="shopAddress" [nzType]="'text'" nzPlaceHolder="请输入门店所在详细地址" [nzSize]="'large'"></nz-input>
+        <div nz-form-explain *ngIf="getFormControl('shopAddress').dirty && getFormControl('shopAddress').hasError('required')">请输入门店所在详细地址</div>
       </div>
     </div>
 
@@ -56,6 +56,7 @@
       </div>
       <div nz-col nz-form-control [nzXl]="8" [nzLg]="12">
         <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" nzListType="picture-card" [(nzFileList)]="fileList" [nzShowButton]="fileList.length < 1"
+          [nzBeforeUpload]="beforeUpload"
           [nzPreview]="handlePreview">
           <i class="anticon anticon-plus"></i>
           <div class="ant-upload-text">点击选择图片</div>
@@ -83,7 +84,7 @@
         </label>
       </div>
       <div nz-col nz-form-control [nzXl]="20" [nzLg]="18">
-        <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" nzListType="picture-card" [(nzFileList)]="fileList2" [nzShowButton]="fileList2.length < 6"
+        <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" nzListType="picture-card" [(nzFileList)]="fileList2" [nzShowButton]="fileList2.length < 10"
           [nzPreview]="handlePreview">
           <i class="anticon anticon-plus"></i>
           <div class="ant-upload-text">点击选择图片</div>
@@ -102,7 +103,7 @@
         <label>包含设施</label>
       </div>
       <div nz-col nz-form-control [nzXl]="20" [nzLg]="18">
-        <nz-checkbox-group formControlName="facilities" [ngModel]="checkOptionsOne"></nz-checkbox-group>
+        <nz-checkbox-group formControlName="facilitie" [ngModel]="checkOptionsOne"></nz-checkbox-group>
       </div>
     </div>
 
@@ -110,9 +111,9 @@
       <div nz-form-label nz-col [nzXl]="4" [nzLg]="6">
         <label nz-form-item-required>营业时间</label>
       </div>
-      <div nz-col nz-form-control [nzValidateStatus]="getFormControl('businessHours')" [nzXl]="14" [nzLg]="16">
-        <nz-input formControlName="businessHours" [nzType]="'text'" nzPlaceHolder="请输入营业时间" [nzSize]="'large'"></nz-input>
-        <div nz-form-explain *ngIf="getFormControl('businessHours').dirty && getFormControl('businessHours').hasError('required')">请输入营业时间</div>
+      <div nz-col nz-form-control [nzValidateStatus]="getFormControl('businessTime')" [nzXl]="14" [nzLg]="16">
+        <nz-input formControlName="businessTime" [nzType]="'text'" nzPlaceHolder="请输入营业时间" [nzSize]="'large'"></nz-input>
+        <div nz-form-explain *ngIf="getFormControl('businessTime').dirty && getFormControl('businessTime').hasError('required')">请输入营业时间</div>
       </div>
     </div>
 
@@ -121,7 +122,7 @@
         <label>卫生安全</label>
       </div>
       <div nz-col nz-form-control [nzXl]="14" [nzLg]="16">
-        <nz-input formControlName="healthSafety" [nzType]="'textarea'" [nzRows]="'3'" nzPlaceHolder="请输入卫生安全" [nzSize]="'large'"></nz-input>
+        <nz-input formControlName="healthSafe" [nzType]="'textarea'" [nzRows]="'3'" nzPlaceHolder="请输入卫生安全" [nzSize]="'large'"></nz-input>
       </div>
     </div>
 
@@ -130,7 +131,7 @@
         <label>温馨提示</label>
       </div>
       <div nz-col nz-form-control [nzXl]="14" [nzLg]="16">
-        <nz-input formControlName="reminder" [nzType]="'textarea'" [nzRows]="'3'" nzPlaceHolder="请输入温馨提示" [nzSize]="'large'"></nz-input>
+        <nz-input formControlName="warmPrompt" [nzType]="'textarea'" [nzRows]="'3'" nzPlaceHolder="请输入温馨提示" [nzSize]="'large'"></nz-input>
       </div>
     </div>
 
@@ -139,7 +140,7 @@
         <label>交通信息</label>
       </div>
       <div nz-col nz-form-control [nzXl]="14" [nzLg]="16">
-        <nz-input formControlName="traffic" [nzType]="'textarea'" [nzRows]="'3'" nzPlaceHolder="请输入交通信息" [nzSize]="'large'"></nz-input>
+        <nz-input formControlName="trafficInformation" [nzType]="'textarea'" [nzRows]="'3'" nzPlaceHolder="请输入交通信息" [nzSize]="'large'"></nz-input>
       </div>
     </div>
 
@@ -148,14 +149,15 @@
         <label>停车场信息</label>
       </div>
       <div nz-col nz-form-control [nzXl]="14" [nzLg]="16">
-        <nz-input formControlName="parking" [nzType]="'textarea'" [nzRows]="'3'" nzPlaceHolder="请输入停车场信息" [nzSize]="'large'"></nz-input>
+        <nz-input formControlName="parkingInformation" [nzType]="'textarea'" [nzRows]="'3'" nzPlaceHolder="请输入停车场信息" [nzSize]="'large'"></nz-input>
       </div>
     </div>
 
     <div nz-form-item nz-row>
-      <div nz-col align="center" nz-form-control>
-        <button nz-button [nzType]="'primary'" [nzSize]="'large'" [disabled]="!formModel.valid">Submit</button>
-        <button nz-button [nzSize]="'large'" (click)="resetForm($event)">Reset</button>
+      <div nz-form-label nz-col [nzXl]="4" [nzLg]="6"></div>
+      <div nz-col nz-form-control [nzXl]="14" [nzLg]="16">
+        <button nz-button [nzType]="'primary'" [nzSize]="'large'" [disabled]="!formModel.valid">保存</button>
+        <button nz-button [nzSize]="'large'" (click)="resetForm($event)">重置</button>
       </div>
     </div>
 
