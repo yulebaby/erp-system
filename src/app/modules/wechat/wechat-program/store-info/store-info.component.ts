@@ -17,16 +17,8 @@ export class StoreInfoComponent implements OnInit, AfterContentChecked {
 
   ngOnInit() {
     this.formModel = this.fb.group({
-      address: [],
-      traffic: [],
       coverImg: [],
       storeImg: [],
-      businessLicense: [],
-      facilities: [],
-      businessHours: [],
-      healthSafety: [],
-      reminder: [],
-      parking: [],
 
       shopName: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(3)]],       // 门店名称
       publicCommentName: [],                                                                          // 大宗点评名称
@@ -51,6 +43,7 @@ export class StoreInfoComponent implements OnInit, AfterContentChecked {
     if (JSON.stringify(this.formModel.value) !== this.formModelValueString) {
       this.formModelValueString = JSON.stringify(this.formModel.value);
       this.storeInfoChange.emit(this.formModel.value);
+      console.log(this.formModel.value)
     }
   }
 
@@ -147,8 +140,8 @@ export class StoreInfoComponent implements OnInit, AfterContentChecked {
     return false;
   }
 
-  checkOptionsOne = [
-    { label: '家长休息期', value: '1', checked: true },
+  facilitieItems = [
+    { label: '家长休息期', value: '1' },
     { label: '寄存区', value: '2' },
     { label: '停车场', value: '3' },
     { label: '免费WIFI', value: '4' }

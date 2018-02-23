@@ -103,7 +103,7 @@
         <label>包含设施</label>
       </div>
       <div nz-col nz-form-control [nzXl]="20" [nzLg]="18">
-        <nz-checkbox-group formControlName="facilitie" [ngModel]="checkOptionsOne"></nz-checkbox-group>
+        <nz-checkbox-group formControlName="facilitie" [ngModel]="facilitieItems"></nz-checkbox-group>
       </div>
     </div>
 
@@ -112,7 +112,7 @@
         <label nz-form-item-required>营业时间</label>
       </div>
       <div nz-col nz-form-control [nzValidateStatus]="getFormControl('businessTime')" [nzXl]="14" [nzLg]="16">
-        <nz-input formControlName="businessTime" [nzType]="'text'" nzPlaceHolder="请输入营业时间" [nzSize]="'large'"></nz-input>
+        <nz-input formControlName="businessTime" [nzType]="'text'" nzPlaceHolder="例如: 10:00:00-21:00:00 周一至周五" [nzSize]="'large'"></nz-input>
         <div nz-form-explain *ngIf="getFormControl('businessTime').dirty && getFormControl('businessTime').hasError('required')">请输入营业时间</div>
       </div>
     </div>
