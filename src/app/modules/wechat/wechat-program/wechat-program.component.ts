@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { WechatProgramService } from './wechat-program.service';
 
 @Component({
   selector: 'app-wechat-program',

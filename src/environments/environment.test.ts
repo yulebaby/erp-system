@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  domain: ''
+  domain: '192.168.1.205'
 };

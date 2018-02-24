@@ -1,3 +1,4 @@
+import { HttpService } from './../../../../services/http/http.service';
 import { Component, OnInit, AfterContentChecked, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UploadFile } from 'ng-zorro-antd';
@@ -12,8 +13,13 @@ export class StoreInfoComponent implements OnInit, AfterContentChecked {
   public formModel: FormGroup;
 
   constructor(
-    private fb: FormBuilder = new FormBuilder()
-  ) { }
+    private fb: FormBuilder = new FormBuilder(),
+    private http: HttpService
+  ) { 
+    this.http.get('https://www.baidu.com').then( _ => {
+      
+    })
+  }
 
   ngOnInit() {
     this.formModel = this.fb.group({
@@ -139,7 +145,7 @@ export class StoreInfoComponent implements OnInit, AfterContentChecked {
     console.log(file, fileList);
     return false;
   }
-
+  
   facilitieItems = [
     { label: '家长休息期', value: '1' },
     { label: '寄存区', value: '2' },
