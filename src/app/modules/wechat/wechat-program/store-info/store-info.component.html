@@ -35,7 +35,7 @@
         <label nz-form-item-required>省市区</label>
       </div>
       <div nz-col nz-form-control [nzValidateStatus]="getFormControl('cityAddress')" [nzXl]="8" [nzLg]="12">
-        <nz-cascader [nzAllowClear]="false" [nzOptions]="init_options" formControlName="cityAddress" nzPlaceHolder="请选择门店所在省市区"></nz-cascader>
+        <nz-cascader [nzAllowClear]="false" [nzOptions]="cityAddressItems" formControlName="cityAddress" nzPlaceHolder="请选择门店所在省市区" (nzChange)="cityAddressChange"></nz-cascader>
         <div nz-form-explain *ngIf="getFormControl('cityAddress').dirty && getFormControl('cityAddress').hasError('required')">请选择门店所在省市区</div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { CityAddressService } from './../../services/global-data/city-address.service';
 import { HttpService } from './../../services/http/http.service';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgModule } from '@angular/core';
@@ -22,6 +23,7 @@ import { NoopInterceptor } from './../../services/http/http.intercept';
   declarations: [ WechatProgramComponent, StoreInfoComponent, StoreActivityComponent, StoreEffectComponent ],
   providers: [
     HttpService,
+    CityAddressService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: NoopInterceptor,
