@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-store-effect',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./store-effect.component.scss']
 })
 export class StoreEffectComponent implements OnInit {
+
+  @Input() storeInfo: object = {};
 
   array = [];
 
