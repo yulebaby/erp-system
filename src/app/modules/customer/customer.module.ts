@@ -1,4 +1,3 @@
-import { ComponentsModule } from './../../components/components.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgModule } from '@angular/core';
@@ -11,6 +10,7 @@ import { PublicSeaPoolComponent } from './public-sea-pool/public-sea-pool.compon
 import { CustomerRoutingModule } from './customer-routing';
 import { RecycleBinComponent } from './recycle-bin/recycle-bin.component';
 import { DistributionComponent } from './distribution/distribution.component';
+import { RelaxModule } from '../../relax/relax.module';
 
 @NgModule({
   imports: [
@@ -18,7 +18,7 @@ import { DistributionComponent } from './distribution/distribution.component';
     ReactiveFormsModule,
     CustomerRoutingModule,
     NgZorroAntdModule,
-    ComponentsModule
+    RelaxModule
   ],
   declarations: [
     AllCustomerComponent, 

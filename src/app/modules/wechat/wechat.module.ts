@@ -1,5 +1,5 @@
-import { CityAddressService } from './../../services/global-data/city-address.service';
-import { HttpService } from './../../services/http/http.service';
+import { CityAddressService } from './../../relax/services/global-data/city-address.service';
+import { HttpService } from './../../relax/services/http/http.service';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,8 +9,7 @@ import { StoreInfoComponent } from './wechat-program/store-info/store-info.compo
 import { StoreActivityComponent } from './wechat-program/store-activity/store-activity.component';
 import { StoreEffectComponent } from './wechat-program/store-effect/store-effect.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NoopInterceptor } from './../../services/http/http.intercept';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -23,12 +22,7 @@ import { NoopInterceptor } from './../../services/http/http.intercept';
   declarations: [ WechatProgramComponent, StoreInfoComponent, StoreActivityComponent, StoreEffectComponent ],
   providers: [
     HttpService,
-    CityAddressService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: NoopInterceptor,
-      multi: true,
-    }
+    CityAddressService
   ]
 })
 export class WechatModule { }

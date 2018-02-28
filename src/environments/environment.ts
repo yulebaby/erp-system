@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   version: '1.0.0',
-  domain: '192.168.1.205'
+  domain: 'http://192.168.1.148:8383/new_bss'
 };

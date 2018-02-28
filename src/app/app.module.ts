@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { NgZorroAntdModule } from 'ng-zorro-antd';
@@ -18,6 +18,8 @@ import { WelcomeComponent } from './frames/content/welcome/welcome.component';
 import { LoginComponent } from './base/login/login.component';
 import { BreadcrumbComponent } from './frames/content/breadcrumb/breadcrumb.component';
 import { BaseComponent } from './frames/base.component';
+import { NoopInterceptor } from './relax/services/http/http.intercept';
+
 
 
 @NgModule({
@@ -42,7 +44,12 @@ import { BaseComponent } from './frames/base.component';
   ],
   bootstrap: [AppComponent],
   providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: NoopInterceptor,
+      multi: true,
+    }
   ]
 })
 export class AppModule { }

@@ -12,7 +12,6 @@ import { serialize } from './http.service';
 @Injectable()
 export class NoopInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(req);
     const Token = 'token';
     if (req.method === 'POST') {
       req.body.token = Token;
@@ -27,7 +26,6 @@ export class NoopInterceptor implements HttpInterceptor {
     }
     return next.handle(req).map(res => {
       if (res instanceof HttpResponse) {
-        console.log(res)
         if (res.status !== 200 && res.status !== 304) {
 
         }

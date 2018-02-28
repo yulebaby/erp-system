@@ -1,3 +1,4 @@
+import { HttpService } from './../../../relax/services/http/http.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -17,7 +18,8 @@ export class AllCustomerComponent implements OnInit {
   dataSet     : any[] = [];
 
   constructor(
-    private fb: FormBuilder = new FormBuilder()
+    private fb: FormBuilder = new FormBuilder(),
+    private http: HttpService
   ) { 
     this.queryForm = fb.group({
       babyName              : [],         // 宝宝姓名
@@ -41,11 +43,11 @@ export class AllCustomerComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this._query();
   }
 
-  _query(isReset: boolean): void {
-    console.log(this.queryForm)
+  _query(isReset?: boolean): void {
+    this.http.get('/customer/potentialCustomerList')
   }
   _reset(): void {
     this.queryForm.reset();
