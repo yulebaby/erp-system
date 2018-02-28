@@ -18,7 +18,11 @@ export class CmAlertComponent {
    * @param       显示关闭按钮
    */
   @Input() showClose  : boolean;
-           isShow     : boolean = true;
+
+  /**
+   * @param       是否显示
+   */
+  @Input() isShow     : boolean = true;
   
   /**
    * @param       显示类型图标
@@ -35,10 +39,10 @@ export class CmAlertComponent {
 
   _close(): void {
     this.type = `${this.type} close`;
+    this.onClose.emit();
     setTimeout(() => {
       this.isShow = false;
     }, 250);
-    this.onClose.emit();
   }
 
 }

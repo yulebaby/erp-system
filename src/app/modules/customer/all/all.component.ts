@@ -51,6 +51,10 @@ export class AllCustomerComponent implements OnInit {
     this.queryForm.reset();
   }
 
+  tapClose(): void {
+    console.log('点击了关闭')
+  }
+
 }
 
 /** 

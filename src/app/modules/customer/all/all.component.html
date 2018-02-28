@@ -164,7 +164,7 @@
   </div>
 </form>
 
-<cm-alert type="info">选择 <a href="javascript: void(0)">4条</a> 相关记录</cm-alert>
+<cm-alert type="info" [showClose]="true" (onClose)="tapClose()">选择 <a href="javascript: void(0)">4条</a> 相关记录</cm-alert>
 
 
 <nz-table #nzTable 
