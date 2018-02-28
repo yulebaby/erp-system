@@ -1,9 +1,14 @@
 :host ::ng-deep {
     nz-rangepicker .ant-calendar-picker {
         width: 100% !important;
+
+        input {
+            text-align: left;
+        }
     }
 }
 
-nz-alert {
+cm-alert {
+    display: block;
     margin-bottom: 16px;
 }

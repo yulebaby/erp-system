@@ -1,24 +1,44 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'cm-alert',
   templateUrl: './cm-alert.component.html',
   styleUrls: ['./cm-alert.component.scss']
 })
-export class CmAlertComponent implements OnInit {
+export class CmAlertComponent {
 
-  @Input() type         : string = 'success';
-           typeClass    : string;
+  /**
+   * @param       指定提示样式
+   * @description 有四种选择 'success', 'info', 'warning', 'error'
+   */
+  @Input() type       : string = 'success';
+           typeClass  : string;
 
-  @Input() showCloseBtn : boolean;
+  /**
+   * @param       显示关闭按钮
+   */
+  @Input() showClose  : boolean;
+           isShow     : boolean = true;
   
-  @Input() showIcon     : boolean = true;
+  /**
+   * @param       显示类型图标
+   */
+  @Input() showIcon   : boolean = true;
 
-  constructor() { 
-    
-  }
+  /**
+   * @param       关闭时触发回调
+   */
+  @Output() onClose: EventEmitter<any> = new EventEmitter();
 
-  ngOnInit() {
+
+  constructor() { }
+
+  _close(): void {
+    this.type = `${this.type} close`;
+    setTimeout(() => {
+      this.isShow = false;
+    }, 250);
+    this.onClose.emit();
   }
 
 }

@@ -7,17 +7,63 @@
     border-style: solid;
     border-radius: 4px;
     position: relative;
+    transition: all .25s;
+    &.close {
+        opacity: 0;
+    }
+
+    .type-icon {
+        font-size: 14px;
+        top: 10px;
+        left: 16px;
+        position: absolute;
+    }
+
+    .close-button {
+        display: block;
+        height: 12px;
+        font-size: 12px;
+        line-height: 12px;
+        position: absolute;
+        top: 12px;
+        right: 16px;
+
+        &:hover i {
+            color: #404040;
+        }
+        i {
+            color: rgba(0,0,0,.43);
+            -webkit-transition: color .3s ease;
+            transition: color .3s ease;
+        }
+    }
 
     &.success {
-        
+        border-color: #cfefdf;
+        background-color: #ebf8f2;
+        .type-icon {
+            color: #00a854
+        }
     }
     &.info {
-
+        border-color: #D3EAFF;
+        background-color: #ecf6fd;
+        .type-icon {
+            color: #108ee9
+        }
     }
     &.warning {
-
+        border-color: #fff3cf;
+        background-color: #fffaeb;
+        .type-icon {
+            color: #ffbf00
+        }
     }
     &.error {
-
+        border-color: #fcdbd9;
+        background-color: #fef0ef;
+        .type-icon {
+            color: #f04134
+        }
     }
 }

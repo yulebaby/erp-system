@@ -53,6 +53,10 @@ export class AllCustomerComponent implements OnInit {
 
 }
 
+/** 
+ * @interface   初始化分页信息
+ * @description 2018-02-28
+ */
 class PageInfo {
   constructor(
     public loading   : boolean = false,
