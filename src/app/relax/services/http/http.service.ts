@@ -64,7 +64,7 @@ export class HttpService {
 export const serialize = (data: object): string => {
   let val = '';
   for (let v in data) {
-    if (data[v]) {
+    if (data[v] || data[v] === 0) {
       val += `${v}=${data[v]}&`;
     }
   }

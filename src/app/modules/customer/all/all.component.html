@@ -170,11 +170,11 @@
 <nz-table #nzTable 
   [nzAjaxData]="dataSet" 
   [nzShowSizeChanger]="true" 
-  [nzLoading]="queryPages.loading" 
-  [nzTotal]="queryPages.total"
-  [(nzPageIndex)]="queryPages.pageNum" 
+  [nzLoading]="pageInfo.loading" 
+  [nzTotal]="pageInfo.totalPage"
+  [(nzPageIndex)]="pageInfo.pageNum" 
   (nzPageIndexChange)="_query()" 
-  [(nzPageSize)]="queryPages.pageSize" 
+  [(nzPageSize)]="pageInfo.pageSize" 
   (nzPageSizeChange)="_query(true)">
   <thead nz-thead>
     <tr>

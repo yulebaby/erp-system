@@ -1,6 +1,7 @@
 import { HttpService } from './../../../relax/services/http/http.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-all',
@@ -13,13 +14,14 @@ export class AllCustomerComponent implements OnInit {
 
   isCollapse  : boolean = true;
 
-  queryPages  : PageInfo = new PageInfo();
+  pageInfo  : PageInfo = new PageInfo();
 
   dataSet     : any[] = [];
 
   constructor(
     private fb: FormBuilder = new FormBuilder(),
-    private http: HttpService
+    private http: HttpService,
+    private message: NzMessageService
   ) { 
     this.queryForm = fb.group({
       babyName              : [],         // 宝宝姓名
@@ -47,7 +49,17 @@ export class AllCustomerComponent implements OnInit {
   }
 
   _query(isReset?: boolean): void {
-    this.http.get('/customer/potentialCustomerList')
+    this.pageInfo.loading = true;
+    let params = Object.assign({ paramJson: JSON.stringify(this.queryForm.value) }, this.pageInfo);
+    this.http.post('/customer/potentialCustomerList', params).then( res => {
+      if (res.code == 1000) {
+        this.dataSet = res.result.memberList;
+        this.pageInfo.totalPage = res.result.totalPage;
+      } else {
+        this.message.warning(res.info);
+      }
+      this.pageInfo.loading = false;
+    });
   }
   _reset(): void {
     this.queryForm.reset();
@@ -66,7 +78,7 @@ export class AllCustomerComponent implements OnInit {
 class PageInfo {
   constructor(
     public loading   : boolean = false,
-    public total     : number  = 0,
+    public totalPage : number  = 0,
     public pageNum   : number  = 1,
     public pageSize  : number  = 10
   ) { }
