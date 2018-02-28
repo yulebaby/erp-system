@@ -18,6 +18,7 @@ import { WelcomeComponent } from './frames/content/welcome/welcome.component';
 import { LoginComponent } from './base/login/login.component';
 import { BreadcrumbComponent } from './frames/content/breadcrumb/breadcrumb.component';
 import { BaseComponent } from './frames/base.component';
+import { CmAlertComponent } from './components/cm-alert/cm-alert.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { BaseComponent } from './frames/base.component';
     WelcomeComponent,
     LoginComponent,
     BreadcrumbComponent,
-    BaseComponent
+    BaseComponent,
+    CmAlertComponent
   ],
   imports: [
     BrowserModule,
