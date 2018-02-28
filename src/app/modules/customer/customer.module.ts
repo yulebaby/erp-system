@@ -1,3 +1,4 @@
+import { ComponentsModule } from './../../components/components.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgModule } from '@angular/core';
@@ -16,7 +17,8 @@ import { DistributionComponent } from './distribution/distribution.component';
     CommonModule,
     ReactiveFormsModule,
     CustomerRoutingModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    ComponentsModule
   ],
   declarations: [
     AllCustomerComponent, 

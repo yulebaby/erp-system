@@ -1,0 +1,23 @@
+.cm-alert {
+    padding: 8px 48px 8px 38px;
+    color: rgba($color: #000, $alpha: .65);
+    font-size: 12px;
+    line-height: 1.5;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 4px;
+    position: relative;
+
+    &.success {
+        
+    }
+    &.info {
+
+    }
+    &.warning {
+
+    }
+    &.error {
+
+    }
+}

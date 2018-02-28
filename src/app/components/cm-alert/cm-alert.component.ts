@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'cm-alert',
@@ -7,7 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CmAlertComponent implements OnInit {
 
-  constructor() { }
+  @Input() type         : string = 'success';
+           typeClass    : string;
+
+  @Input() showCloseBtn : boolean;
+  
+  @Input() showIcon     : boolean = true;
+
+  constructor() { 
+    
+  }
 
   ngOnInit() {
   }
