@@ -14,14 +14,14 @@ export class AllCustomerComponent implements OnInit {
 
   isCollapse  : boolean = true;
 
-  pageInfo  : PageInfo = new PageInfo();
+  pageInfo    : PageInfo = new PageInfo();
 
   dataSet     : any[] = [];
 
   constructor(
-    private fb: FormBuilder = new FormBuilder(),
-    private http: HttpService,
-    private message: NzMessageService
+    private fb        : FormBuilder = new FormBuilder(),
+    private http      : HttpService,
+    private message   : NzMessageService
   ) { 
     this.queryForm = fb.group({
       babyName              : [],         // 宝宝姓名
@@ -50,7 +50,7 @@ export class AllCustomerComponent implements OnInit {
 
   _query(isReset?: boolean): void {
     this.pageInfo.loading = true;
-    let params = Object.assign({ paramJson: JSON.stringify(this.queryForm.value) },  { pageNum: this.pageInfo.pageNum, pageSize: this.pageInfo.pageSize } );
+    let params = Object.assign({ paramJson: JSON.stringify(this.queryForm.value) }, { pageNum: isReset ? 1 : this.pageInfo.pageNum, pageSize: this.pageInfo.pageSize } );
     this.http.post('/customer/potentialCustomerList', params).then( res => {
       if (res.code == 1000) {
         this.dataSet = res.result.memberList;
