@@ -50,7 +50,7 @@ export class AllCustomerComponent implements OnInit {
 
   _query(isReset?: boolean): void {
     this.pageInfo.loading = true;
-    let params = Object.assign({ paramJson: JSON.stringify(this.queryForm.value) }, this.pageInfo);
+    let params = Object.assign({ paramJson: JSON.stringify(this.queryForm.value) },  { pageNum: this.pageInfo.pageNum, pageSize: this.pageInfo.pageSize } );
     this.http.post('/customer/potentialCustomerList', params).then( res => {
       if (res.code == 1000) {
         this.dataSet = res.result.memberList;
