@@ -42,6 +42,7 @@ export class CmAlertComponent {
     this.onClose.emit();
     setTimeout(() => {
       this.isShow = false;
+      this.type = this.type.replace(/ close/g, '');
     }, 250);
   }
 
