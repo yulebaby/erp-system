@@ -18,6 +18,14 @@ import { DistributionComponent } from './distribution/distribution.component';
     CustomerRoutingModule,
     NgZorroAntdModule
   ],
-  declarations: [AllCustomerComponent, UnassignedComponent, AllocatedComponent, TrackingRecordComponent, PublicSeaPoolComponent, RecycleBinComponent, DistributionComponent]
+  declarations: [
+    AllCustomerComponent, 
+    UnassignedComponent, 
+    AllocatedComponent, 
+    TrackingRecordComponent, 
+    PublicSeaPoolComponent, 
+    RecycleBinComponent, 
+    DistributionComponent
+  ]
 })
 export class CustomerModule { }

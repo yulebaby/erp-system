@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-cm-alert',
+  selector: 'cm-alert',
   templateUrl: './cm-alert.component.html',
   styleUrls: ['./cm-alert.component.scss']
 })
