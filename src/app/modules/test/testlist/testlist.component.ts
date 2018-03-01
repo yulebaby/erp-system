@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TestlistComponent implements OnInit {
 
+  myContext = { $implicit: 'World', localSk: 'Svet' };
+
   queryNode: object[] = [
     {
       label       : '输入框',
@@ -75,6 +77,26 @@ export class TestlistComponent implements OnInit {
       isHide      : true
     },
   ]
+
+  tableNode: any[]    = [
+    {
+      name  : '姓名',
+      width : '120px'
+    },
+    {
+      name  : '性别',
+      width : '60px'
+    },
+    {
+      name  : '电话',
+      width : '120px'
+    },
+    {
+      name  : '描述',
+      width : '200px'
+    }
+  ]
+
 
   constructor() { 
     

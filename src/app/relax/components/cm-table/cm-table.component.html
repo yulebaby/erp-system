@@ -1,0 +1,36 @@
+<nz-table 
+  #nzTable 
+  [nzAjaxData]="dataSet" 
+  [nzShowSizeChanger]="true" 
+  [nzLoading]="_pageInfo.loading" 
+  [nzTotal]="_pageInfo.totalPage"
+  [(nzPageIndex)]="_pageInfo.pageNum" 
+  (nzPageIndexChange)="_request()" 
+  [(nzPageSize)]="_pageInfo.pageSize" 
+  (nzPageSizeChange)="_request(true)">
+  <thead nz-thead>
+    <tr>
+      <th nz-th nzCheckbox>
+        <label nz-checkbox></label>
+      </th>
+      <ng-container *ngFor="let head of table">
+        <th nz-th [nzWidth]="head.width || ''">
+          <span>{{ head.name || head }}</span>
+        </th>
+      </ng-container>
+    </tr>
+  </thead>
+  <tbody nz-tbody>
+    <ng-template ngFor let-data [ngForOf]="nzTable.data">
+      <tr nz-tbody-tr>
+        <td nz-td nzCheckbox>
+          <label nz-checkbox [(ngModel)]="data.checked"></label>
+        </td>
+        <td>11111</td>
+        <td>11111</td>
+        <td>11111</td>
+        <td>11111</td>
+      </tr>
+    </ng-template>
+  </tbody>
+</nz-table>

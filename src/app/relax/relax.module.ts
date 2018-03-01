@@ -5,16 +5,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { CmQueryComponent } from './components/cm-query/cm-query.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CmTableComponent } from './components/cm-table/cm-table.component';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     NgZorroAntdModule
   ],
   declarations: [
     CmAlertComponent,
-    CmQueryComponent
+    CmQueryComponent,
+    CmTableComponent
   ],
   providers: [
     HttpService,
@@ -22,7 +25,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   exports: [
     CmAlertComponent,
-    CmQueryComponent
+    CmQueryComponent,
+    CmTableComponent
   ]
 })
 export class RelaxModule { }
