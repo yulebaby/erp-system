@@ -1,0 +1,9 @@
+:host ::ng-deep {
+    nz-rangepicker .ant-calendar-picker {
+        width: 100% !important;
+
+        input {
+            text-align: left;
+        }
+    }
+}

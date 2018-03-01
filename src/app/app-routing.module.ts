@@ -20,7 +20,7 @@ const routes: Routes = [
     children: [
       {
         path: 'test',
-        data: {title: '测试模块'},
+        data: { title: '测试模块' },
         loadChildren: 'app/modules/test/test.module#TestModule'
       },
       {
