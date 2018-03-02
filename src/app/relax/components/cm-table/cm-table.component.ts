@@ -13,6 +13,8 @@ export class CmTableComponent implements OnInit {
 
   @Input('url') _url          : string;
 
+  @Input('params') _params    : object = {};
+
   @Input() checkedItems       : any[];
 
   @Input() checkKey           : string = 'id';
@@ -22,6 +24,7 @@ export class CmTableComponent implements OnInit {
   dataSet       : object[] = [];
 
   _pageInfo     : PageInfo = new PageInfo();
+
 
   /* ---------- 是否为全选及是否选择 ---------- */
   _allChecked   : boolean;
@@ -33,17 +36,16 @@ export class CmTableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    console.log(this.checkedItems)
     this._request();
   }
 
   _request(isReset?: boolean): void {
     this._pageInfo.loading = true;
-    let params = Object.assign({ paramJson: JSON.stringify({}) }, { pageNum: isReset ? 1 : this._pageInfo.pageNum, pageSize: this._pageInfo.pageSize });
+    let params = Object.assign({ paramJson: JSON.stringify(this._params) }, { pageNum: isReset ? 1 : this._pageInfo.pageNum, pageSize: this._pageInfo.pageSize });
     this.http.post(this._url, params).then(res => {
       if (res.code == 1000) {
         this.dataSet = res.result.list;
+        this._pageInfo.pageNum = res.result.pageNum;
         this._pageInfo.totalPage = res.result.totalPage;
 
         /* ------------------- 如果存在选择列表则初始数据 ------------------- */
@@ -57,6 +59,10 @@ export class CmTableComponent implements OnInit {
       }
       this._pageInfo.loading = false;
     });
+  }
+  request(params): void {
+    this._params = params;
+    this._request(true);
   }
 
 
