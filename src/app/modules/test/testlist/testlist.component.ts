@@ -105,12 +105,5 @@ export class TestlistComponent implements OnInit {
   ngOnInit() {
   }
 
-  tapQuery(event: object): void{
-    console.log('接受查询条件', event)
-  }
-
-  _tableCheckedChange(value) {
-    console.log(value)
-  }
 
 }

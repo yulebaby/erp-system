@@ -1,6 +1,5 @@
 <div class="cm-alert" 
-  *ngIf="isShow"
-  [ngClass]="type"
+  [ngClass]="[type, isShow ? '' : 'hide']"
   [style.padding-left]="showIcon ? '38px' : '16px'">
   <i class="type-icon anticon" 
     *ngIf="showIcon"

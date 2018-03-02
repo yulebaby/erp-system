@@ -10,76 +10,99 @@ import { NzMessageService } from 'ng-zorro-antd';
 })
 export class AllCustomerComponent implements OnInit {
 
-  queryForm   : FormGroup;
+  
+  queryNode: object[] = [
+    {
+      label       : '输入框',
+      key         : 'name',
+      type        : 'input',
+      default     : '默认值',
+      placeholder : 'placeholder内容'
+    },
+    {
+      label       : '选择框',
+      key         : 'sex',
+      type        : 'select',
+      options     : [ { label: '男', value: 1 }, { label: '女', value: 2 } ],
+      placeholder : '请选择需要的值'
+    },
+    {
+      label       : '选择框',
+      key         : 'people',
+      type        : 'select',
+      options     : [ { name: '随便', id: 0 } ],
+      optionsUrl  : '/common/recommenderList',
+      optionKey   : { label: 'name', value: 'id' },
+      placeholder : '请选择需要的值'
+    },
+    {
+      label       : '时间区间',
+      key         : 'timeSlot',
+      type        : 'datepicker',
+      valueKey    : ['timeStart', 'timeEnd'],
+      placeholder : ['选择开始时间', '选择结束时间']
+    },
+    {
+      label       : '隐藏输入框',
+      key         : 'hide0',
+      type        : 'select',
+      options     : [ { label: '男', value: 1 }, { label: '女', value: 2 } ],
+      placeholder : '请选择需要的值',
+      isHide      : true
+    },
+    {
+      label       : '隐藏输入框',
+      key         : 'hide1',
+      type        : 'select',
+      options     : [ { name: '随便', id: 0 } ],
+      optionsUrl  : '/common/recommenderList',
+      optionKey   : { label: 'name', value: 'id' },
+      placeholder : '请选择需要的值',
+      isHide      : true
+    },
+    {
+      label       : '隐藏输入框',
+      key         : 'hide2',
+      type        : 'select',
+      options     : [ { label: '男', value: 1 }, { label: '女', value: 2 } ],
+      placeholder : '请选择需要的值',
+      isHide      : true
+    },
+    {
+      label       : '隐藏输入框',
+      key         : 'hide3',
+      type        : 'select',
+      options     : [ { name: '随便', id: 0 } ],
+      optionsUrl  : '/common/recommenderList',
+      optionKey   : { label: 'name', value: 'id' },
+      placeholder : '请选择需要的值',
+      isHide      : true
+    },
+  ]
 
-  isCollapse  : boolean = true;
+  tableNode: any[]    = [
+    {
+      name  : '姓名',
+      width : '120px'
+    },
+    {
+      name  : '性别',
+      width : '60px'
+    },
+    {
+      name  : '电话',
+      width : '120px'
+    },
+    {
+      name  : '描述',
+      width : '200px'
+    }
+  ]
+  checkedItems: any[] = [];
 
-  pageInfo    : PageInfo = new PageInfo();
-
-  dataSet     : any[] = [];
-
-  constructor(
-    private fb        : FormBuilder = new FormBuilder(),
-    private http      : HttpService,
-    private message   : NzMessageService
-  ) { 
-    this.queryForm = fb.group({
-      babyName              : [],         // 宝宝姓名
-      followStage           : [],         // 跟进状态
-      source                : [],         // 来源
-      parentName            : [],         // 家长姓名
-      mobilePhone           : [],         // 家长电话
-      sex                   : [],         // 宝宝性别
-      babyBirthdayStart     : [],         // 宝宝生日开始
-      babyBirthdayEnd       : [],         // 宝宝生日结束
-      createDateStart       : [],         // 创建日期开始
-      createDateEnd         : [],         // 创建日期结束
-      nextFollowTimeStart   : [],         // 下次跟进时间开始
-      nextFollowTimeEnd     : [],         // 下次跟进时间结束
-      lastFollowTimeStart   : [],         // 最后跟进时间开始
-      lastFollowTimeEnd     : [],         // 最后跟进时间结束
-      followSeller          : [],         // 负责销售
-      collector             : [],         // 收集者
-      recommended           : [],         // 推荐人
-    });
-  }
+  constructor( ) { }
 
   ngOnInit() {
-    this._query();
   }
 
-  _query(isReset?: boolean): void {
-    this.pageInfo.loading = true;
-    let params = Object.assign({ paramJson: JSON.stringify(this.queryForm.value) }, { pageNum: isReset ? 1 : this.pageInfo.pageNum, pageSize: this.pageInfo.pageSize } );
-    this.http.post('/customer/potentialCustomerList', params).then( res => {
-      if (res.code == 1000) {
-        this.dataSet = res.result.memberList;
-        this.pageInfo.totalPage = res.result.totalPage;
-      } else {
-        this.message.warning(res.info);
-      }
-      this.pageInfo.loading = false;
-    });
-  }
-  _reset(): void {
-    this.queryForm.reset();
-  }
-
-  tapClose(): void {
-    console.log('点击了关闭')
-  }
-
-}
-
-/** 
- * @interface   初始化分页信息
- * @description 2018-02-28
- */
-class PageInfo {
-  constructor(
-    public loading   : boolean = false,
-    public totalPage : number  = 0,
-    public pageNum   : number  = 1,
-    public pageSize  : number  = 10
-  ) { }
 }

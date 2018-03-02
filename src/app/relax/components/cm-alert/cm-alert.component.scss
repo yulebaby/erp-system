@@ -8,8 +8,14 @@
     border-radius: 4px;
     position: relative;
     transition: all .25s;
-    &.close {
+    overflow: hidden;
+    margin-bottom: 16px;
+    &.hide {
+        padding: 0;
+        height: 0;
         opacity: 0;
+        margin-bottom: 0;
+        visibility: hidden;
     }
 
     .type-icon {

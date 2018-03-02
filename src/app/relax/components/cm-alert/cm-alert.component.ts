@@ -38,12 +38,8 @@ export class CmAlertComponent {
   constructor() { }
 
   _close(): void {
-    this.type = `${this.type} close`;
+    this.isShow = false;
     this.onClose.emit();
-    setTimeout(() => {
-      this.isShow = false;
-      this.type = this.type.replace(/ close/g, '');
-    }, 250);
   }
 
 }
