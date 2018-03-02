@@ -6,12 +6,14 @@
   [nzTotal]="_pageInfo.totalPage"
   [(nzPageIndex)]="_pageInfo.pageNum" 
   (nzPageIndexChange)="_request()" 
-  [(nzPageSize)]="_pageInfo.pageSize" 
-  (nzPageSizeChange)="_request(true)">
+  [(nzPageSize)]="_pageInfo.pageSize"
+  (nzPageSizeChange)="_request(true)"
+  (nzPageIndexChange)="isChecked()" 
+  (nzPageSizeChange)="isChecked()">
   <thead nz-thead>
     <tr>
       <th nz-th nzCheckbox>
-        <label nz-checkbox></label>
+        <label nz-checkbox [(ngModel)]="_allChecked" [nzIndeterminate]="_indeterminate" (ngModelChange)="_checkAll($event)"></label>
       </th>
       <ng-container *ngFor="let head of table">
         <th nz-th [nzWidth]="head.width || ''">
@@ -20,17 +22,5 @@
       </ng-container>
     </tr>
   </thead>
-  <tbody nz-tbody>
-    <ng-template ngFor let-data [ngForOf]="nzTable.data">
-      <tr nz-tbody-tr>
-        <td nz-td nzCheckbox>
-          <label nz-checkbox [(ngModel)]="data.checked"></label>
-        </td>
-        <td>11111</td>
-        <td>11111</td>
-        <td>11111</td>
-        <td>11111</td>
-      </tr>
-    </ng-template>
-  </tbody>
+  <ng-content></ng-content>
 </nz-table>

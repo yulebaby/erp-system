@@ -96,10 +96,10 @@ export class TestlistComponent implements OnInit {
       width : '200px'
     }
   ]
+  checkedItems: any[] = [];
 
 
   constructor() { 
-    
   }
 
   ngOnInit() {
@@ -107,6 +107,10 @@ export class TestlistComponent implements OnInit {
 
   tapQuery(event: object): void{
     console.log('接受查询条件', event)
+  }
+
+  _tableCheckedChange(value) {
+    console.log(value)
   }
 
 }

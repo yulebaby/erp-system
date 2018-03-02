@@ -1,3 +1,5 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TestlistComponent } from './testlist/testlist.component';
@@ -9,7 +11,10 @@ import { RelaxModule } from '../../relax/relax.module';
   imports: [
     CommonModule,
     TestRoutingModule,
-    RelaxModule
+    RelaxModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgZorroAntdModule
   ],
   declarations: [TestlistComponent, TestdetailsComponent]
 })

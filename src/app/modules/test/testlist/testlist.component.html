@@ -1,12 +1,25 @@
 <cm-query [node]="queryNode" (onSubmit)="tapQuery($event)"></cm-query>
 
 
-<cm-table #CmTable [table]="tableNode">
+<cm-table 
+    #CmTable 
+    [table]="tableNode"
+    [(checkedItems)]="checkedItems"
+    url="/customer/potentialCustomerList">
     <ng-container>
-    <td>11111</td>
-    <td>11111</td>
-    <td>11111</td>
-    <td>11111</td>
+        <tbody nz-tbody>
+            <ng-template ngFor let-data [ngForOf]="CmTable.dataSet">
+                <tr nz-tbody-tr>
+                    <td nz-td nzCheckbox>
+                        <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="CmTable.isChecked($event)"></label>
+                    </td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.sex }}</td>
+                    <td>11111</td>
+                    <td>11111</td>
+                </tr>
+            </ng-template>
+        </tbody>
     </ng-container>
 </cm-table>
 
