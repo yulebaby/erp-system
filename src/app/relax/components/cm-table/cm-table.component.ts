@@ -9,7 +9,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CmTableComponent implements OnInit {
 
-  @Input() table              : any[] = [];
+  @Input() thead              : any[] = [];
 
   @Input('url') _url          : string;
 
