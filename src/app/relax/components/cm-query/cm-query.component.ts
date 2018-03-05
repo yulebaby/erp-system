@@ -29,7 +29,7 @@ export class CmQueryComponent implements OnInit {
   ngOnInit() {
     this._queryForm = this.fb.group({});
     this._node.map((res: any, idx) => {
-      this._queryForm.addControl(res.key, new FormControl(res.default));
+      this._queryForm.addControl(res.key, new FormControl(res.default || ''));
       if (res.type === 'select') {
         res.optionKey = res.optionKey || { label: 'label', value: 'value' };
         if (res.optionsUrl) {
@@ -59,6 +59,9 @@ export class CmQueryComponent implements OnInit {
             queryForm[res.valueKey[1]] = this.datePipe.transform(queryForm[res.key][1].getTime(), 'yyyy-MM-dd');
           }
         }
+        delete queryForm[res.key];
+      }
+      if (queryForm[res.key] === '' || queryForm[res.key] === null || queryForm[res.key] === undefined) {
         delete queryForm[res.key];
       }
     });

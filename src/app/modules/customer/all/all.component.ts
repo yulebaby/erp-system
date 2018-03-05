@@ -13,11 +13,11 @@ export class AllCustomerComponent implements OnInit {
   
   queryNode: object[] = [
     {
-      label       : '输入框',
-      key         : 'name',
+      label       : '宝宝姓名',
+      key         : 'babyName',
       type        : 'input',
       default     : '默认值',
-      placeholder : 'placeholder内容'
+      placeholder : '请输入宝宝昵称'
     },
     {
       label       : '选择框',
