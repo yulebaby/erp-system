@@ -40,6 +40,7 @@ export class CmTableComponent implements OnInit {
   }
 
   _request(isReset?: boolean): void {
+    if (this._pageInfo.loading) { return; }
     this._pageInfo.loading = true;
     let params = Object.assign({ paramJson: JSON.stringify(this._params) }, { pageNum: isReset ? 1 : this._pageInfo.pageNum, pageSize: this._pageInfo.pageSize });
     this.http.post(this._url, params).then(res => {
