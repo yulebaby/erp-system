@@ -49,6 +49,10 @@ export class CmQueryComponent implements OnInit {
     this._queryForm.reset();
   }
 
+  _clearControlValue(key): void {
+    this._queryForm.get(key).reset();
+  }
+
   _submit(): void {
     let queryForm = this._queryForm.value;
     this._node.map((res: any) => {

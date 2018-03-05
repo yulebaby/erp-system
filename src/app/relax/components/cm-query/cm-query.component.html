@@ -10,7 +10,11 @@
           <div nz-form-control nz-col [nzSpan]="19">
 
             <ng-container *ngIf="control.type === 'input'">
-              <nz-input nzSize="large" [formControlName]="control.key" [nzPlaceHolder]="control.placeholder" [nzId]="control.key"></nz-input>
+              <nz-input nzSize="large" [formControlName]="control.key" [nzPlaceHolder]="control.placeholder" [nzId]="control.key">
+                <ng-template #suffix>
+                  <i class="anticon anticon-close-circle" (click)="_clearControlValue(control.key)"></i>
+                </ng-template>
+              </nz-input>
             </ng-container>
             
             <ng-container *ngIf="control.type === 'select'">
