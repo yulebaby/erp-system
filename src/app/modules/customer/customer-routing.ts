@@ -1,3 +1,4 @@
+import { CreateCustomerComponent } from './create/create.component';
 import { TrackingRecordComponent } from './tracking-record/tracking-record.component';
 import { RecycleBinComponent } from './recycle-bin/recycle-bin.component';
 import { PublicSeaPoolComponent } from './public-sea-pool/public-sea-pool.component';
@@ -13,6 +14,11 @@ const routes: Routes = [
 		path: 'all',
 		data: { title: '全部客户' },
 		component: AllCustomerComponent
+	},
+	{
+		path: 'create',
+		data: { title: '新建客户' },
+		component: CreateCustomerComponent
 	},
 	{
 		path: 'unassigned',
