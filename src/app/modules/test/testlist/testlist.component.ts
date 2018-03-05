@@ -7,8 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TestlistComponent implements OnInit {
 
-  myContext = { $implicit: 'World', localSk: 'Svet' };
-
   queryNode: object[] = [
     {
       label       : '输入框',

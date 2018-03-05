@@ -82,21 +82,57 @@ export class AllCustomerComponent implements OnInit {
 
   tableNode: any[]    = [
     {
-      name  : '姓名',
-      width : '120px'
+      name  : '宝宝昵称',
+      width : '100px'
     },
     {
       name  : '性别',
       width : '60px'
     },
     {
-      name  : '电话',
+      name  : '月龄',
+      width : '60px'
+    },
+    {
+      name  : '家长姓名',
+      width : '100px'
+    },
+    {
+      name  : '家长电话',
+      width : '100px'
+    },
+    {
+      name  : '入库时间',
+      width : '140px'
+    },
+    {
+      name  : '来源',
+      width : '80px'
+    },
+    {
+      name  : '所属小区',
       width : '120px'
     },
     {
-      name  : '描述',
-      width : '200px'
-    }
+      name  : '跟进状态',
+      width : '80px'
+    },
+    {
+      name  : '跟进阶段',
+      width : '120px'
+    },
+    {
+      name  : '最后跟进时间',
+      width : '140px'
+    },
+    {
+      name  : '下次跟进时间',
+      width : '140px'
+    },
+    {
+      name  : '跟进销售',
+      width : '80px'
+    },
   ]
   checkedItems: any[] = [];
 
