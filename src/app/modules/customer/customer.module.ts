@@ -11,7 +11,8 @@ import { CustomerRoutingModule } from './customer-routing';
 import { RecycleBinComponent } from './recycle-bin/recycle-bin.component';
 import { DistributionComponent } from './distribution/distribution.component';
 import { RelaxModule } from '../../relax/relax.module';
-import { CreateComponent } from './create/create.component';
+import { CreateCustomerComponent } from './create/create.component';
+import { PreviewCustomerComponent } from './preview/preview.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,7 @@ import { CreateComponent } from './create/create.component';
     TrackingRecordComponent, 
     PublicSeaPoolComponent, 
     RecycleBinComponent, 
-    DistributionComponent, CreateComponent
+    DistributionComponent, CreateCustomerComponent, PreviewCustomerComponent
   ]
 })
 export class CustomerModule { }

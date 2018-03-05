@@ -1,7 +1,7 @@
 <cm-query [node]="queryNode" (onSubmit)="CmTable.request($event)"></cm-query>
 
 <div class="list-buttons">
-  <button nz-button [nzType]="'primary'">
+  <button nz-button [nzType]="'primary'" routerLink="/home/customer/create">
     <i class="anticon anticon-plus"></i>
     <span>新建名单</span>
   </button>
@@ -23,7 +23,7 @@
           <td>{{ data.babyName }}</td>
           <td>{{ data.sex }}</td>
           <td>{{ data.xxxxx }}</td>
-          <td>{{ data.parentName }}</td>
+          <td><a href="javascript: void(0);" [routerLink]="{outlets: {aux: 'preview/' + data.id}}">{{ data.parentName }}</a></td>
           <td>{{ data.mobilePhone }}</td>
           <td>{{ data.createDate }}</td>
           <td>{{ data.source }}</td>
@@ -38,3 +38,6 @@
     </tbody>
   </ng-container>
 </cm-table>
+
+
+<router-outlet name="aux"></router-outlet>
