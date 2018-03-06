@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
 import { UnassignedComponent } from './unassigned/unassigned.component';
 import { AllocatedComponent } from './allocated/allocated.component';
 import { DistributionComponent } from './distribution/distribution.component';
+import { CreateCanDeactivate } from './create/create.guard';
 
 const routes: Routes = [
 	{
@@ -25,8 +26,9 @@ const routes: Routes = [
 		]
 	},
 	{
-		path: 'create',
+		path: 'create/:id',
 		data: { title: '新建客户' },
+		canDeactivate: [CreateCanDeactivate],
 		component: CreateCustomerComponent
 	},
 	{

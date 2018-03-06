@@ -1,3 +1,4 @@
+import { CreateCanDeactivate } from './create/create.guard';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgModule } from '@angular/core';
@@ -31,6 +32,9 @@ import { PreviewCustomerComponent } from './preview/preview.component';
     PublicSeaPoolComponent, 
     RecycleBinComponent, 
     DistributionComponent, CreateCustomerComponent, PreviewCustomerComponent
+  ],
+  providers: [
+    CreateCanDeactivate
   ]
 })
 export class CustomerModule { }
