@@ -6,6 +6,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { CmQueryComponent } from './components/cm-query/cm-query.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CmTableComponent } from './components/cm-table/cm-table.component';
+import { CmQuoteComponent } from './components/cm-quote/cm-quote.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { CmTableComponent } from './components/cm-table/cm-table.component';
   declarations: [
     CmAlertComponent,
     CmQueryComponent,
-    CmTableComponent
+    CmTableComponent,
+    CmQuoteComponent
   ],
   providers: [
     HttpService,
@@ -26,7 +28,8 @@ import { CmTableComponent } from './components/cm-table/cm-table.component';
   exports: [
     CmAlertComponent,
     CmQueryComponent,
-    CmTableComponent
+    CmTableComponent,
+    CmQuoteComponent
   ]
 })
 export class RelaxModule { }
