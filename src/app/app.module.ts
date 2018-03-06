@@ -1,3 +1,4 @@
+import { HttpService } from './relax/services/http/http.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -44,6 +45,7 @@ import { NoopInterceptor } from './relax/services/http/http.intercept';
   ],
   bootstrap: [AppComponent],
   providers: [
+    HttpService,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     {
       provide: HTTP_INTERCEPTORS,

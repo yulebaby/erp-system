@@ -18,6 +18,7 @@ const routes: Routes = [
 		children: [
 			{
 				path: 'preview/:id',
+				data: { title: '客户详情' },
 				component: PreviewCustomerComponent,
 				outlet: 'aux'
 			}

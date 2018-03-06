@@ -17,6 +17,7 @@ export class NoopInterceptor implements HttpInterceptor {
       req.body.token = Token;
       req = req.clone({
         body: serialize(req.body),
+        withCredentials: true,
         setHeaders: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
       })
     } else if (req.method === 'GET') {

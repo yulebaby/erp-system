@@ -1,13 +1,108 @@
 .container {
-    width: 500px;
+    width: 900px;
     height: 100%;
-    background: #eee;
+    background: #fff;
+    box-shadow: 0 0 5px #ccc;
     position: fixed;
-    top: 0;
+    top: 64px;
     right: 0;
+    z-index: 999;
     animation: slideIn .5s;
+    padding: 20px 20px 64px;
+
+    .close {
+        color: #999;
+        font-size: 18px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+        transition: all .3s;
+        outline: none;
+        &:hover {
+            color: #666;
+        }
+    }
+
+    .header {
+        .head-image {
+            width: 40px;
+            height: 40px;
+            float: left;
+            img {
+                width: 100%;
+            }
+        }
+        .head-title {
+            padding-left: 60px;
+            font-size: 16px;
+            line-height: 40px;
+        }
+        .head-content {
+            margin-top: 14px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            & > div {
+                float: left;
+                &:not(:last-child) {
+                    margin-right: 30px;
+                }
+                label, 
+                span {
+                    color: #999;
+                    font-size: 14px;
+                }
+            }
+        }
+        .head-buttons {
+            position: absolute;
+            top: 0;
+            right: 40px;
+        }
+    }
+
+    .details {
+        & > div > div {
+            margin-bottom: 6px;
+        }
+        div {
+            font-size: 13px;
+            label {
+                color: #999;
+                font-size: 13px;
+            }
+        }
+    }
+
+    .record {
+        padding: 0 20px;
+    }
+    .tags-content {
+        overflow-x: auto;
+        white-space:nowrap;
+    }
+    .record-list {
+        padding: 0 20px;
+    }
+
+    .record-card-title {
+        & > div {
+            display: inline-block;
+            &:not(:last-child) {
+                margin-right: 20px;
+            }
+
+            label {
+                font-weight: 400;
+            }
+            span {
+                font-size: 12px;
+            }
+        }
+    }
 }
+
 @keyframes slideIn {
-    0%  {transform: translate3d(500px, 0, 0)}
+    0%  {transform: translate3d(900px, 0, 0)}
     100%{transform: none;}
 }
