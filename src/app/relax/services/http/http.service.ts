@@ -22,7 +22,7 @@ export class HttpService {
     const requestPath = url.substr(0, 4) === 'http' ? url : environment.domain + url;
     return new Promise((resolve, reject) => {
       this.http.post(requestPath, query)
-        // .retry(1)
+        .retry(1)
         .subscribe(
           res => {
             if (res['code'] == 1030) {
@@ -42,7 +42,7 @@ export class HttpService {
     const requestPath = url.substr(0, 4) === 'http' ? url : environment.domain + url;
     return new Promise((resolve, reject) => {
       this.http.get(requestPath, { params: new HttpParams({ fromString: serialize(query) }) })
-        // .retry(1)
+        .retry(1)
         .subscribe(
           res => {
             if (res['code'] == 1030) {

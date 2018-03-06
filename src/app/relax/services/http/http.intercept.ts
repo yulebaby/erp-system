@@ -12,18 +12,14 @@ import { serialize } from './http.service';
 @Injectable()
 export class NoopInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const Token = 'token';
     if (req.method === 'POST') {
-      req.body.token = Token;
       req = req.clone({
         body: serialize(req.body),
         withCredentials: true,
         setHeaders: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
       })
     } else if (req.method === 'GET') {
-      req = req.clone({
-        params: req.params.set('token', Token)
-      })
+      
     }
     return next.handle(req).map(res => {
       if (res instanceof HttpResponse) {

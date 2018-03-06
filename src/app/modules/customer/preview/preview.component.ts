@@ -11,11 +11,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PreviewCustomerComponent implements OnInit {
 
-  _id: string|number;
+  _id             : string;
 
-  isLoading: boolean;
+  userInfo        : any;
 
-  recordFormModel: FormGroup;
+  isLoading       : boolean;
+
+  recordFormModel : FormGroup;
 
   constructor(
     private routeInfo : ActivatedRoute,
@@ -34,12 +36,14 @@ export class PreviewCustomerComponent implements OnInit {
 
   ngOnInit() {
     this.routeInfo.params.subscribe( param => {
-      console.log(param)
       this._id = param.id;
       this.isLoading = true;
-      setTimeout(() => {
+      this.http.post('/customer/showCustomerInfo', { paramJson: JSON.stringify({ id: this._id }) }).then( res => {
         this.isLoading = false;
-      }, 500);
+        if (res.code != 1000) {
+          this.message.warning(res.info);
+        }
+      })
     })
   }
 
@@ -60,7 +64,7 @@ export class PreviewCustomerComponent implements OnInit {
   /* -------------------- 转为无意向客户 -------------------- */
   intentionCustomer(): void {
     this.http.post('/customer/transitioNoIntentionCustomer', { id: this._id }).then( res => {
-      
+      this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
     })
   }
 

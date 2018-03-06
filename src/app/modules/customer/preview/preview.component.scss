@@ -83,6 +83,15 @@
     }
     .record-list {
         padding: 0 20px;
+        .not-found {
+            padding: 40px 0 30px;
+            color: #999;
+            font-size: 14px;
+            text-align: center;
+            i {
+                font-size: 42px;
+            }
+        }
     }
 
     .record-card-title {
@@ -100,6 +109,34 @@
             }
         }
     }
+
+    .card-head {
+        float: left;
+        height: 40px;
+        img {
+            height: 100%;
+        }
+    }
+    .card-title {
+        padding-left: 60px;
+        line-height: 40px;
+        span {
+            margin-left: 40px;
+            font-size: 13px;
+        }
+    }
+    .card-main {
+        margin-top: 10px;
+        padding-left: 60px;
+    }
+}
+
+.record-title {
+    font-size: 13px;
+    background: hsla(0,0%,94%,.37);
+    padding: 10px;
+    border-left: 4px solid #108ee9;
+    margin-bottom: 20px;
 }
 
 @keyframes slideIn {
