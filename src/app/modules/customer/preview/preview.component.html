@@ -275,7 +275,15 @@
                       </div>
                     </ng-template>
                     <ng-template #extra>
-                      <a [style.margin-right]="'10px'">到店记录</a>
+                      <nz-popover>
+                        <a href="javascript:;" nz-popover style="margin-right: 5px;">到店记录</a>
+                        <ng-template #nzTemplate>
+                          <div>
+                            <p>内容</p>
+                            <p>内容</p>
+                          </div>
+                        </ng-template>
+                      </nz-popover>
                       <a>编辑</a>
                     </ng-template>
                     <ng-template #body>

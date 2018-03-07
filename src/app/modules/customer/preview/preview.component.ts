@@ -27,7 +27,7 @@ export class PreviewCustomerComponent implements OnInit {
   ) { 
     this.recordFormModel = fb.group({
       content       : ['', [Validators.required, Validators.max(200)]],     // 记录内容
-      reservation   : [false],                                                  // 是否预约过
+      reservation   : [false],                                              // 是否预约过
       followType    : ['', [Validators.required]],                          // 跟进方式
       followStatus  : ['', [Validators.required]],                          // 跟进状态
       nextFollowTime: ['']                                                  // 下次跟进时间
