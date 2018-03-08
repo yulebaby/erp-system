@@ -1,0 +1,25 @@
+:host ::ng-deep {
+    nz-rangepicker .ant-calendar-picker {
+        width: 100% !important;
+
+        input {
+            text-align: left;
+        }
+    }
+    nz-input {
+        &:hover .anticon {
+            opacity: 1;
+            visibility: visible;
+        }
+        .anticon {
+            color: rgba(0, 0, 0, 0.25);
+            opacity: 0;
+            visibility: hidden;
+            cursor: pointer;
+            transition: all .3s;
+            &:hover {
+                color: rgba(0, 0, 0, 0.43);
+            }
+        }
+    }
+}

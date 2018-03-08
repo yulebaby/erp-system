@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class StoreEffectComponent implements OnInit {
 
-  @Input() storeInfo: object = {};
+  @Input() storeInfo: any = {};
 
   array = [];
 

@@ -1,0 +1,23 @@
+:host ::ng-deep {
+    nz-rangepicker .ant-calendar-picker {
+        width: 100% !important;
+
+        input {
+            text-align: left;
+        }
+    }
+}
+
+.list-buttons {
+    margin-bottom: 16px;
+}
+
+.iconfont {
+    font-size: 18px;
+}
+.icon-nan {
+    color: #74b9ec
+}
+.icon-nv {
+    color: #ff3ec9
+}

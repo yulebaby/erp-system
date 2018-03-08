@@ -19,6 +19,14 @@ const routes: Routes = [
     component: BaseComponent,
     children: [
       {
+<<<<<<< HEAD
+=======
+        path: 'test',
+        data: { title: '测试模块' },
+        loadChildren: 'app/modules/test/test.module#TestModule'
+      },
+      {
+>>>>>>> dev
         path: 'wechat',
         data: { title: '微信' },
         loadChildren: 'app/modules/wechat/wechat.module#WechatModule'
@@ -36,12 +44,12 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'error',
+    path: 'error/:type',
     component: ErrorComponent
   },
   {
     path: '**',
-    redirectTo: '/error',
+    redirectTo: '/error/404',
     pathMatch: 'full'
   }
 ];

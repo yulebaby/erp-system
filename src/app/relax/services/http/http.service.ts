@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from "../../../environments/environment";
+import { environment } from "./../../../../environments/environment";
 import 'rxjs/add/operator/retry';
 
 @Injectable()
@@ -22,7 +22,7 @@ export class HttpService {
     const requestPath = url.substr(0, 4) === 'http' ? url : environment.domain + url;
     return new Promise((resolve, reject) => {
       this.http.post(requestPath, query)
-        // .retry(1)
+        .retry(1)
         .subscribe(
           res => {
             if (res['code'] == 1030) {
@@ -42,7 +42,7 @@ export class HttpService {
     const requestPath = url.substr(0, 4) === 'http' ? url : environment.domain + url;
     return new Promise((resolve, reject) => {
       this.http.get(requestPath, { params: new HttpParams({ fromString: serialize(query) }) })
-        // .retry(1)
+        .retry(1)
         .subscribe(
           res => {
             if (res['code'] == 1030) {
@@ -64,7 +64,7 @@ export class HttpService {
 export const serialize = (data: object): string => {
   let val = '';
   for (let v in data) {
-    if (data[v]) {
+    if (data[v] !== '' && data[v] !== null && data[v] !== undefined) {
       val += `${v}=${data[v]}&`;
     }
   }

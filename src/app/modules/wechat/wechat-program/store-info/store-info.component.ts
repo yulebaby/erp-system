@@ -1,5 +1,5 @@
-import { CityAddressService } from './../../../../services/global-data/city-address.service';
-import { HttpService } from './../../../../services/http/http.service';
+import { CityAddressService } from './../../../../relax/services/global-data/city-address.service';
+import { HttpService } from './../../../../relax/services/http/http.service';
 import { Component, OnInit, AfterContentChecked, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UploadFile } from 'ng-zorro-antd';

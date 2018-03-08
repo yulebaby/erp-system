@@ -1,0 +1,43 @@
+<form nz-form [formGroup]="_queryForm">
+  <div nz-row [nzGutter]="30">
+
+    <ng-container *ngFor="let control of _node">
+      <div nz-col [nzXl]="6" [nzLg]="8" [nzSm]="12" [nzXs]="24" [style.display]="isCollapse && control.isHide ? 'none' : 'block'">
+        <div nz-form-item nz-row>
+          <div nz-form-label nz-col [nzSpan]="5">
+            <label [attr.for]="control.key">{{ control.label }}</label>
+          </div>
+          <div nz-form-control nz-col [nzSpan]="19">
+
+            <ng-container *ngIf="control.type === 'input'">
+              <nz-input nzSize="large" [formControlName]="control.key" [nzPlaceHolder]="control.placeholder" [nzId]="control.key">
+                <ng-template #suffix>
+                  <i class="anticon anticon-close-circle" (click)="_clearControlValue(control.key)"></i>
+                </ng-template>
+              </nz-input>
+            </ng-container>
+            
+            <ng-container *ngIf="control.type === 'select'">
+              <nz-select nzSize="large" [formControlName]="control.key" [nzPlaceHolder]="control.placeholder" nzAllowClear>
+                <nz-option *ngFor="let option of control.options" [nzLabel]="option[control.optionKey?.label]" [nzValue]="option[control.optionKey?.value]"></nz-option>
+              </nz-select>
+            </ng-container>
+
+            <ng-container *ngIf="control.type === 'datepicker'">
+              <nz-rangepicker nzSize="large" [formControlName]="control.key" [nzPlaceholder]="[control.placeholder[0] || '开始日期', control.placeholder[1] || '结束日期']"></nz-rangepicker>
+            </ng-container>
+
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div nz-form-item nz-col [nzXl]="6" [nzLg]="8" [nzSm]="12" [nzXs]="24" [style.text-align]="'right'" [style.float]="'right'">
+      <button nz-button nzSize="large" nzType="primary" (click)="_submit()">查询</button>
+      <button nz-button nzSize="large" (click)="_reset()" style="margin-left: 8px;">重置</button>
+      <a style="margin-left:8px;font-size:12px;" (click)="isCollapse = !isCollapse">
+        {{ isCollapse ? '展开' : '收起' }}
+        <i class="anticon" [class.anticon-down]="isCollapse" [class.anticon-up]="!isCollapse"></i>
+      </a>
+    </div>
+  </div>
+</form>

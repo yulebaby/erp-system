@@ -1,0 +1,173 @@
+.container {
+    width: 900px;
+    height: 100%;
+    background: #fff;
+    box-shadow: 0 0 5px #ccc;
+    position: fixed;
+    top: 64px;
+    right: 0;
+    z-index: 999;
+    animation: slideIn .5s;
+    padding: 20px 20px 84px;
+
+    .box {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+    }
+
+    .close {
+        color: #999;
+        font-size: 18px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+        transition: all .3s;
+        outline: none;
+        &:hover {
+            color: #666;
+        }
+    }
+
+    .header {
+        flex: 0 0 auto;
+        padding-bottom: 20px;
+        .head-image {
+            width: 40px;
+            height: 40px;
+            float: left;
+            img {
+                width: 100%;
+            }
+        }
+        .head-title {
+            padding-left: 60px;
+            font-size: 16px;
+            line-height: 40px;
+        }
+        .head-content {
+            margin-top: 14px;
+            overflow: hidden;
+            & > div {
+                float: left;
+                &:not(:last-child) {
+                    margin-right: 30px;
+                }
+                label, 
+                span {
+                    color: #999;
+                    font-size: 14px;
+                }
+            }
+        }
+        .head-buttons {
+            position: absolute;
+            top: 0;
+            right: 40px;
+        }
+    }
+
+    .details {
+        & > div > div {
+            margin-bottom: 6px;
+        }
+        div {
+            font-size: 13px;
+            label {
+                color: #999;
+                font-size: 13px;
+            }
+        }
+    }
+
+    .record {
+        padding: 0 20px;
+    }
+    .tags-content {
+        overflow-x: auto;
+        white-space:nowrap;
+    }
+    .record-list {
+        padding: 0 20px;
+        .not-found {
+            padding: 40px 0 30px;
+            color: #999;
+            font-size: 14px;
+            text-align: center;
+            i {
+                font-size: 42px;
+            }
+        }
+    }
+
+    .record-card-title {
+        & > div {
+            display: inline-block;
+            &:not(:last-child) {
+                margin-right: 20px;
+            }
+
+            label {
+                font-weight: 400;
+            }
+            span {
+                font-size: 12px;
+            }
+        }
+    }
+
+    .card-head {
+        float: left;
+        height: 40px;
+        img {
+            height: 100%;
+        }
+    }
+    .card-title {
+        padding-left: 60px;
+        line-height: 40px;
+        span {
+            margin-left: 20px;
+            font-size: 13px;
+        }
+    }
+    .card-main {
+        margin-top: 10px;
+        padding-left: 60px;
+    }
+}
+
+:host ::ng-deep {
+    nz-spin {
+        &, .ant-spin-container {
+            height: 100%;
+        }
+
+        nz-tabset {
+            flex: auto;
+            .ant-tabs {
+                height: 100%;
+                position: absolute;
+                display: flex;
+                flex-direction: column;
+                nz-tabs-nav {
+                    flex: 0 0 auto;
+                }
+                .ant-tabs-content {
+                    flex: auto;
+                }
+                nz-tab-body {
+                    overflow-y: auto;
+                }
+            }
+        }
+    }
+}
+
+
+@keyframes slideIn {
+    0%  {transform: translate3d(900px, 0, 0)}
+    100%{transform: none;}
+}
