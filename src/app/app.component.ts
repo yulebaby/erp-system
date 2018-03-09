@@ -10,9 +10,5 @@ export class AppComponent {
   title = 'app';
 
   
-  constructor(
-    private http: HttpService
-  ) {
-    http.post('/auth/login?username=t__bby&password=q123456')
-  }
+  constructor( ) { }
 }

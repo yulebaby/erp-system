@@ -25,7 +25,7 @@ export class HttpService {
         .retry(1)
         .subscribe(
           res => {
-            if (res['code'] == 1030) {
+            if (res['code'] == 3000) {
               this.router.navigateByUrl('/login');
             } else {
               resolve(res);
@@ -45,7 +45,7 @@ export class HttpService {
         .retry(1)
         .subscribe(
           res => {
-            if (res['code'] == 1030) {
+            if (res['code'] == 3000) {
               this.router.navigateByUrl('/login');
             } else {
               resolve(res);

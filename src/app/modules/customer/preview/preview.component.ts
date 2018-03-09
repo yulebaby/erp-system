@@ -13,7 +13,7 @@ export class PreviewCustomerComponent implements OnInit {
 
   _id             : string;
 
-  userInfo        : any;
+  userInfo        : object;
 
   isLoading       : boolean;
 
@@ -40,6 +40,7 @@ export class PreviewCustomerComponent implements OnInit {
       this.isLoading = true;
       this.http.post('/customer/showCustomerInfo', { paramJson: JSON.stringify({ id: this._id }) }).then( res => {
         this.isLoading = false;
+        this.userInfo = res.result || {};
         if (res.code != 1000) {
           this.message.warning(res.info);
         }
