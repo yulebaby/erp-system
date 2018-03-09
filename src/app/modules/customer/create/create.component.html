@@ -15,7 +15,7 @@
             <nz-option nzLabel="已到店未体验" nzValue="4"></nz-option>
             <nz-option nzLabel="已到店体验" nzValue="5"></nz-option>
           </nz-select>
-          <div nz-form-explain *ngIf="getFormControl('followStage').dirty && getFormControl('followStage').hasError('followStage')">请选择跟进阶段</div>
+          <div nz-form-explain *ngIf="getFormControl('followStage').dirty && getFormControl('followStage').hasError('required')">请选择跟进阶段</div>
         </div>
       </div>
     </div>
@@ -26,11 +26,11 @@
 
       <div nz-form-item nz-row nz-col [nzSpan]="12">
         <div nz-form-label nz-col [nzSpan]="8">
-          <label for="babyNick" nz-form-item-required>宝宝爱称</label>
+          <label for="nick" nz-form-item-required>宝宝昵称</label>
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
-          <nz-input formControlName="babyNick" nzPlaceHolder="请输入宝宝爱称" nzId="babyNick"></nz-input>
-          <div nz-form-explain *ngIf="getFormControl('babyNick').dirty && getFormControl('babyNick').hasError('babyNick')">请输入2-20位宝宝爱称</div>
+          <nz-input formControlName="nick" nzPlaceHolder="请输入宝宝爱称" nzId="nick"></nz-input>
+          <div nz-form-explain *ngIf="getFormControl('nick').dirty && ( getFormControl('nick').hasError('required') || getFormControl('nick').hasError('minlength') || getFormControl('nick').hasError('maxlength') )">请输入2-20位字符</div>
         </div>
       </div>
       <div nz-form-item nz-row nz-col [nzSpan]="12">
@@ -39,7 +39,6 @@
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
           <nz-input formControlName="babyName" nzPlaceHolder="请输入宝宝姓名" nzId="babyName"></nz-input>
-          <div nz-form-explain *ngIf="getFormControl('babyName').dirty && getFormControl('babyName').hasError('babyName')">请输入2-20位宝宝姓名</div>
         </div>
       </div>
       <div nz-form-item nz-row nz-col [nzSpan]="12">
@@ -48,10 +47,10 @@
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
           <nz-radio-group formControlName="sex">
-            <label nz-radio [nzValue]="1">
+            <label nz-radio nzValue="男">
               <span>男</span>
             </label>
-            <label nz-radio [nzValue]="2">
+            <label nz-radio nzValue="女">
               <span>女</span>
             </label>
           </nz-radio-group>
@@ -63,7 +62,7 @@
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
           <nz-input formControlName="ethnic" nzPlaceHolder="请输入宝宝民族" nzId="ethnic"></nz-input>
-          <div nz-form-explain *ngIf="getFormControl('ethnic').dirty && getFormControl('ethnic').hasError('ethnic')">请输入正确的民族</div>
+          <div nz-form-explain *ngIf="getFormControl('ethnic').dirty && getFormControl('ethnic').hasError('required')">请输入正确的民族</div>
         </div>
       </div>
       <div nz-form-item nz-row nz-col [nzSpan]="12">
@@ -102,7 +101,7 @@
             <nz-option nzLabel="小区1" nzValue="1"></nz-option>
             <nz-option nzLabel="小区2" nzValue="2"></nz-option>
           </nz-select>
-          <div nz-form-explain>搜索不到小区? 马上去<a href="javascript:;">新建小区</a>吧</div>
+          <div nz-form-explain>搜索不到小区? 马上去<a href="javascript:;" (click)="ceateHousing(title, content, footer)">新建小区</a>吧</div>
         </div>
       </div>
       <div nz-form-item nz-row nz-col [nzSpan]="24">
@@ -111,7 +110,7 @@
         </div>
         <div nz-form-control nz-col [nzSpan]="20">
           <nz-input formControlName="remarks" nzType="textarea" nzPlaceHolder="请输入备注" nzId="remarks"></nz-input>
-          <div nz-form-explain *ngIf="getFormControl('remarks').dirty && getFormControl('remarks').hasError('remarks')">最多200个字符</div>
+          <div nz-form-explain *ngIf="getFormControl('remarks').dirty && getFormControl('remarks').hasError('maxlength')">最多200个字符</div>
         </div>
       </div>
 
@@ -127,7 +126,7 @@
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
           <nz-input formControlName="parentName" nzPlaceHolder="请输入家长姓名" nzId="parentName"></nz-input>
-          <div nz-form-explain *ngIf="getFormControl('parentName').dirty && getFormControl('parentName').hasError('parentName')">请输入2-20位家长姓名</div>
+          <div nz-form-explain *ngIf="getFormControl('parentName').dirty && (getFormControl('parentName').hasError('required') || getFormControl('parentName').hasError('minlength') || getFormControl('parentName').hasError('maxlength'))">请输入2-20位字符</div>
         </div>
       </div>
       <div nz-form-item nz-row nz-col [nzSpan]="12">
@@ -136,7 +135,7 @@
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
           <nz-input formControlName="mobilePhone" nzPlaceHolder="请输入家长电话" nzId="mobilePhone"></nz-input>
-          <div nz-form-explain *ngIf="getFormControl('mobilePhone').dirty && getFormControl('mobilePhone').hasError('mobilePhone')">请输入正确的家长电话</div>
+          <div nz-form-explain *ngIf="getFormControl('mobilePhone').dirty && getFormControl('mobilePhone').hasError('required')">请输入正确的家长电话</div>
         </div>
       </div>
       <div nz-form-item nz-row nz-col [nzSpan]="12">
@@ -154,7 +153,7 @@
             <nz-option nzLabel="姑姑" nzValue="7"></nz-option>
             <nz-option nzLabel="其他" nzValue="8"></nz-option>
           </nz-select>
-          <div nz-form-explain *ngIf="getFormControl('parentType').dirty && getFormControl('parentType').hasError('parentType')">请选择家长身份</div>
+          <div nz-form-explain *ngIf="getFormControl('parentType').dirty && getFormControl('parentType').hasError('required')">请选择家长身份</div>
         </div>
       </div>
       <div nz-form-item nz-row nz-col [nzSpan]="12">
@@ -215,7 +214,7 @@
     </div>
 
     <div class="form-footer">
-      <button nz-button nzType="primary" nzSize="large" (click)="_submit()">提交</button>
+      <button nz-button nzType="primary" nzSize="large" [nzLoading]="_loading" (click)="_submit()">{{ _loading ? '提交中...' : '提交' }}</button>
       <button nz-button nzType="default" nzSize="large" routerLink="/home/customer/all">取消</button>
     </div>
 
@@ -223,3 +222,21 @@
   </form>
 
 </div>
+
+
+
+<!-- 新建小区模板 -->
+<ng-template #title>
+  <span>新建小区</span>
+</ng-template>
+<ng-template #content>
+  <nz-input nzPlaceHolder="请输入小区名称" [(ngModel)]="housingName"></nz-input>
+</ng-template>
+<ng-template #footer>
+  <div>
+    <button nz-button nzType="primary" nzSize="large" 
+      [nzLoading]="isConfirmLoading" 
+      (click)="submitHousing()"
+      [disabled]="!housingName?.length">{{ isConfirmLoading ? '提交中...' : '提 交' }}</button>
+  </div>
+</ng-template>

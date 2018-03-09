@@ -5,7 +5,7 @@
     <i class="anticon anticon-plus"></i>
     <span>新建名单</span>
   </button>
-  <button nz-button [nzType]="'default'" [routerLink]="{outlets: {aux: 'preview/222'}}">
+  <button nz-button [nzType]="'default'">
     <span>导入名单</span>
   </button>
 </div>
@@ -20,10 +20,10 @@
           <td nz-td nzCheckbox>
             <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="CmTable.isChecked($event)"></label>
           </td>
-          <td>{{ data.babyName }}</td>
+          <td><a href="javascript: void(0);" [routerLink]="{outlets: {aux: 'preview/' + data.id}}">{{ data.nick }}</a></td>
           <td><i class="iconfont" [title]="data.sex" [ngClass]="[ data.sex === '男' ? 'icon-nan' : 'icon-nv']"></i></td>
           <td>{{ data.xxxxx }}</td>
-          <td><a href="javascript: void(0);" [routerLink]="{outlets: {aux: 'preview/' + data.id}}">{{ data.parentName }}</a></td>
+          <td>{{ data.parentName }}</td>
           <td>{{ data.mobilePhone }}</td>
           <td>{{ data.createDate }}</td>
           <td>{{ data.source }}</td>

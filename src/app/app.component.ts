@@ -17,6 +17,7 @@ export class AppComponent {
     /* ----------------------- 监听路由变化, 获取未登录来源页 ----------------------- */
     router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
+        this.login.loginToPath = event.url;
         if (event.url.indexOf('/login') === -1) {
           this.login.loginSource = event.url;
         }
