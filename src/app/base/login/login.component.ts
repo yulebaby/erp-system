@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.http.get('/auth/login?username=t__bby&password=q123456').then( res => {
       if (res.code == 1000) {
-        this.router.navigateByUrl(this.login.loginSource || '/home')
+        // this.router.navigateByUrl(this.login.loginSource || '/home')
       }
     })
     console.log(this.login.loginSource);
