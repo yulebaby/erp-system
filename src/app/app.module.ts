@@ -1,3 +1,4 @@
+import { LoginService } from './base/login/login.service';
 import { HttpService } from './relax/services/http/http.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -15,11 +16,11 @@ import { MenuComponent } from './frames/menu/menu.component';
 import { ContentComponent } from './frames/content/content.component';
 import { FooterComponent } from './frames/footer/footer.component';
 import { ErrorComponent } from './base/error/error.component';
-import { WelcomeComponent } from './frames/content/welcome/welcome.component';
 import { LoginComponent } from './base/login/login.component';
 import { BreadcrumbComponent } from './frames/content/breadcrumb/breadcrumb.component';
 import { BaseComponent } from './frames/base.component';
 import { NoopInterceptor } from './relax/services/http/http.intercept';
+import { IndexComponent } from './base/index/index.component';
 
 
 
@@ -31,10 +32,10 @@ import { NoopInterceptor } from './relax/services/http/http.intercept';
     ContentComponent,
     FooterComponent,
     ErrorComponent,
-    WelcomeComponent,
     LoginComponent,
     BreadcrumbComponent,
-    BaseComponent
+    BaseComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +47,7 @@ import { NoopInterceptor } from './relax/services/http/http.intercept';
   bootstrap: [AppComponent],
   providers: [
     HttpService,
+    LoginService,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     {
       provide: HTTP_INTERCEPTORS,

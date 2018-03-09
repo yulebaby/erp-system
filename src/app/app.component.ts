@@ -1,3 +1,5 @@
+import { LoginService } from './base/login/login.service';
+import { Router, NavigationStart } from '@angular/router';
 import { HttpService } from './relax/services/http/http.service';
 import { Component } from '@angular/core';
 
@@ -7,8 +9,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
-
   
-  constructor( ) { }
+  constructor( 
+    private router: Router,
+    private login: LoginService
+  ) { 
+    /* ----------------------- 监听路由变化, 获取未登录来源页 ----------------------- */
+    router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        if (event.url.indexOf('/login') === -1) {
+          this.login.loginSource = event.url;
+        }
+      }
+    })
+  }
 }

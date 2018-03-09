@@ -13,7 +13,7 @@ export class PreviewCustomerComponent implements OnInit {
 
   _id             : string;
 
-  userInfo        : object;
+  userInfo        : any;
 
   isLoading       : boolean;
 

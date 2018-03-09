@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { LoginService } from './login.service';
 import { HttpService } from './../../relax/services/http/http.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,11 +11,18 @@ import { Component, OnInit } from '@angular/core';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private http: HttpService
+    private http: HttpService,
+    private login: LoginService,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.http.post('http://192.168.1.148:8383/auth/login?username=t__bby&password=q123456')
+    this.http.get('/auth/login?username=t__bby&password=q123456').then( res => {
+      if (res.code == 1000) {
+        this.router.navigateByUrl(this.login.loginSource || '/home')
+      }
+    })
+    console.log(this.login.loginSource);
   }
 
 }

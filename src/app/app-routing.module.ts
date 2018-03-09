@@ -1,3 +1,4 @@
+import { IndexComponent } from './base/index/index.component';
 import { ErrorComponent } from './base/error/error.component';
 import { BaseComponent } from './frames/base.component';
 import { NgModule } from '@angular/core';
@@ -18,6 +19,11 @@ const routes: Routes = [
     path: 'home',
     component: BaseComponent,
     children: [
+      {
+        path: '',
+        data: { title: '首页' },
+        component: IndexComponent
+      },
       {
         path: 'test',
         data: { title: '测试模块' },
