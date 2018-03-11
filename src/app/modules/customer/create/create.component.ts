@@ -86,9 +86,7 @@ export class CreateCustomerComponent implements OnInit {
       title: title,
       content: content,
       footer: footer,
-      onOk() {
-        console.log('Click ok');
-      }
+      onOk() {}
     });
   }
   submitHousing(): void {

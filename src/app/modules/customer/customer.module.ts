@@ -2,7 +2,7 @@ import { CreateCanDeactivate } from './create/create.guard';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { AllCustomerComponent } from './all/all.component';
 import { UnassignedComponent } from './unassigned/unassigned.component';
 import { AllocatedComponent } from './allocated/allocated.component';
@@ -34,6 +34,7 @@ import { PreviewCustomerComponent } from './preview/preview.component';
     DistributionComponent, CreateCustomerComponent, PreviewCustomerComponent
   ],
   providers: [
+    DatePipe,
     CreateCanDeactivate
   ]
 })
