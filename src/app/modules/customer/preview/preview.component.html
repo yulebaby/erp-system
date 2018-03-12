@@ -116,7 +116,7 @@
                   <div nz-form-label nz-col [nzSpan]="8">
                     <label>家长关系</label>
                   </div>
-                  <div nz-form-control nz-col [nzSpan]="16">{{ userInfo?.parentRelationship || '--' }}</div>
+                  <div nz-form-control nz-col [nzSpan]="16">{{ userInfo?.parentRelationShip || '--' }}</div>
                 </div>
               </div>
               <div nz-col [nzSpan]="8">
@@ -124,7 +124,7 @@
                   <div nz-form-label nz-col [nzSpan]="8">
                     <label>微信/QQ</label>
                   </div>
-                  <div nz-form-control nz-col [nzSpan]="16">{{ userInfo?.parentWechat || '--' }}</div>
+                  <div nz-form-control nz-col [nzSpan]="16">{{ userInfo?.parentWeChat || '--' }}</div>
                 </div>
               </div>
               <div nz-col [nzSpan]="8">
@@ -172,21 +172,15 @@
                   <div nz-form-item nz-col [nzSpan]="4" style="padding-right: 15px;">
                     <div nz-form-control [nzValidateStatus]="recordFormModel.get('followType')">
                       <nz-select formControlName="followType" nzPlaceHolder="请选择跟进方式">
-                        <nz-option nzLabel="电话" nzValue="1"></nz-option>
-                        <nz-option nzLabel="微信" nzValue="2"></nz-option>
-                        <nz-option nzLabel="Q Q" nzValue="3"></nz-option>
-                        <nz-option nzLabel="面谈" nzValue="4"></nz-option>
+                        <nz-option *ngFor="let item of followTypeList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
                       </nz-select>
                       <div nz-form-explain *ngIf="recordFormModel.get('followType').dirty && recordFormModel.get('followType').hasError('required')">请选择跟进方式</div>
                     </div>
                   </div>
                   <div nz-form-item nz-col [nzSpan]="4" style="padding-right: 15px;">
                     <div nz-form-control [nzValidateStatus]="recordFormModel.get('followStage')">
-                      <nz-select formControlName="followStage" nzPlaceHolder="请选择跟进状态">
-                        <nz-option nzLabel="潜在客户" nzValue="1"></nz-option>
-                        <nz-option nzLabel="初步接触" nzValue="2"></nz-option>
-                        <nz-option nzLabel="持续跟进" nzValue="3"></nz-option>
-                        <nz-option nzLabel="意向客户" nzValue="4"></nz-option>
+                      <nz-select formControlName="followStage" nzPlaceHolder="请选择客户状态">
+                        <nz-option *ngFor="let item of showMemberStatus" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
                       </nz-select>
                       <div nz-form-explain *ngIf="recordFormModel.get('followStage').dirty && recordFormModel.get('followStage').hasError('required')">请选择跟进状态</div>
                     </div>
@@ -237,9 +231,9 @@
                         <ng-template #nzTemplate>
                           <div>
                             <ul class="record-status">
-                              <li>已到店体验</li>
-                              <li>已到店未体验</li>
-                              <li>未到店</li>
+                              <li (click)="editToShopRecord(1)">已到店体验</li>
+                              <li (click)="editToShopRecord(2)">已到店未体验</li>
+                              <li (click)="editToShopRecord(3)">未到店</li>
                             </ul>
                           </div>
                         </ng-template>
@@ -298,21 +292,15 @@
         <div nz-form-item nz-col [nzSpan]="6" style="padding-right: 15px;">
           <div nz-form-control [nzValidateStatus]="recordFormModel.get('followType')">
             <nz-select formControlName="followType" nzPlaceHolder="请选择跟进方式">
-              <nz-option nzLabel="电话" nzValue="1"></nz-option>
-              <nz-option nzLabel="微信" nzValue="2"></nz-option>
-              <nz-option nzLabel="Q Q" nzValue="3"></nz-option>
-              <nz-option nzLabel="面谈" nzValue="4"></nz-option>
+              <nz-option *ngFor="let item of followTypeList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
             </nz-select>
             <div nz-form-explain *ngIf="recordFormModel.get('followType').dirty && recordFormModel.get('followType').hasError('required')">请选择跟进方式</div>
           </div>
         </div>
         <div nz-form-item nz-col [nzSpan]="6" style="padding-right: 15px;">
           <div nz-form-control [nzValidateStatus]="recordFormModel.get('followStage')">
-            <nz-select formControlName="followStage" nzPlaceHolder="请选择跟进状态">
-              <nz-option nzLabel="潜在客户" nzValue="1"></nz-option>
-              <nz-option nzLabel="初步接触" nzValue="2"></nz-option>
-              <nz-option nzLabel="持续跟进" nzValue="3"></nz-option>
-              <nz-option nzLabel="意向客户" nzValue="4"></nz-option>
+            <nz-select formControlName="followStage" nzPlaceHolder="请选择客户状态">
+              <nz-option *ngFor="let item of showMemberStatus" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
             </nz-select>
             <div nz-form-explain *ngIf="recordFormModel.get('followStage').dirty && recordFormModel.get('followStage').hasError('required')">请选择跟进状态</div>
           </div>

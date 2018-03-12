@@ -14,13 +14,13 @@ export class AllCustomerComponent implements OnInit {
   queryNode: object[] = [
     {
       label       : '宝宝姓名',
-      key         : 'name',
+      key         : 'babyName',
       type        : 'input',
       placeholder : '请输入宝宝昵称'
     },
     {
-      label       : '跟进状态',
-      key         : 'followStage',
+      label       : '跟进阶段',
+      key         : 'followStageId',
       type        : 'select',
       optionsUrl  : '/common/followStageList',
       placeholder : '请选择跟进状态'
@@ -88,7 +88,7 @@ export class AllCustomerComponent implements OnInit {
     },
     {
       label       : '负责销售',
-      key         : 'followSeller',
+      key         : 'followSellerId',
       type        : 'select',
       optionsUrl  : '/common/followSellerList',
       placeholder : '请选择负责销售',
@@ -96,7 +96,7 @@ export class AllCustomerComponent implements OnInit {
     },
     {
       label       : '收集者',
-      key         : 'collector',
+      key         : 'collectorId',
       type        : 'select',
       optionsUrl  : '/common/collectorList',
       placeholder : '请选择收集者',
@@ -104,7 +104,7 @@ export class AllCustomerComponent implements OnInit {
     },
     {
       label       : '推荐人',
-      key         : 'recommended',
+      key         : 'recommendedId',
       type        : 'select',
       optionsUrl  : '/common/recommenderList',
       placeholder : '请选择推荐人',

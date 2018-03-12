@@ -140,19 +140,19 @@
           <label nz-form-item-required>家长身份</label>
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
-          <nz-select formControlName="parentRelationshipId" nzPlaceHolder="请选择家长身份" nzShowSearch nzAllowClear>
+          <nz-select formControlName="parentRelationShipId" nzPlaceHolder="请选择家长身份" nzShowSearch nzAllowClear>
             <nz-option *ngFor="let item of parentIdentityList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
           </nz-select>
-          <div nz-form-explain *ngIf="getFormControl('parentRelationshipId').dirty && getFormControl('parentRelationshipId').hasError('required')">请选择家长身份</div>
+          <div nz-form-explain *ngIf="getFormControl('parentRelationShipId').dirty && getFormControl('parentRelationShipId').hasError('required')">请选择家长身份</div>
         </div>
       </div>
       <div nz-form-item nz-row nz-col [nzSpan]="12">
         <div nz-form-label nz-col [nzSpan]="8">
-          <label for="parentWechat">微信|QQ</label>
+          <label for="parentWeChat">微信|QQ</label>
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
-          <nz-input formControlName="parentWechat" nzPlaceHolder="请输入家长微信或QQ" nzId="parentWechat"></nz-input>
-          <div nz-form-explain *ngIf="getFormControl('parentWechat').dirty && getFormControl('parentWechat').hasError('pattern')">请输入正确的微信或QQ</div>
+          <nz-input formControlName="parentWeChat" nzPlaceHolder="请输入家长微信或QQ" nzId="parentWeChat"></nz-input>
+          <div nz-form-explain *ngIf="getFormControl('parentWeChat').dirty && getFormControl('parentWeChat').hasError('pattern')">请输入正确的微信或QQ</div>
         </div>
       </div>
 

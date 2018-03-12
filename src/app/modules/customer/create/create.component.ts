@@ -47,7 +47,9 @@ export class CreateCustomerComponent implements OnInit {
         this._selectLoading = true;
         this.http.post('/customer/showCustomerInfo', { paramJson: JSON.stringify({ id: this._id }) }).then(res => {
           this._selectLoading = false;
-          this.customerForm.patchValue(res.result);
+          if (res.code == 1000 ){
+            this.customerForm.patchValue(res.result.member);
+          }
         })
       }
 
@@ -100,8 +102,8 @@ export class CreateCustomerComponent implements OnInit {
 
       parentName           : ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],     // 家长姓名
       mobilePhone          : ['', [Validators.required, Validators.pattern(/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/)]],
-      parentRelationshipId : ['', [Validators.required]],                                                        // 家长身份
-      parentWechat         : ['', [Validators.pattern(/^[A-Za-z0-9]{6,30}/)]],                                   // 家长QQ或者微信
+      parentRelationShipId : ['', [Validators.required]],                                                        // 家长身份
+      parentWeChat         : ['', [Validators.pattern(/^[A-Za-z0-9]{6,30}/)]],                                   // 家长QQ或者微信
 
       sourceId        : ['', [Validators.required]],                                                        // 来源
       recommendedId   : [''],                                                                               // 推荐人
@@ -122,7 +124,7 @@ export class CreateCustomerComponent implements OnInit {
     } else {
       this._submitLoading = true;
       let params = this._id == '0' ? this.customerForm.value : Object.assign(this.customerForm.value, {id: this._id});
-      if (params.birthday) { params.birthday = params.birthday.split(' ')[0]}
+      if (params.birthday) { params.birthday = this.format.transform(params.birthday, 'yyyy-MM-dd')}
       this.http.post('/customer/modifyUserInfo', { paramJson: JSON.stringify(params) }).then( res => {
         this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
         if (res.code == 1000) {

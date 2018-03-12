@@ -33,6 +33,10 @@ export class PreviewCustomerComponent implements OnInit {
 
   _updateFollowRecordFormModel: FormGroup;
 
+  
+  followTypeList  : any[] = [];
+  showMemberStatus: any[] = [];
+
   constructor(
     private routeInfo : ActivatedRoute,
     private fb        : FormBuilder = new FormBuilder(),
@@ -90,9 +94,22 @@ export class PreviewCustomerComponent implements OnInit {
       followType    : ['', [Validators.required]],                     
       followStage   : ['', [Validators.required]],                     
       nextFollowTime: ['']                                             
+    });
+
+
+    /* ------------------- 客户状态 ------------------- */
+    this.http.post('/common/showMemberStatus').then(res => {
+      if (res.code == 1000) {
+        this.showMemberStatus = res.result;
+      }
+    });
+    /* ------------------- 跟进方式 ------------------- */
+    this.http.post('/common/followTypeList').then(res => {
+      if (res.code == 1000) {
+        this.followTypeList = res.result;
+      }
     })
   }
-
 
 
   /* ------------------- 点击记录标签 ------------------- */
@@ -167,7 +184,6 @@ export class PreviewCustomerComponent implements OnInit {
         this._saveUpdateFollowRecordLoading = false;
         if (res.code == 1000) {
           res.result.contentLabel = this._resetFollowRecordContent(res.result.content);
-          console.log(res.result, this._updateFollowRecordFormModel.value.id);
           this.followRecord.map(item => {
             if (item.id === this._updateFollowRecordFormModel.value.id) {
               item.content        = res.result.content;
@@ -182,6 +198,13 @@ export class PreviewCustomerComponent implements OnInit {
         }
       })
     }
+  }
+
+
+  editToShopRecord(status: number): void {
+    this.http.post('/customer/editToShopRecord', { paramJson: JSON.stringify({ id: this._id, status: status }) }).then(res => {
+      this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
+    })
   }
 
 

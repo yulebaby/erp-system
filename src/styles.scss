@@ -32,3 +32,14 @@
 .icon-nv {
     color: #ff3ec9
 }
+
+.record-status {
+    li{
+      cursor: pointer;
+      padding: 0 6px;
+      line-height: 2;
+      &:hover {
+          background: #ecf6fd;
+      }
+    }
+}
