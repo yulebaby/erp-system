@@ -10,28 +10,28 @@
           </div>
           <div class="head-title">{{ userInfo?.nick }}</div>
           <div class="head-content">
-            <div>
+            <div *ngIf="userInfo?.lastFollowTime">
               <label>最后跟进时间：</label>
-              <span>2018-1-16 13:56:23</span>
+              <span>{{ userInfo?.lastFollowTime }}</span>
             </div>
-            <div>
+            <div *ngIf="userInfo?.nextFollowTime">
               <label>下次跟进时间：</label>
-              <span>2018-1-16 13:56:23</span>
+              <span>{{ userInfo?.nextFollowTime }}</span>
             </div>
             <div>
               <label>跟进销售：</label>
-              <span>张政在</span>
+              <span>{{ currentUserName }}</span>
             </div>
             <div>
               <label>跟进阶段：</label>
-              <span>未跟进呢</span>
+              <span>{{ userInfo?.followStage }}</span>
             </div>
           </div>
           <div class="head-buttons">
             <button nz-button [nzType]="'primary'" style="margin-right: 12px;" [routerLink]="['/home/customer/create', _id]">编辑</button>
             <nz-button-group>
-              <button nz-button>转为会员</button>
-              <button nz-button>转给他人</button>
+              <!-- <button nz-button>转为会员</button>
+              <button nz-button>转给他人</button> -->
               <button nz-button>
                 <nz-popconfirm [nzTitle]="'确定要移到无意向客户吗？'" (nzOnConfirm)="intentionCustomer()">
                   <span nz-popconfirm>移到无意向客户</span>
@@ -44,13 +44,13 @@
         <nz-tabset>
           <nz-tab>
             <ng-template #nzTabHeading>详细信息</ng-template>
-            <div nz-row [nzGutter]="30" class="details">
+            <div nz-row class="details">
               <div nz-col [nzSpan]="8">
                 <div nz-form-item nz-row>
                   <div nz-form-label nz-col [nzSpan]="8">
                     <label>姓名</label>
                   </div>
-                  <div nz-form-control nz-col [nzSpan]="16">{{ userInfo?.nick }}</div>
+                  <div nz-form-control nz-col [nzSpan]="16">{{ userInfo?.name || '--' }}</div>
                 </div>
               </div>
               <div nz-col [nzSpan]="8">
@@ -66,7 +66,9 @@
                   <div nz-form-label nz-col [nzSpan]="8">
                     <label>性别</label>
                   </div>
-                  <div nz-form-control nz-col [nzSpan]="16">{{ userInfo?.sex }}</div>
+                  <div nz-form-control nz-col [nzSpan]="16">
+                    <i class="iconfont" [title]="userInfo?.sex" [ngClass]="[ userInfo?.sex === '男' ? 'icon-nan' : 'icon-nv']"></i>
+                  </div>
                 </div>
               </div>
               <div nz-col [nzSpan]="8">
@@ -74,7 +76,7 @@
                   <div nz-form-label nz-col [nzSpan]="8">
                     <label>生日</label>
                   </div>
-                  <div nz-form-control nz-col [nzSpan]="16">2015-08-08</div>
+                  <div nz-form-control nz-col [nzSpan]="16">{{ userInfo?.birthday || '--' }}</div>
                 </div>
               </div>
               <div nz-col [nzSpan]="8">
@@ -88,17 +90,9 @@
               <div nz-col [nzSpan]="8">
                 <div nz-form-item nz-row>
                   <div nz-form-label nz-col [nzSpan]="8">
-                    <label>年龄</label>
-                  </div>
-                  <div nz-form-control nz-col [nzSpan]="16">2岁</div>
-                </div>
-              </div>
-              <div nz-col [nzSpan]="8">
-                <div nz-form-item nz-row>
-                  <div nz-form-label nz-col [nzSpan]="8">
                     <label>星座</label>
                   </div>
-                  <div nz-form-control nz-col [nzSpan]="16">金牛座</div>
+                  <div nz-form-control nz-col [nzSpan]="16">{{ userInfo?.constellation || '--' }}</div>
                 </div>
               </div>
               <div nz-col [nzSpan]="8">
@@ -106,7 +100,7 @@
                   <div nz-form-label nz-col [nzSpan]="8">
                     <label>家长姓名</label>
                   </div>
-                  <div nz-form-control nz-col [nzSpan]="16">黄贤秋</div>
+                  <div nz-form-control nz-col [nzSpan]="16">{{ userInfo?.parentName || '--' }}</div>
                 </div>
               </div>
               <div nz-col [nzSpan]="8">
@@ -122,15 +116,15 @@
                   <div nz-form-label nz-col [nzSpan]="8">
                     <label>家长关系</label>
                   </div>
-                  <div nz-form-control nz-col [nzSpan]="16">父子</div>
+                  <div nz-form-control nz-col [nzSpan]="16">{{ userInfo?.parentRelationship || '--' }}</div>
                 </div>
               </div>
               <div nz-col [nzSpan]="8">
                 <div nz-form-item nz-row>
                   <div nz-form-label nz-col [nzSpan]="8">
-                    <label>家长微信</label>
+                    <label>微信/QQ</label>
                   </div>
-                  <div nz-form-control nz-col [nzSpan]="16">h88537916</div>
+                  <div nz-form-control nz-col [nzSpan]="16">{{ userInfo?.parentWechat || '--' }}</div>
                 </div>
               </div>
               <div nz-col [nzSpan]="8">
@@ -138,7 +132,7 @@
                   <div nz-form-label nz-col [nzSpan]="8">
                     <label>来源</label>
                   </div>
-                  <div nz-form-control nz-col [nzSpan]="16">小程序</div>
+                  <div nz-form-control nz-col [nzSpan]="16">{{ userInfo?.sourceName || '--' }}</div>
                 </div>
               </div>
               <div nz-col [nzSpan]="20">
@@ -146,7 +140,7 @@
                   <div nz-form-label nz-col [nzSpan]="3">
                     <label>备注</label>
                   </div>
-                  <div nz-form-control nz-col [nzSpan]="21">金牛座</div>
+                  <div nz-form-control nz-col [nzSpan]="21">{{ userInfo?.visitRemarks || '--' }}</div>
                 </div>
               </div>
             </div>
@@ -242,8 +236,11 @@
                         <a href="javascript:;" nz-popover style="margin-right: 5px;" *ngIf="item.status == 0">到店记录</a>
                         <ng-template #nzTemplate>
                           <div>
-                            <p>内容</p>
-                            <p>内容</p>
+                            <ul class="record-status">
+                              <li>已到店体验</li>
+                              <li>已到店未体验</li>
+                              <li>未到店</li>
+                            </ul>
                           </div>
                         </ng-template>
                       </nz-popover>
@@ -252,7 +249,7 @@
                     <ng-template #body>
                       <div class="card-head"><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3566699624,797839480&fm=27&gp=0.jpg" alt="头像"></div>
                       <div class="card-title">
-                        <nz-tag nzColor="#108ee9">{{ userInfo?.nick }}</nz-tag>
+                        <nz-tag nzColor="#108ee9">{{ currentUserName }}</nz-tag>
                         <span>跟进家长：黄贤秋</span>
                       </div>
                       <div class="card-main" [innerHTML]="item.contentLabel"></div>

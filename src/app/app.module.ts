@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
-import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { NgZorroAntdModule, NZ_MESSAGE_CONFIG } from 'ng-zorro-antd';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -53,7 +53,8 @@ import { IndexComponent } from './base/index/index.component';
       provide: HTTP_INTERCEPTORS,
       useClass: NoopInterceptor,
       multi: true,
-    }
+    },
+    { provide: NZ_MESSAGE_CONFIG, useValue: { nzDuration: 3000, nzMaxStack: 2 } }
   ]
 })
 export class AppModule { }

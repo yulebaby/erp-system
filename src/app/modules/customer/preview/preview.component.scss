@@ -23,6 +23,7 @@
         position: absolute;
         top: 0;
         right: 0;
+        z-index: 9;
         cursor: pointer;
         transition: all .3s;
         outline: none;
@@ -43,6 +44,7 @@
             }
         }
         .head-title {
+            height: 40px;
             padding-left: 60px;
             font-size: 16px;
             line-height: 40px;
@@ -133,6 +135,15 @@
         margin-top: 10px;
         padding-left: 60px;
     }
+    .record-status {
+        li{
+            line-height: 1.8;
+            &:hover {
+                background: #ecf6fd;
+            }
+        }
+    }
+
 }
 
 :host ::ng-deep {
@@ -172,4 +183,11 @@
 @keyframes slideIn {
     0%  {transform: translate3d(900px, 0, 0)}
     100%{transform: none;}
+}
+
+.icon-nan {
+    color: #74b9ec
+}
+.icon-nv {
+    color: #ff3ec9
 }

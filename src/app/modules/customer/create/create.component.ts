@@ -24,7 +24,8 @@ export class CreateCustomerComponent implements OnInit {
   recommenderList   : any[] = []; 
   sourceList        : any[] = [];
   parentIdentityList: any[] = [];
-  followStageList    : any[] = [];
+  followStageList   : any[] = [];
+  showCommunityList : any[] = [];
 
   constructor(
     private fb        : FormBuilder = new FormBuilder(),
@@ -77,25 +78,30 @@ export class CreateCustomerComponent implements OnInit {
         this.followStageList = res.result;
       }
     })
+    this.http.post('/common/showCommunityList').then(res => {
+      if (res.code == 1000) {
+        this.showCommunityList = res.result;
+      }
+    })
   }
 
   _customerFormInit(obj: any = {}) {
     this.customerForm = this.fb.group({
-      followStage   : ['', [Validators.required]],                                                        // 跟进阶段
-      nick          : ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],     // 宝宝昵称
-      name          : [''],                                                                               // 宝宝姓名
-      sex           : ['男'],                                                                             // 宝宝星币
-      ethnic        : [''],                                                                               // 民族
-      birthday      : [''],                                                                               // 宝宝生日
-      constellation : [''],                                                                               // 星座
-      babyType      : [''],                                                                               // 宝宝类型
-      communityId   : [''],                                                                               // 所属小区
-      remarks       : [''],                                                                               // 备注
+      followStageId        : ['', [Validators.required]],                                                        // 跟进阶段
+      nick                 : ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],     // 宝宝昵称
+      name                 : [''],                                                                               // 宝宝姓名
+      sex                  : ['男'],                                                                             // 宝宝性别
+      ethnic               : [''],                                                                               // 民族
+      birthday             : [''],                                                                               // 宝宝生日
+      constellation        : [''],                                                                               // 星座
+      babyType             : [''],                                                                               // 宝宝类型
+      communityId          : [''],                                                                               // 所属小区
+      visitRemarks         : [''],                                                                               // 备注
 
-      parentName    : ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],     // 家长姓名
-      mobilePhone   : ['', [Validators.required, Validators.pattern(/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/)]],
-      parentType    : ['', [Validators.required]],                                                        // 家长身份
-      qq            : [''],                                                                               // 家长QQ或者微信
+      parentName           : ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],     // 家长姓名
+      mobilePhone          : ['', [Validators.required, Validators.pattern(/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/)]],
+      parentRelationshipId : ['', [Validators.required]],                                                        // 家长身份
+      parentWechat         : ['', [Validators.pattern(/^[A-Za-z0-9]{6,30}/)]],                                   // 家长QQ或者微信
 
       sourceId        : ['', [Validators.required]],                                                        // 来源
       recommendedId   : [''],                                                                               // 推荐人
@@ -116,9 +122,7 @@ export class CreateCustomerComponent implements OnInit {
     } else {
       this._submitLoading = true;
       let params = this._id == '0' ? this.customerForm.value : Object.assign(this.customerForm.value, {id: this._id});
-      if (this._id != '0') {
-        params.id = this._id;
-      }
+      if (params.birthday) { params.birthday = params.birthday.split(' ')[0]}
       this.http.post('/customer/modifyUserInfo', { paramJson: JSON.stringify(params) }).then( res => {
         this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
         if (res.code == 1000) {
@@ -135,23 +139,32 @@ export class CreateCustomerComponent implements OnInit {
   }
 
 
-  private ceateHousingModal;
-  housingName     : string;
-  isConfirmLoading: boolean = false;
+  /* ----------------------- 新建小区 ----------------------- */
+  _ceateHousingModal;
+  housingName       : string;
+  isConfirmLoading  : boolean = false;
   ceateHousing(title, content, footer): void {
-    this.ceateHousingModal = this.modal.open({
+    this._ceateHousingModal = this.modal.open({
       title: title,
       content: content,
-      footer: footer,
-      onOk() {}
+      footer: footer
     });
   }
   submitHousing(): void {
-    if (this.housingName.length) {
-      // this.http.post(``)
+    if (this.housingName.length && !this.isConfirmLoading) {
+      this.isConfirmLoading = true;
+      this.http.post(`/common/addCommunity`, { paramJson: JSON.stringify({name: this.housingName}) }).then( res => {
+        this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
+        if (res.code == 1000) {
+          this._ceateHousingModal.destroy();
+          this.showCommunityList.unshift(res.result)
+        }
+        this.isConfirmLoading = false;
+      })
     }
   }
 
+  /* ----------------------- 计算星座 ----------------------- */
   _getAstro(month?, day?): string {
     if (!month) { return ''; }
     var s = "魔羯水瓶双鱼牡羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯";

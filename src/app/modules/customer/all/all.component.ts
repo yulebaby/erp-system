@@ -90,7 +90,7 @@ export class AllCustomerComponent implements OnInit {
       label       : '负责销售',
       key         : 'followSeller',
       type        : 'select',
-      optionsUrl  : '/common/recommenderList',
+      optionsUrl  : '/common/followSellerList',
       placeholder : '请选择负责销售',
       isHide      : true
     },
@@ -142,29 +142,13 @@ export class AllCustomerComponent implements OnInit {
       width : '80px'
     },
     {
-      name  : '所属小区',
-      width : '120px'
-    },
-    {
-      name  : '跟进状态',
+      name  : '客户状态',
       width : '80px'
     },
     {
       name  : '跟进阶段',
       width : '120px'
-    },
-    {
-      name  : '最后跟进时间',
-      width : '140px'
-    },
-    {
-      name  : '下次跟进时间',
-      width : '140px'
-    },
-    {
-      name  : '跟进销售',
-      width : '80px'
-    },
+    }
   ]
   checkedItems: any[] = [];
 

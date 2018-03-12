@@ -17,6 +17,7 @@ export class PreviewCustomerComponent implements OnInit {
 
   /* ------------ 用户信息 ------------ */
   userInfo        : any;
+  currentUserName : string;
 
   /* ------------ 跟进记录 ------------ */
   followRecord    : any[] = [];
@@ -49,7 +50,8 @@ export class PreviewCustomerComponent implements OnInit {
       this.isLoading = true;
       this.http.post('/customer/showCustomerInfo', { paramJson: JSON.stringify({ id: this._id }) }).then( res => {
         this.isLoading = false;
-        this.userInfo = res.result || {};
+        this.userInfo = res.result.member || {};
+        this.currentUserName = res.result.currentUserName;
         if (res.code != 1000) {
           this.message.warning(res.info);
         }
@@ -124,7 +126,7 @@ export class PreviewCustomerComponent implements OnInit {
 
   /* -------------------- 转为无意向客户 -------------------- */
   intentionCustomer(): void {
-    this.http.post('/customer/transitioNoIntentionCustomer', { id: this._id }).then( res => {
+    this.http.post('/customer/transitioNoIntentionCustomer', { paramJson: JSON.stringify({ id: this._id }) }).then( res => {
       this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
     });
   }
