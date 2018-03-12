@@ -16,7 +16,7 @@ export class CreateCanDeactivate implements CanDeactivate<CreateCustomerComponen
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Promise<boolean> | boolean | Observable<boolean> {
-        if (this.login.loginToPath.indexOf('/login') > -1 || component._loading) { return true; }
+        if (this.login.loginToPath.indexOf('/login') > -1 || component._submitLoading) { return true; }
         return new Observable( (observer) => {
             this.confirm.confirm({
                 title: '确认离开此页面吗?',

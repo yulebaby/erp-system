@@ -14,68 +14,100 @@ export class AllCustomerComponent implements OnInit {
   queryNode: object[] = [
     {
       label       : '宝宝姓名',
-      key         : 'babyName',
+      key         : 'name',
       type        : 'input',
-      default     : '默认值',
       placeholder : '请输入宝宝昵称'
     },
     {
-      label       : '选择框',
+      label       : '跟进状态',
+      key         : 'followStage',
+      type        : 'select',
+      optionsUrl  : '/common/followStageList',
+      placeholder : '请选择跟进状态'
+    },
+    {
+      label       : '来源',
+      key         : 'sourceId',
+      type        : 'select',
+      optionsUrl  : '/common/sourceList',
+      placeholder : '请选择客户来源'
+    },
+    {
+      label       : '家长姓名',
+      key         : 'parentName',
+      type        : 'input',
+      placeholder : '请输入家长姓名',
+      isHide      : true
+    }, 
+    {
+      label       : '手机号码',
+      key         : 'mobilePhone',
+      type        : 'input',
+      placeholder : '请输入家长手机号码',
+      isHide      : true
+    },
+    {
+      label       : '宝宝性别',
       key         : 'sex',
       type        : 'select',
-      options     : [ { label: '男', value: 1 }, { label: '女', value: 2 } ],
-      placeholder : '请选择需要的值'
+      options     : [ { name: '男', id: '男' }, { name: '女', id: '女' } ],
+      placeholder : '请选择宝宝性别',
+      isHide      : true
     },
     {
-      label       : '选择框',
-      key         : 'people',
-      type        : 'select',
-      options     : [ { name: '随便', id: 0 } ],
-      optionsUrl  : '/common/recommenderList',
-      optionKey   : { label: 'name', value: 'id' },
-      placeholder : '请选择需要的值'
-    },
-    {
-      label       : '时间区间',
-      key         : 'timeSlot',
+      label       : '宝宝生日',
+      key         : 'birthday',
       type        : 'datepicker',
-      valueKey    : ['timeStart', 'timeEnd'],
-      placeholder : ['选择开始时间', '选择结束时间']
-    },
-    {
-      label       : '隐藏输入框',
-      key         : 'hide0',
-      type        : 'select',
-      options     : [ { label: '男', value: 1 }, { label: '女', value: 2 } ],
-      placeholder : '请选择需要的值',
+      valueKey    : ['babyBirthdayStart', 'babyBirthdayEnd'],
+      placeholder : ['选择开始时间', '选择结束时间'],
       isHide      : true
     },
     {
-      label       : '隐藏输入框',
-      key         : 'hide1',
+      label       : '创建时间',
+      key         : 'createTime',
+      type        : 'datepicker',
+      valueKey    : ['createDateStart', 'createDateEnd'],
+      placeholder : ['选择开始时间', '选择结束时间'],
+      isHide      : true
+    },
+    {
+      label       : '下次跟进',
+      key         : 'nextFollowTime',
+      type        : 'datepicker',
+      valueKey    : ['nextFollowTimeStart', 'nextFollowTimeEnd'],
+      placeholder : ['选择开始时间', '选择结束时间'],
+      isHide      : true
+    },
+    {
+      label       : '最后跟进',
+      key         : 'lastFollowTime',
+      type        : 'datepicker',
+      valueKey    : ['lastFollowTimeStart', 'lastFollowTimeEnd'],
+      placeholder : ['选择开始时间', '选择结束时间'],
+      isHide      : true
+    },
+    {
+      label       : '负责销售',
+      key         : 'followSeller',
       type        : 'select',
-      options     : [ { name: '随便', id: 0 } ],
       optionsUrl  : '/common/recommenderList',
-      optionKey   : { label: 'name', value: 'id' },
-      placeholder : '请选择需要的值',
+      placeholder : '请选择负责销售',
       isHide      : true
     },
     {
-      label       : '隐藏输入框',
-      key         : 'hide2',
+      label       : '收集者',
+      key         : 'collector',
       type        : 'select',
-      options     : [ { label: '男', value: 1 }, { label: '女', value: 2 } ],
-      placeholder : '请选择需要的值',
+      optionsUrl  : '/common/collectorList',
+      placeholder : '请选择收集者',
       isHide      : true
     },
     {
-      label       : '隐藏输入框',
-      key         : 'hide3',
+      label       : '推荐人',
+      key         : 'recommended',
       type        : 'select',
-      options     : [ { name: '随便', id: 0 } ],
       optionsUrl  : '/common/recommenderList',
-      optionKey   : { label: 'name', value: 'id' },
-      placeholder : '请选择需要的值',
+      placeholder : '请选择推荐人',
       isHide      : true
     },
   ]

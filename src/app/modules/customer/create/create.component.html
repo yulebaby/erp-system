@@ -1,3 +1,5 @@
+<nz-spin [nzSpinning]="_selectLoading" nzTip="正在获取客户信息...">
+
 <div class="container">
 
   <form nz-form [formGroup]="customerForm">
@@ -9,11 +11,7 @@
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
           <nz-select formControlName="followStage" nzPlaceHolder="请选择跟进阶段" nzAllowClear>
-            <nz-option nzLabel="未跟进" nzValue="1"></nz-option>
-            <nz-option nzLabel="跟进中" nzValue="2"></nz-option>
-            <nz-option nzLabel="已预约到店体验" nzValue="3"></nz-option>
-            <nz-option nzLabel="已到店未体验" nzValue="4"></nz-option>
-            <nz-option nzLabel="已到店体验" nzValue="5"></nz-option>
+            <nz-option *ngFor="let item of followStageList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
           </nz-select>
           <div nz-form-explain *ngIf="getFormControl('followStage').dirty && getFormControl('followStage').hasError('required')">请选择跟进阶段</div>
         </div>
@@ -35,10 +33,10 @@
       </div>
       <div nz-form-item nz-row nz-col [nzSpan]="12">
         <div nz-form-label nz-col [nzSpan]="8">
-          <label for="babyName">宝宝姓名</label>
+          <label for="name">宝宝姓名</label>
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
-          <nz-input formControlName="babyName" nzPlaceHolder="请输入宝宝姓名" nzId="babyName"></nz-input>
+          <nz-input formControlName="name" nzPlaceHolder="请输入宝宝姓名" nzId="name"></nz-input>
         </div>
       </div>
       <div nz-form-item nz-row nz-col [nzSpan]="12">
@@ -67,10 +65,10 @@
       </div>
       <div nz-form-item nz-row nz-col [nzSpan]="12">
         <div nz-form-label nz-col [nzSpan]="8">
-          <label for="babyBirthday">宝宝生日</label>
+          <label for="birthday">宝宝生日</label>
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
-          <nz-datepicker formControlName="babyBirthday" nzPlaceHolder="请选择宝宝生日" [style.width]="'100%'"></nz-datepicker>
+          <nz-datepicker formControlName="birthday" nzPlaceHolder="请选择宝宝生日" [style.width]="'100%'"></nz-datepicker>
         </div>
       </div>
       <div nz-form-item nz-row nz-col [nzSpan]="12">
@@ -144,14 +142,7 @@
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
           <nz-select formControlName="parentType" nzPlaceHolder="请选择家长身份" nzAllowClear>
-            <nz-option nzLabel="爸爸" nzValue="1"></nz-option>
-            <nz-option nzLabel="妈妈" nzValue="2"></nz-option>
-            <nz-option nzLabel="爷爷" nzValue="3"></nz-option>
-            <nz-option nzLabel="奶奶" nzValue="4"></nz-option>
-            <nz-option nzLabel="外公" nzValue="5"></nz-option>
-            <nz-option nzLabel="外婆" nzValue="6"></nz-option>
-            <nz-option nzLabel="姑姑" nzValue="7"></nz-option>
-            <nz-option nzLabel="其他" nzValue="8"></nz-option>
+            <nz-option *ngFor="let item of parentIdentityList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
           </nz-select>
           <div nz-form-explain *ngIf="getFormControl('parentType').dirty && getFormControl('parentType').hasError('required')">请选择家长身份</div>
         </div>
@@ -176,15 +167,10 @@
           <label nz-form-item-required>来源</label>
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
-          <nz-select formControlName="source" nzPlaceHolder="请选择来源" nzAllowClear>
-            <nz-option nzLabel="线下地推" nzValue="1"></nz-option>
-            <nz-option nzLabel="主动到店" nzValue="2"></nz-option>
-            <nz-option nzLabel="小程序" nzValue="3"></nz-option>
-            <nz-option nzLabel="微信朋友圈" nzValue="4"></nz-option>
-            <nz-option nzLabel="今日头条" nzValue="5"></nz-option>
-            <nz-option nzLabel="其他" nzValue="6"></nz-option>
+          <nz-select formControlName="sourceId" nzPlaceHolder="请选择来源" nzAllowClear>
+            <nz-option *ngFor="let item of sourceList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
           </nz-select>
-          <div nz-form-explain *ngIf="getFormControl('source').dirty && getFormControl('source').hasError('source')">请选择来源</div>
+          <div nz-form-explain *ngIf="getFormControl('sourceId').dirty && getFormControl('sourceId').hasError('required')">请选择来源</div>
         </div>
       </div>
       <div nz-form-item nz-row nz-col [nzSpan]="12">
@@ -192,9 +178,8 @@
           <label>推荐人</label>
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
-          <nz-select formControlName="recommended" nzPlaceHolder="请选择推荐人" nzAllowClear>
-            <nz-option nzLabel="线下地推" nzValue="1"></nz-option>
-            <nz-option nzLabel="主动到店" nzValue="2"></nz-option>
+          <nz-select formControlName="recommendedId" nzPlaceHolder="请选择推荐人" nzAllowClear>
+            <nz-option *ngFor="let item of recommenderList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
           </nz-select>
         </div>
       </div>
@@ -203,10 +188,8 @@
           <label>收集人</label>
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
-          <nz-select formControlName="collector" nzPlaceHolder="请选择收集人" nzAllowClear>
-            <nz-option nzLabel="线下地推" nzValue="1"></nz-option>
-            <nz-option nzLabel="主动到店" nzValue="2"></nz-option>
-            <nz-option nzLabel="小程序" nzValue="3"></nz-option>
+          <nz-select formControlName="collectorId" nzPlaceHolder="请选择收集人" nzAllowClear>
+            <nz-option *ngFor="let item of collectorList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
           </nz-select>
         </div>
       </div>
@@ -214,7 +197,7 @@
     </div>
 
     <div class="form-footer">
-      <button nz-button nzType="primary" nzSize="large" [nzLoading]="_loading" (click)="_submit()">{{ _loading ? '提交中...' : '提交' }}</button>
+      <button nz-button nzType="primary" nzSize="large" [nzLoading]="_submitLoading" (click)="_submit()">{{ _submitLoading ? '提交中...' : '提交' }}</button>
       <button nz-button nzType="default" nzSize="large" routerLink="/home/customer/all">取消</button>
     </div>
 
@@ -223,6 +206,7 @@
 
 </div>
 
+</nz-spin>
 
 
 <!-- 新建小区模板 -->
