@@ -148,6 +148,7 @@ export class PreviewCustomerComponent implements OnInit {
     });
   }
 
+  /* -------------------- 修改跟进记录 -------------------- */
   _followRecordModal;
   updateFollowRecord(title, content, footer, item): void {
     this._followRecordModal = this.modal.open({
@@ -201,14 +202,27 @@ export class PreviewCustomerComponent implements OnInit {
   }
 
 
+  /* -------------------- 修改到店记录状态 -------------------- */
   editToShopRecord(status: number): void {
     this.http.post('/customer/editToShopRecord', { paramJson: JSON.stringify({ id: this._id, status: status }) }).then(res => {
       this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
     })
   }
 
+  /* -------------------- 获取电话号码 -------------------- */
+  getPhone(): void {
+    if (!this.userInfo.phone) {
+      this.http.post('/common/lookParentTelphone', { paramJson: JSON.stringify({ id: this._id }) }).then( res => {
+        if (res.code == 1000) {
+          this.userInfo.phone = res.result.mobilePhone
+        }
+      })
+    }
+  }
 
 
+
+  /* -------------------- 设置跟进记录内容标签展示 -------------------- */
   _resetFollowRecordContent(content: string): string {
     let matchArray = content.match(/#(.*?)#/g);
     if (matchArray) {

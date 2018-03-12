@@ -25,7 +25,7 @@
           </td>
           <td><a href="javascript: void(0);" [routerLink]="{outlets: {aux: 'preview/' + data.id}}">{{ data.nick }}</a></td>
           <td><i class="iconfont" [title]="data.sex" [ngClass]="[ data.sex === '男' ? 'icon-nan' : 'icon-nv']"></i></td>
-          <td>{{ data.xxxxx }}</td>
+          <td>{{ data.birthday | monthdiff }}</td>
           <td>{{ data.parentName }}</td>
           <td>{{ data.mobilePhone }}</td>
           <td>{{ data.createDate }}</td>
