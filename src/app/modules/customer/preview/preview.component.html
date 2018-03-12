@@ -246,7 +246,7 @@
                       <div class="card-head"><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3566699624,797839480&fm=27&gp=0.jpg" alt="头像"></div>
                       <div class="card-title">
                         <nz-tag nzColor="#108ee9">{{ currentUserName }}</nz-tag>
-                        <span>跟进家长：黄贤秋</span>
+                        <span>跟进家长：{{ userInfo?.parentName }}</span>
                       </div>
                       <div class="card-main" [innerHTML]="item.contentLabel"></div>
                     </ng-template>
