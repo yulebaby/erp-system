@@ -14,6 +14,7 @@ import { DistributionComponent } from './distribution/distribution.component';
 import { RelaxModule } from '../../relax/relax.module';
 import { CreateCustomerComponent } from './create/create.component';
 import { PreviewCustomerComponent } from './preview/preview.component';
+import { NointentionComponent } from './nointention/nointention.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,7 @@ import { PreviewCustomerComponent } from './preview/preview.component';
     TrackingRecordComponent, 
     PublicSeaPoolComponent, 
     RecycleBinComponent, 
-    DistributionComponent, CreateCustomerComponent, PreviewCustomerComponent
+    DistributionComponent, CreateCustomerComponent, PreviewCustomerComponent, NointentionComponent
   ],
   providers: [
     DatePipe,

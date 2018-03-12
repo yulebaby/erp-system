@@ -1,29 +1,14 @@
 <cm-query [node]="queryNode" (onSubmit)="CmTable.request($event)"></cm-query>
 
-<div class="list-buttons">
-  <button nz-button [nzType]="'primary'" routerLink="/home/customer/create/0">
-    <i class="anticon anticon-plus"></i>
-    <span>新建名单</span>
-  </button>
-  <button nz-button [nzType]="'default'">
-    <span>导入名单</span>
-  </button>
-</div>
-
-<cm-alert [isShow]="checkedItems.length" type="info">选择 <a href="javascript: void(0)">{{ checkedItems.length }}条</a> 相关记录</cm-alert>
-
-<cm-table #CmTable [thead]="tableNode" [expand]="true" [checked]="true" [(checkedItems)]="checkedItems" url="/customer/potentialCustomerList">
+<cm-table #CmTable [thead]="tableNode" [expand]="true" url="/customer/showNoIntentionCustomer">
   <ng-container>
     <tbody nz-tbody>
       <ng-template ngFor let-data [ngForOf]="CmTable.dataSet">
         <tr nz-tbody-tr>
-          <td nz-td nzCheckbox>
-            <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="CmTable.isChecked($event)"></label>
-          </td>
           <td nz-td nzExpand>
             <nz-row-expand-icon [(nzExpand)]="data.expand"></nz-row-expand-icon>
           </td>
-          <td><a href="javascript: void(0);" [routerLink]="{outlets: {aux: 'preview/' + data.id}}">{{ data.nick }}</a></td>
+          <td>{{ data.nick }}</td>
           <td><i class="iconfont" [title]="data.sex" [ngClass]="[ data.sex === '男' ? 'icon-nan' : 'icon-nv']"></i></td>
           <td>{{ data.xxxxx }}</td>
           <td>{{ data.parentName }}</td>
@@ -68,6 +53,3 @@
     </tbody>
   </ng-container>
 </cm-table>
-
-
-<router-outlet name="aux"></router-outlet>

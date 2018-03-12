@@ -21,6 +21,8 @@ export class CmTableComponent implements OnInit {
 
   @Input() expand             : boolean;
 
+  @Input() checked            : boolean;
+
   @Output() checkedItemsChange: EventEmitter<any[]> = new EventEmitter();
 
   dataSet       : object[] = [];
