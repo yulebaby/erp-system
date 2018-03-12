@@ -7,6 +7,7 @@ import { CmQueryComponent } from './components/cm-query/cm-query.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CmTableComponent } from './components/cm-table/cm-table.component';
 import { CmQuoteComponent } from './components/cm-quote/cm-quote.component';
+import { CmGettelComponent } from './components/cm-gettel/cm-gettel.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { CmQuoteComponent } from './components/cm-quote/cm-quote.component';
     CmAlertComponent,
     CmQueryComponent,
     CmTableComponent,
-    CmQuoteComponent
+    CmQuoteComponent,
+    CmGettelComponent
   ],
   providers: [
     HttpService,
@@ -29,7 +31,8 @@ import { CmQuoteComponent } from './components/cm-quote/cm-quote.component';
     CmAlertComponent,
     CmQueryComponent,
     CmTableComponent,
-    CmQuoteComponent
+    CmQuoteComponent,
+    CmGettelComponent
   ]
 })
 export class RelaxModule { }

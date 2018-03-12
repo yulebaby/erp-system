@@ -109,7 +109,7 @@
                     <label>手机号码</label>
                   </div>
                   <div nz-form-control nz-col [nzSpan]="16">
-                    <a href="javascript:;" (click)="getPhone()">{{ userInfo?.phone || '查看' }}</a>
+                    <cm-gettel [id]="_id"></cm-gettel>
                   </div>
                 </div>
               </div>

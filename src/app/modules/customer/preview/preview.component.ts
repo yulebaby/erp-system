@@ -209,19 +209,6 @@ export class PreviewCustomerComponent implements OnInit {
     })
   }
 
-  /* -------------------- 获取电话号码 -------------------- */
-  getPhone(): void {
-    if (!this.userInfo.phone) {
-      this.http.post('/common/lookParentTelphone', { paramJson: JSON.stringify({ id: this._id }) }).then( res => {
-        if (res.code == 1000) {
-          this.userInfo.phone = res.result.mobilePhone
-        }
-      })
-    }
-  }
-
-
-
   /* -------------------- 设置跟进记录内容标签展示 -------------------- */
   _resetFollowRecordContent(content: string): string {
     let matchArray = content.match(/#(.*?)#/g);
