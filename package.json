@@ -7,7 +7,6 @@
     "start": "ng serve --port 8088 --env=dev",
     "test": "ng build --prod --env=test",
     "build": "ng build --prod --env=prod",
-    "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

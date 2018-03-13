@@ -1,9 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { HttpService } from './../../../relax/services/http/http.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-create',
@@ -101,7 +102,7 @@ export class CreateCustomerComponent implements OnInit {
       visitRemarks         : [''],                                                                               // 备注
 
       parentName           : ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],     // 家长姓名
-      mobilePhone          : ['', [Validators.required, Validators.pattern(/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/)]],
+      mobilePhone: ['', [Validators.required, Validators.pattern(/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/)], [this._parentPhoneAsyncValidator]],
       parentRelationShipId : ['', [Validators.required]],                                                        // 家长身份
       parentWeChat         : ['', [Validators.pattern(/^[A-Za-z0-9]{6,30}/)]],                                   // 家长QQ或者微信
 
@@ -173,4 +174,17 @@ export class CreateCustomerComponent implements OnInit {
     var arr = [20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22, 22];
     return s.substr(month * 2 - (day < arr[month - 1] ? 2 : 0), 2) + '座';
   }
+
+
+  _parentPhoneAsyncValidator = (control: FormControl): any => {
+    return Observable.create( observer => {
+      this.http.post('/common/checkTelphoneNum', { paramJson: JSON.stringify({ mobilePhone: this.customerForm.get('mobilePhone').value }) }).then( res => {
+        observer.next(res.result ? null : { error: true, duplicated: true });
+        observer.complete();
+      }, err => {
+        observer.next(null);
+        observer.complete();
+      })
+    })
+  };
 }

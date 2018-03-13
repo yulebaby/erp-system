@@ -82,8 +82,8 @@ export class PreviewCustomerComponent implements OnInit {
     this.recordFormModel = this.fb.group({
       content       : ['', [Validators.required, Validators.max(200)]],     // 记录内容
       status        : [false],                                              // 是否预约过
-      followType    : ['', [Validators.required]],                          // 跟进方式
-      followStage   : ['', [Validators.required]],                          // 跟进状态
+      followType  : ['', [Validators.required]],                          // 跟进方式
+      followStage : ['', [Validators.required]],                          // 跟进状态
       nextFollowTime: ['']                                                  // 下次跟进时间
     });
     this._updateFollowRecordFormModel = this.fb.group({
@@ -91,8 +91,8 @@ export class PreviewCustomerComponent implements OnInit {
       memberId      : [''],
       content       : ['', [Validators.required, Validators.max(200)]],
       status        : [false],                                         
-      followType    : ['', [Validators.required]],                     
-      followStage   : ['', [Validators.required]],                     
+      followType  : ['', [Validators.required]],                     
+      followStage : ['', [Validators.required]],                     
       nextFollowTime: ['']                                             
     });
 
