@@ -26,6 +26,10 @@ export class UserService {
             this.router.navigateByUrl('/user/login');
         }
     }
+    signOut(): void {
+        window.localStorage.removeItem('userInfo');
+        this.router.navigateByUrl('/user/login');
+    }
 }
 
 interface UserInfo {

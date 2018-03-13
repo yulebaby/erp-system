@@ -1,3 +1,4 @@
+import { UserService } from './../../modules/user/user.service';
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 
 @Component({
@@ -11,7 +12,7 @@ export class HeaderComponent implements OnInit {
 
   @Input() isCollapsed: boolean = false;
 
-  constructor() { }
+  constructor(public user: UserService) { }
 
   ngOnInit() {
   }
