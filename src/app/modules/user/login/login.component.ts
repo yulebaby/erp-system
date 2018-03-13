@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { HttpService } from './../../../relax/services/http/http.service';
 import { Component, OnInit } from '@angular/core';
+import { Md5 } from "ts-md5/dist/md5";
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,8 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
       remember: [true]
     });
+
+    console.log(Md5.hashStr('黄埔'))
   }
 
   _submit() {
@@ -34,7 +37,8 @@ export class LoginComponent implements OnInit {
     }
 
     if (this.loginForm.valid) {
-      this.http.get('/auth/login?username=t__bby&password=q123456').then(res => {
+      
+      this.http.post('/auth/login', this.loginForm.value).then(res => {
         if (res.code == 1000) {
           this.router.navigateByUrl(this.login.loginSource || '/home')
         }

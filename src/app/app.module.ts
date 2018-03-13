@@ -42,7 +42,6 @@ import { IndexComponent } from './base/index/index.component';
     BrowserAnimationsModule,
     NgZorroAntdModule.forRoot()
   ],
-  bootstrap: [AppComponent],
   providers: [
     HttpService,
     LoginService,
@@ -53,6 +52,7 @@ import { IndexComponent } from './base/index/index.component';
       multi: true,
     },
     { provide: NZ_MESSAGE_CONFIG, useValue: { nzDuration: 3000, nzMaxStack: 2 } }
-  ]
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
