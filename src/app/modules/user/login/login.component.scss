@@ -120,6 +120,13 @@
         }
     }
 
+    .login-error {
+        height: 18px;
+        font-size: 14px;
+        line-height: 18px;
+        color: #f04134;
+    }
+
 }
 :host ::ng-deep {
     nz-input {
@@ -201,7 +208,7 @@
             span {
                 left: 16px !important;
                 i {
-                    font-size: 16px;
+                    font-size: 20px;
                 }
             }
         }

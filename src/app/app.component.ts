@@ -27,13 +27,13 @@ export class AppComponent {
       }
     });
 
-    setInterval( _ => {
-      this._showHomePage();
-    }, 10 * 60 * 1000)
+    // setInterval( _ => {
+    //   this._showHomePage();
+    // }, 10 * 60 * 1000)
 
-    setTimeout(() => {
-      this._showHomePage();
-    }, 1000);
+    // setTimeout(() => {
+    //   this._showHomePage();
+    // }, 1000);
   }
 
   _showHomePage(): void {

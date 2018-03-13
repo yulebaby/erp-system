@@ -45,9 +45,10 @@
         </div>
         <div nz-form-item>
           <div nz-form-control>
-            <button nz-button class="login-form-button" [nzType]="'primary'" [nzSize]="'large'">确定登录</button>
+            <button nz-button class="login-form-button" [nzType]="'primary'" [nzSize]="'large'" [nzLoading]="loginLoading">{{ loginLoading ? '登录中...' : '确定登录' }}</button>
           </div>
         </div>
+        <div class="login-error">{{ loginError }}</div>
       </form>
     </div>
 

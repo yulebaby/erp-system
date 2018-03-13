@@ -1,3 +1,4 @@
+import { UserService } from './user.service';
 import { HttpService } from './../../relax/services/http/http.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -17,7 +18,8 @@ import { LoginService } from './login/login.service';
   ],
   providers: [
     HttpService,
-    LoginService
+    LoginService,
+    UserService
   ],
   declarations: [LoginComponent]
 })
