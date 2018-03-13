@@ -4,6 +4,7 @@ import { LoginService } from './login.service';
 import { HttpService } from './../../../relax/services/http/http.service';
 import { Component, OnInit } from '@angular/core';
 import { Md5 } from "ts-md5/dist/md5";
+import { AES } from "crypto-js";
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,12 @@ export class LoginComponent implements OnInit {
       remember: [true]
     });
 
-    console.log(Md5.hashStr('黄埔'))
+    console.log(Md5.hashStr('黄埔'), AES.encrypt('', 'xxxxxx'));
+
+    const cipher = AES.createCipher('aes192', 'xxxxxxxx');
+    let crypted = cipher.update('phuhoang', 'utf8', 'hex');
+    crypted += cipher.final('hex');
+    console.log(crypted)
   }
 
   _submit() {
