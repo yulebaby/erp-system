@@ -20,6 +20,7 @@ import { BreadcrumbComponent } from './frames/content/breadcrumb/breadcrumb.comp
 import { BaseComponent } from './frames/base.component';
 import { NoopInterceptor } from './relax/services/http/http.intercept';
 import { IndexComponent } from './base/index/index.component';
+import { UserService } from './modules/user/user.service';
 
 
 
@@ -45,6 +46,7 @@ import { IndexComponent } from './base/index/index.component';
   providers: [
     HttpService,
     LoginService,
+    UserService,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     {
       provide: HTTP_INTERCEPTORS,

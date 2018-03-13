@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
       this.http.post('/auth/login', params).then(res => {
         this.loginLoading = false;
         if (res.code == 1000) {
-          this.user = res.result;
+          this.user.setUser(res.result);
           if (params.remember) {
             window.localStorage.setItem('username', JSON.stringify(this.loginForm.value));
           }
