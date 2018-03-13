@@ -1,5 +1,5 @@
 import { NzNotificationService } from 'ng-zorro-antd';
-import { LoginService } from './base/login/login.service';
+import { LoginService } from './modules/user/login/login.service';
 import { Router, NavigationStart } from '@angular/router';
 import { HttpService } from './relax/services/http/http.service';
 import { Component } from '@angular/core';

@@ -3,7 +3,7 @@ import { ErrorComponent } from './base/error/error.component';
 import { BaseComponent } from './frames/base.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './base/login/login.component';
+
 
 const routes: Routes = [
   {
@@ -12,8 +12,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'login',
-    component: LoginComponent
+    path: 'user',
+    loadChildren: 'app/modules/user/user.module#UserModule'
   },
   {
     path: 'home',
@@ -40,11 +40,6 @@ const routes: Routes = [
         loadChildren: 'app/modules/customer/customer.module#CustomerModule'
       }
     ]
-  },
-  {
-    path: 'login',
-    data: { title: '登录' },
-    component: LoginComponent
   },
   {
     path: 'error/:type',

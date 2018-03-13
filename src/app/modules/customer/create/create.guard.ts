@@ -1,4 +1,4 @@
-import { LoginService } from './../../../base/login/login.service';
+import { LoginService } from './../../../modules/user/login/login.service';
 import { Observable } from 'rxjs/Rx';
 import { CreateCustomerComponent } from './create.component';
 import { Injectable } from '@angular/core';

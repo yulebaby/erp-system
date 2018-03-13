@@ -1,0 +1,116 @@
+.container {
+    display: flex;
+    height: 100%;
+    & > div {
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .box {
+        display: flex;
+        flex: auto;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background: -webkit-linear-gradient(left top,#76b4ff ,#0167fc);
+        background: -o-linear-gradient(bottom right, #76b4ff ,#0167fc);
+        background: -moz-linear-gradient(bottom right, #76b4ff ,#0167fc);
+        background: linear-gradient(to bottom right, #76b4ff ,#0167fc);
+
+        .login-ico {
+            width: 755px;
+            max-width: 80%;
+            position: relative;
+            margin-top: -100px;
+            img {
+                width: 100%;
+            }
+        }
+
+        .login-logo {
+            width: 18%;
+            max-width: 205px;
+            min-width: 160px;
+            position: absolute;
+            right: 14%;
+            bottom: 80px;
+            img {
+                width: 100%;
+            }
+        }
+    }
+    .form {
+        width: 40%;
+        max-width: 800px;
+        min-width: 500px;
+        flex: 0 0 auto;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        .cell {
+            width: 100%;
+            position: relative;
+            margin-top: -100px;
+        }
+        .content {
+            padding: 0 80px;
+        }
+
+        .login-title {
+            width: 44%;
+            margin: 0 auto 60px;
+            img {
+                width: 100%;
+            }
+        }
+        .login-form-forgot {
+            float: right;
+            font-size: 18px;
+            font-weight: 400;
+        }
+        .login-form-button {
+            width: 100%;
+            height: 66px;
+            font-size: 24px;
+            font-weight: 400;
+        }
+    }
+
+}
+:host ::ng-deep {
+    nz-input {
+        height: 66px;
+        input {
+            padding-left: 74px !important;
+            font-size: 18px;
+        }
+        span {
+            left: 26px !important;
+            i {
+                font-size: 28px;
+            }
+        }
+    }
+    .ant-checkbox-inner {
+        width: 18px;
+        height: 18px;
+        &:after {
+            top: 3px;
+            left: 5px;
+        }
+    }
+    .ant-checkbox-checked .ant-checkbox-inner:after {
+        transform: rotate(45deg) scale(1.2) !important;
+    }
+}
+
+@media (max-width: 1200px) {
+
+}
+@media (max-width: 1600px) {
+
+}
