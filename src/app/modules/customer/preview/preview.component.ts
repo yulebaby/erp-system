@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { HttpService } from './../../../relax/services/http/http.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -82,8 +82,9 @@ export class PreviewCustomerComponent implements OnInit {
     this.recordFormModel = this.fb.group({
       content       : ['', [Validators.required, Validators.max(200)]],     // 记录内容
       status        : [false],                                              // 是否预约过
-      followType  : ['', [Validators.required]],                          // 跟进方式
-      followStage : ['', [Validators.required]],                          // 跟进状态
+      // reserveDate   : ['', this.reserveDateValidator],
+      followType    : ['', [Validators.required]],                          // 跟进方式
+      followStage   : ['', [Validators.required]],                          // 跟进状态
       nextFollowTime: ['']                                                  // 下次跟进时间
     });
     this._updateFollowRecordFormModel = this.fb.group({
@@ -91,8 +92,8 @@ export class PreviewCustomerComponent implements OnInit {
       memberId      : [''],
       content       : ['', [Validators.required, Validators.max(200)]],
       status        : [false],                                         
-      followType  : ['', [Validators.required]],                     
-      followStage : ['', [Validators.required]],                     
+      followType    : ['', [Validators.required]],                     
+      followStage   : ['', [Validators.required]],                     
       nextFollowTime: ['']                                             
     });
 
@@ -110,6 +111,8 @@ export class PreviewCustomerComponent implements OnInit {
       }
     })
   }
+
+  
 
 
   /* ------------------- 点击记录标签 ------------------- */
@@ -220,5 +223,13 @@ export class PreviewCustomerComponent implements OnInit {
     return content;
   }
 
+
+  reserveDateValidator(date: FormControl): any {
+    console.log(date)
+    if (this.recordFormModel.get('status').value && !date.value) {
+      return { desc: '日期为必填相' }
+    }
+    return null
+  }
 
 }
