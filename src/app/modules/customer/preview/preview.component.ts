@@ -120,7 +120,7 @@ export class PreviewCustomerComponent implements OnInit {
     this.recordFormModel = this.fb.group({
       content       : ['', [Validators.required, Validators.max(200)]],     // 记录内容
       followType    : ['', [Validators.required]],                          // 跟进方式
-      followStage   : ['', [Validators.required]],                          // 跟进状态
+      memberStatusId   : ['', [Validators.required]],                          // 客户状态
       nextFollowTime: [''],                                                 // 下次跟进时间
       reserve       : this.fb.group({
                         status        : [false],
@@ -141,7 +141,7 @@ export class PreviewCustomerComponent implements OnInit {
       memberId      : [''],
       content       : ['', [Validators.required, Validators.max(200)]],                                     
       followType    : ['', [Validators.required]],                     
-      followStage   : ['', [Validators.required]],                     
+      memberStatusId   : ['', [Validators.required]],                     
       nextFollowTime: [''],
       reserve       : this.fb.group({
                         status        : [false],
@@ -189,7 +189,7 @@ export class PreviewCustomerComponent implements OnInit {
     }
 
     let [ model, reserve ] = [ this.recordFormModel, this.recordFormModel.get('reserve') ];
-    let mainValid = model.get('content').valid && model.get('followStage').valid && model.get('followType').valid;
+    let mainValid = model.get('content').valid && model.get('memberStatusId').valid && model.get('followType').valid;
     let childValid = reserve.get('status').value && reserve.get('reserveDate').valid && reserve.get('reserveHour').valid || !reserve.get('status').value;
     if (mainValid && childValid) {
       let params = this.recordFormModel.value;
@@ -233,7 +233,7 @@ export class PreviewCustomerComponent implements OnInit {
     let controls = {
       id             : item.id,
       content        : item.content,
-      followStage    : item.followStage,
+      memberStatusId    : item.memberStatusId,
       followType     : item.followType,
       memberId       : item.memberId,
       nextFollowTime : item.nextFollowTime,
@@ -275,7 +275,7 @@ export class PreviewCustomerComponent implements OnInit {
           this.followRecord.map(item => {
             if (item.id === this._updateFollowRecordFormModel.value.id) {
               item.content        = res.result.content;
-              item.followStage    = res.result.followStage;
+              item.memberStatusId    = res.result.memberStatusId;
               item.followType     = res.result.followType;
               item.nextFollowTime = res.result.nextFollowTime;
               item.status         = res.result.status;
