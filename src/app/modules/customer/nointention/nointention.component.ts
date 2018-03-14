@@ -85,14 +85,6 @@ export class NointentionComponent implements OnInit {
       isHide      : true
     },
     {
-      label       : '负责销售',
-      key         : 'followSellerId',
-      type        : 'select',
-      optionsUrl  : '/common/followSellerList',
-      placeholder : '请选择负责销售',
-      isHide      : true
-    },
-    {
       label       : '收集者',
       key         : 'collectorId',
       type        : 'select',
