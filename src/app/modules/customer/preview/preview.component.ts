@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { HttpService } from './../../../relax/services/http/http.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -36,6 +36,44 @@ export class PreviewCustomerComponent implements OnInit {
   
   followTypeList  : any[] = [];
   showMemberStatus: any[] = [];
+  reserveHourList : any[] = [
+    { name: '09:00', id: '09:00' },
+    { name: '09:15', id: '09:15' },
+    { name: '09:30', id: '09:30' },
+    { name: '09:45', id: '09:45' },
+    { name: '10:00', id: '10:00' },
+    { name: '10:15', id: '10:15' },
+    { name: '10:30', id: '10:30' },
+    { name: '10:45', id: '10:45' },
+    { name: '11:00', id: '11:00' },
+    { name: '11:15', id: '11:15' },
+    { name: '11:30', id: '11:30' },
+    { name: '11:45', id: '11:45' },
+    { name: '12:00', id: '12:00' },
+    { name: '12:15', id: '12:15' },
+    { name: '12:30', id: '12:30' },
+    { name: '12:45', id: '12:45' },
+    { name: '13:00', id: '13:00' },
+    { name: '13:15', id: '13:15' },
+    { name: '13:30', id: '13:30' },
+    { name: '13:45', id: '13:45' },
+    { name: '14:00', id: '14:00' },
+    { name: '14:15', id: '14:15' },
+    { name: '14:30', id: '14:30' },
+    { name: '14:45', id: '14:45' },
+    { name: '15:00', id: '15:00' },
+    { name: '15:15', id: '15:15' },
+    { name: '15:30', id: '15:30' },
+    { name: '15:45', id: '15:45' },
+    { name: '16:00', id: '16:00' },
+    { name: '16:15', id: '16:15' },
+    { name: '16:30', id: '16:30' },
+    { name: '16:45', id: '16:45' },
+    { name: '17:00', id: '17:00' },
+    { name: '17:15', id: '17:15' },
+    { name: '17:30', id: '17:30' },
+    { name: '17:45', id: '17:45' }
+  ]
 
   constructor(
     private routeInfo : ActivatedRoute,
@@ -81,12 +119,23 @@ export class PreviewCustomerComponent implements OnInit {
 
     this.recordFormModel = this.fb.group({
       content       : ['', [Validators.required, Validators.max(200)]],     // 记录内容
-      status        : [false],                                              // 是否预约过
-      // reserveDate   : ['', this.reserveDateValidator],
       followType    : ['', [Validators.required]],                          // 跟进方式
       followStage   : ['', [Validators.required]],                          // 跟进状态
-      nextFollowTime: ['']                                                  // 下次跟进时间
+      nextFollowTime: [''],                                                 // 下次跟进时间
+      reserve       : this.fb.group({
+                        status        : [false],
+                        reserveDate   : ['', [Validators.required]],
+                        reserveHour   : ['', [Validators.required]]
+                    })
     });
+
+    this.recordFormModel.get('reserve').get('status').valueChanges.subscribe( res => {
+      this.recordFormModel.get('reserve').patchValue({
+        reserveDate: res ? '' : new Date(),
+        reserveHour: res ? '' : '00:00',
+      })
+    })
+    
     this._updateFollowRecordFormModel = this.fb.group({
       id            : [''],
       memberId      : [''],
@@ -94,8 +143,19 @@ export class PreviewCustomerComponent implements OnInit {
       status        : [false],                                         
       followType    : ['', [Validators.required]],                     
       followStage   : ['', [Validators.required]],                     
-      nextFollowTime: ['']                                             
+      nextFollowTime: [''],
+      reserve       : this.fb.group({
+                        status        : [false],
+                        reserveDate   : ['', [Validators.required]],
+                        reserveHour   : ['', [Validators.required]]
+                    })                                          
     });
+    this._updateFollowRecordFormModel.get('reserve').get('status').valueChanges.subscribe(res => {
+      this._updateFollowRecordFormModel.get('reserve').patchValue({
+        reserveDate: res ? '' : new Date(),
+        reserveHour: res ? '' : '00:00',
+      })
+    })
 
 
     /* ------------------- 客户状态 ------------------- */
@@ -112,8 +172,6 @@ export class PreviewCustomerComponent implements OnInit {
     })
   }
 
-  
-
 
   /* ------------------- 点击记录标签 ------------------- */
   tapTag(value: string, form: FormGroup): void {
@@ -127,12 +185,21 @@ export class PreviewCustomerComponent implements OnInit {
     for (const key in this.recordFormModel.controls) {
       this.recordFormModel.controls[key].markAsDirty();
     }
+    for (const key in this.recordFormModel.get('reserve')['controls']) {
+      this.recordFormModel.get('reserve')['controls'][key].markAsDirty();
+    }
 
     if (this.recordFormModel.valid) {
       let params = this.recordFormModel.value;
       params.memberId = this._id;
       params.nextFollowTime = params.nextFollowTime ? this.format.transform(params.nextFollowTime, 'yyyy-MM-dd') : '';
-      params.status = params.status ? 0 : 1;
+      params.status = params.reserve.status ? 0 : 1;
+      if (params.status === 0) {
+        params.reserveDate   = params.reserve.reserveDate ? this.format.transform(params.reserve.reserveDate, 'yyyy-MM-dd') : '';
+        params.reserveHour   = params.reserve.reserveHour ? params.reserve.reserveHour.split(':')[0] : '';
+        params.reserveMinute = params.reserve.reserveHour ? params.reserve.reserveHour.split(':')[1] : '';
+      }
+      delete params.reserve;
       this.http.post('/customer/addFollowRecord', { paramJson: JSON.stringify(params) }).then( res => {
         this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
         if (res.code == 1000) {
@@ -223,13 +290,8 @@ export class PreviewCustomerComponent implements OnInit {
     return content;
   }
 
-
-  reserveDateValidator(date: FormControl): any {
-    console.log(date)
-    if (this.recordFormModel.get('status').value && !date.value) {
-      return { desc: '日期为必填相' }
-    }
-    return null
+  _disabledDate(current: Date): boolean {
+    return current && current.getTime() < Date.now();
   }
 
 }

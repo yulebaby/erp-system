@@ -163,28 +163,28 @@
                   </div>
                 </div>
                 <div class="form-content">
-                  <div nz-form-item class="form-item" style="width: 100px;">
-                    <div nz-form-control>
-                      <nz-switch formControlName="status">
-                        <span checked>已预约到店</span>
-                        <span unchecked>未预约到店</span>
-                      </nz-switch>
+                  <div style="float: left;" formGroupName="reserve">
+                    <div nz-form-item class="form-item" style="width: 100px;">
+                      <div nz-form-control>
+                        <nz-switch formControlName="status">
+                          <span checked>已预约到店</span>
+                          <span unchecked>未预约到店</span>
+                        </nz-switch>
+                      </div>
                     </div>
-                  </div>
-                  <div nz-form-item class="form-item" style="width: 120px;" *ngIf="recordFormModel.get('status').value">
-                    <div nz-form-control [nzValidateStatus]="recordFormModel.get('followType')">
-                      <nz-select formControlName="followType" nzPlaceHolder="请选择跟进方式">
-                        <nz-option *ngFor="let item of followTypeList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
-                      </nz-select>
-                      <div nz-form-explain *ngIf="recordFormModel.get('followType').dirty && recordFormModel.get('followType').hasError('required')">请选择跟进方式</div>
+                    <div nz-form-item class="form-item" style="width: 120px;" *ngIf="recordFormModel.get('reserve').get('status').value">
+                      <div nz-form-control [nzValidateStatus]="recordFormModel.get('reserve').get('reserveDate')">
+                        <nz-datepicker formControlName="reserveDate" nzPlaceHolder="请选择预约时间" [nzDisabledDate]="_disabledDate"></nz-datepicker>
+                        <div nz-form-explain *ngIf="recordFormModel.get('reserve').get('reserveDate').dirty && recordFormModel.get('reserve').get('reserveDate').hasError('required')">请选择预约时间</div>
+                      </div>
                     </div>
-                  </div>
-                  <div nz-form-item class="form-item" style="width: 120px;" *ngIf="recordFormModel.get('status').value">
-                    <div nz-form-control [nzValidateStatus]="recordFormModel.get('followType')">
-                      <nz-select formControlName="followType" nzPlaceHolder="请选择跟时间段">
-                        <nz-option *ngFor="let item of followTypeList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
-                      </nz-select>
-                      <div nz-form-explain *ngIf="recordFormModel.get('followType').dirty && recordFormModel.get('followType').hasError('required')">请选择跟进方式</div>
+                    <div nz-form-item class="form-item" style="width: 120px;" *ngIf="recordFormModel.get('reserve').get('status').value">
+                      <div nz-form-control [nzValidateStatus]="recordFormModel.get('reserve').get('reserveHour')">
+                        <nz-select formControlName="reserveHour" nzPlaceHolder="请选择时间段" nzShowSearch nzAllowClear>
+                          <nz-option *ngFor="let item of reserveHourList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+                        </nz-select>
+                        <div nz-form-explain *ngIf="recordFormModel.get('reserve').get('reserveHour').dirty && recordFormModel.get('reserve').get('reserveHour').hasError('required')">请选择预约时间段</div>
+                      </div>
                     </div>
                   </div>
                   <div nz-form-item class="form-item" style="width: 120px;">
@@ -325,7 +325,7 @@
         </div>
         <div nz-form-item nz-col [nzSpan]="6">
           <div nz-form-control>
-            <nz-datepicker formControlName="nextFollowTime" nzPlaceHolder="选择下次跟进时间"></nz-datepicker>
+            <nz-datepicker formControlName="nextFollowTime" nzPlaceHolder="选择下次跟进时间" nzAllowClear></nz-datepicker>
           </div>
         </div>
       </div>
