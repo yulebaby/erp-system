@@ -136,17 +136,18 @@
         padding-left: 60px;
     }
 
-    .form-content {
-        overflow: hidden;
-        .form-item {
-            float: left;
-            margin-right: 15px;
-        }
-        .form-btn {
-            float: right;
-        }
-    }
 
+}
+
+.form-content {
+    overflow: hidden;
+    .form-item {
+        float: left;
+        margin-right: 15px;
+    }
+    .form-btn {
+        float: right;
+    }
 }
 
 :host ::ng-deep {

@@ -1,10 +1,19 @@
 <cm-query [node]="queryNode" (onSubmit)="CmTable.request($event)"></cm-query>
 
-<cm-table #CmTable [thead]="tableNode" [expand]="true" url="/customer/showNoIntentionCustomer">
+
+<cm-alert [isShow]="checkedItems.length" type="info">
+  选择 <a href="javascript: void(0)">{{ checkedItems.length }}条</a> 相关记录
+  <a href="javascript:;" (click)="gainClue()">捞取</a>
+</cm-alert>
+
+<cm-table #CmTable [thead]="tableNode" [expand]="true" [checked]="true" [(checkedItems)]="checkedItems" url="/customer/showNoIntentionCustomer">
   <ng-container>
     <tbody nz-tbody>
       <ng-template ngFor let-data [ngForOf]="CmTable.dataSet">
         <tr nz-tbody-tr>
+          <td nz-td nzCheckbox>
+            <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="CmTable.isChecked($event)"></label>
+          </td>
           <td nz-td nzExpand>
             <nz-row-expand-icon [(nzExpand)]="data.expand"></nz-row-expand-icon>
           </td>

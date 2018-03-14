@@ -139,8 +139,7 @@ export class PreviewCustomerComponent implements OnInit {
     this._updateFollowRecordFormModel = this.fb.group({
       id            : [''],
       memberId      : [''],
-      content       : ['', [Validators.required, Validators.max(200)]],
-      status        : [false],                                         
+      content       : ['', [Validators.required, Validators.max(200)]],                                     
       followType    : ['', [Validators.required]],                     
       followStage   : ['', [Validators.required]],                     
       nextFollowTime: [''],
@@ -221,11 +220,12 @@ export class PreviewCustomerComponent implements OnInit {
   /* -------------------- 修改跟进记录 -------------------- */
   _followRecordModal;
   updateFollowRecord(title, content, footer, item): void {
+    console.log(item)
     this._followRecordModal = this.modal.open({
       title   : title,
       content : content,
       footer  : footer,
-      width   : 700
+      width   : 800
     });
     let controls = {
       id             : item.id,
@@ -234,7 +234,12 @@ export class PreviewCustomerComponent implements OnInit {
       followType     : item.followType,
       memberId       : item.memberId,
       nextFollowTime : item.nextFollowTime,
-      status         : item.status == 0
+      
+      reserve        : {
+                        status      : item.status == 0,
+                        reserveDate : new Date(item.reserveDate),
+                        reserveHour : item.reserveHour + ':' + item.reserveMinute
+                      }
     };
     this._updateFollowRecordFormModel.patchValue(controls);
   }
@@ -243,13 +248,22 @@ export class PreviewCustomerComponent implements OnInit {
     for (const key in this._updateFollowRecordFormModel.controls) {
       this._updateFollowRecordFormModel.controls[key].markAsDirty();
     }
+    for (const key in this._updateFollowRecordFormModel.get('reserve')['controls']) {
+      this._updateFollowRecordFormModel.get('reserve')['controls'][key].markAsDirty();
+    }
 
     if (this._updateFollowRecordFormModel.valid && !this._saveUpdateFollowRecordLoading) {
       this._saveUpdateFollowRecordLoading = true;
 
       let params = this._updateFollowRecordFormModel.value;
       params.nextFollowTime = params.nextFollowTime ? this.format.transform(params.nextFollowTime, 'yyyy-MM-dd') : '';
-      params.status = params.status ? 0 : 1;
+      params.status = params.reserve.status ? 0 : 1;
+      if (params.status === 0) {
+        params.reserveDate                    = params.reserve.reserveDate ? this.format.transform(params.reserve.reserveDate, 'yyyy-MM-dd') : '';
+        params.reserveHour   = params.reserve.reserveHour ? params.reserve.reserveHour.split(':')[0] : '';
+        params.reserveMinute = params.reserve.reserveHour ? params.reserve.reserveHour.split(':')[1] : '';
+      }
+      delete params.reserve;
       this.http.post('/customer/addFollowRecord', { paramJson: JSON.stringify(params) }).then(res => {
         this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
         this._saveUpdateFollowRecordLoading = false;

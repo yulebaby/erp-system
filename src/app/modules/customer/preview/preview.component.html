@@ -229,10 +229,10 @@
                           <label>跟进时间：</label><span>{{ item.createTime }}</span>
                         </div>
                         <div>
-                          <label>客户状态：</label><span>{{ item.followStage == 1 ? '潜在客户' : item.followStage == 2 ? '初步接触' : item.followStage == 3 ? '持续跟进' : '意向客户' }}</span>
+                          <label>客户状态：</label><span>{{ item.followStageName }}</span>
                         </div>
                         <div>
-                          <label>跟进方式：</label><span>{{ item.followType == 1 ? '电话' : item.followType == 2 ? '微信' : item.followType == 3 ? 'Q Q' : '面谈' }}</span>
+                          <label>跟进方式：</label><span>{{ item.followTypeName }}</span>
                         </div>
                         <div>
                           <label>跟进阶段：</label><span>第{{ followRecord.length - idx }}次跟进</span>
@@ -261,7 +261,7 @@
                     <ng-template #body>
                       <div class="card-head"><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3566699624,797839480&fm=27&gp=0.jpg" alt="头像"></div>
                       <div class="card-title">
-                        <nz-tag nzColor="#108ee9">{{ currentUserName }}</nz-tag>
+                        <nz-tag nzColor="#108ee9">{{ item.userName }}</nz-tag>
                         <span>跟进家长：{{ userInfo?.parentName }}</span>
                       </div>
                       <div class="card-main" [innerHTML]="item.contentLabel"></div>
@@ -298,16 +298,32 @@
           <nz-tag nzColor="blue" (click)="tapTag('#'+ item.name +'#', _updateFollowRecordFormModel)" *ngFor="let item of labelList">#{{ item.name }}#</nz-tag>
         </div>
       </div>
-      <div nz-row>
-        <div nz-form-item nz-col [nzSpan]="6" style="padding-right: 15px;">
-          <div nz-form-control>
-            <nz-switch formControlName="status">
-              <span checked>已预约到店</span>
-              <span unchecked>未预约到店</span>
-            </nz-switch>
+      <div nz-row class="form-content">
+        <div style="float: left" formGroupName="reserve">
+          <div nz-form-item class="form-item" style="width: 100px;">
+            <div nz-form-control>
+              <nz-switch formControlName="status">
+                <span checked>已预约到店</span>
+                <span unchecked>未预约到店</span>
+              </nz-switch>
+            </div>
+          </div>
+          <div nz-form-item class="form-item" style="width: 120px;" *ngIf="_updateFollowRecordFormModel.get('reserve').get('status').value">
+            <div nz-form-control [nzValidateStatus]="_updateFollowRecordFormModel.get('reserve').get('reserveDate')">
+              <nz-datepicker formControlName="reserveDate" nzPlaceHolder="请选择预约时间" [nzDisabledDate]="_disabledDate"></nz-datepicker>
+              <div nz-form-explain *ngIf="_updateFollowRecordFormModel.get('reserve').get('reserveDate').dirty && _updateFollowRecordFormModel.get('reserve').get('reserveDate').hasError('required')">请选择预约时间</div>
+            </div>
+          </div>
+          <div nz-form-item class="form-item" style="width: 100px;" *ngIf="_updateFollowRecordFormModel.get('reserve').get('status').value">
+            <div nz-form-control [nzValidateStatus]="_updateFollowRecordFormModel.get('reserve').get('reserveHour')">
+              <nz-select formControlName="reserveHour" nzPlaceHolder="请选择时间段" nzShowSearch nzAllowClear>
+                <nz-option *ngFor="let item of reserveHourList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+              </nz-select>
+              <div nz-form-explain *ngIf="_updateFollowRecordFormModel.get('reserve').get('reserveHour').dirty && _updateFollowRecordFormModel.get('reserve').get('reserveHour').hasError('required')">请选择预约时间段</div>
+            </div>
           </div>
         </div>
-        <div nz-form-item nz-col [nzSpan]="6" style="padding-right: 15px;">
+        <div nz-form-item class="form-item" style="width: 100px;">
           <div nz-form-control [nzValidateStatus]="recordFormModel.get('followType')">
             <nz-select formControlName="followType" nzPlaceHolder="请选择跟进方式">
               <nz-option *ngFor="let item of followTypeList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
@@ -315,7 +331,7 @@
             <div nz-form-explain *ngIf="recordFormModel.get('followType').dirty && recordFormModel.get('followType').hasError('required')">请选择跟进方式</div>
           </div>
         </div>
-        <div nz-form-item nz-col [nzSpan]="6" style="padding-right: 15px;">
+        <div nz-form-item class="form-item" style="width: 100px;">
           <div nz-form-control [nzValidateStatus]="recordFormModel.get('followStage')">
             <nz-select formControlName="followStage" nzPlaceHolder="请选择客户状态">
               <nz-option *ngFor="let item of showMemberStatus" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
@@ -323,9 +339,9 @@
             <div nz-form-explain *ngIf="recordFormModel.get('followStage').dirty && recordFormModel.get('followStage').hasError('required')">请选择跟进状态</div>
           </div>
         </div>
-        <div nz-form-item nz-col [nzSpan]="6">
+        <div nz-form-item class="form-item" style="width: 120px;">
           <div nz-form-control>
-            <nz-datepicker formControlName="nextFollowTime" nzPlaceHolder="选择下次跟进时间" nzAllowClear></nz-datepicker>
+            <nz-datepicker formControlName="nextFollowTime" nzPlaceHolder="选择下次跟进时间"></nz-datepicker>
           </div>
         </div>
       </div>

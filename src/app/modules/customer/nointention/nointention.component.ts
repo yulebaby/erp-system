@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd';
+import { HttpService } from './../../../relax/services/http/http.service';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-nointention',
@@ -10,13 +12,13 @@ export class NointentionComponent implements OnInit {
   queryNode: object[] = [
     {
       label       : '宝宝姓名',
-      key         : 'name',
+      key         : 'babyName',
       type        : 'input',
       placeholder : '请输入宝宝昵称'
     },
     {
       label       : '跟进状态',
-      key         : 'followStage',
+      key         : 'followStageId',
       type        : 'select',
       optionsUrl  : '/common/followStageList',
       placeholder : '请选择跟进状态'
@@ -84,7 +86,7 @@ export class NointentionComponent implements OnInit {
     },
     {
       label       : '负责销售',
-      key         : 'followSeller',
+      key         : 'followSellerId',
       type        : 'select',
       optionsUrl  : '/common/followSellerList',
       placeholder : '请选择负责销售',
@@ -92,7 +94,7 @@ export class NointentionComponent implements OnInit {
     },
     {
       label       : '收集者',
-      key         : 'collector',
+      key         : 'collectorId',
       type        : 'select',
       optionsUrl  : '/common/collectorList',
       placeholder : '请选择收集者',
@@ -100,7 +102,7 @@ export class NointentionComponent implements OnInit {
     },
     {
       label       : '推荐人',
-      key         : 'recommended',
+      key         : 'recommendedId',
       type        : 'select',
       optionsUrl  : '/common/recommenderList',
       placeholder : '请选择推荐人',
@@ -147,9 +149,26 @@ export class NointentionComponent implements OnInit {
     }
   ]
 
-  constructor() { }
+  checkedItems: any[] = [];
+
+  @ViewChild('CmTable') table;
+
+  constructor(
+    private http    : HttpService,
+    private message : NzMessageService 
+  ) { }
 
   ngOnInit() {
+  }
+
+  gainClue(): void {
+    this.http.post('/customer/gainClue', { paramJson: JSON.stringify({ id: this.checkedItems.join(',') }) }).then(res => {
+      this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
+      if (res.code == 1000) {
+        this.checkedItems = [];
+        this.table._request();
+      }
+    })
   }
 
 }
