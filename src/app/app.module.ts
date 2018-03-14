@@ -1,4 +1,4 @@
-import { LoginService } from './modules/user/login/login.service';
+import { LoginService } from './relax/services/login.service';
 import { HttpService } from './relax/services/http/http.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';

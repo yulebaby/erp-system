@@ -1,3 +1,4 @@
+import { LoginService } from './../../relax/services/login.service';
 import { UserService } from './user.service';
 import { HttpService } from './../../relax/services/http/http.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -6,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { UserRoutingModule } from './user-routing.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
-import { LoginService } from './login/login.service';
 
 @NgModule({
   imports: [
@@ -18,7 +18,6 @@ import { LoginService } from './login/login.service';
   ],
   providers: [
     HttpService,
-    LoginService,
     UserService
   ],
   declarations: [LoginComponent]

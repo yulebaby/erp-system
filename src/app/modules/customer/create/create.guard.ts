@@ -1,14 +1,14 @@
-import { LoginService } from './../../../modules/user/login/login.service';
 import { Observable } from 'rxjs/Rx';
 import { CreateCustomerComponent } from './create.component';
 import { Injectable } from '@angular/core';
 import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd';
+import { LoginService } from '../../../relax/services/login.service';
 @Injectable()
 export class CreateCanDeactivate implements CanDeactivate<CreateCustomerComponent> {
     constructor(
-        private confirm: NzModalService,
-        private login: LoginService
+        private confirm : NzModalService,
+        private login   : LoginService
     ) {}
 
     canDeactivate(

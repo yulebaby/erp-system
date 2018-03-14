@@ -1,6 +1,6 @@
+import { LoginService } from './../../../relax/services/login.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from './login.service';
 import { HttpService } from './../../../relax/services/http/http.service';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
