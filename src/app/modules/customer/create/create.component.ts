@@ -1,3 +1,4 @@
+import { MonthdiffPipe } from './../pipes/monthdiff.pipe';
 import { DatePipe } from '@angular/common';
 import { HttpService } from './../../../relax/services/http/http.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -35,7 +36,8 @@ export class CreateCustomerComponent implements OnInit {
     private http      : HttpService,
     private message   : NzMessageService,
     private modal     : NzModalService,
-    private format    : DatePipe
+    private format    : DatePipe,
+    private monthDiff : MonthdiffPipe
   ) { 
   }
 
@@ -112,8 +114,9 @@ export class CreateCustomerComponent implements OnInit {
     });
     this.customerForm.get('birthday').valueChanges.subscribe( res => {
       this.customerForm.patchValue({
-        constellation: res ? this._getAstro(this.format.transform(res, 'yyyy-MM-dd').split('-')[1], this.format.transform(res, 'yyyy-MM-dd').split('-')[2]) : ''
-      })
+        constellation: res ? this._getAstro(this.format.transform(res, 'yyyy-MM-dd').split('-')[1], this.format.transform(res, 'yyyy-MM-dd').split('-')[2]) : '',
+        babyType     : !res ? '' : this.monthDiff.transform(this.format.transform(res, 'yyyy-MM-dd')) > 10 ? '幼儿' : '婴儿'
+      });
     })
   }  
 

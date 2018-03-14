@@ -37,6 +37,7 @@ import { MonthdiffPipe } from './pipes/monthdiff.pipe';
   ],
   providers: [
     DatePipe,
+    MonthdiffPipe,
     CreateCanDeactivate
   ]
 })
