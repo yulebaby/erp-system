@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { HttpService } from './../../../relax/services/http/http.service';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -81,7 +81,8 @@ export class PreviewCustomerComponent implements OnInit {
     private http      : HttpService,
     private message   : NzMessageService,
     private format    : DatePipe,
-    private modal     : NzModalService
+    private modal     : NzModalService,
+    private router    : Router
   ) { }
 
   ngOnInit() {
@@ -217,6 +218,9 @@ export class PreviewCustomerComponent implements OnInit {
   intentionCustomer(): void {
     this.http.post('/customer/transitioNoIntentionCustomer', { paramJson: JSON.stringify({ id: this._id }) }).then( res => {
       this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
+      if (res.code == 1000) {
+        this.router.navigateByUrl('/home/customer/all');
+      }
     });
   }
 
