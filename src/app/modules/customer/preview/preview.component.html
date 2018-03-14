@@ -209,10 +209,10 @@
                     </div>
                   </div>
                   <div nz-form-item class="form-btn">
-                    <nz-popconfirm *ngIf="!recordFormModel.get('nextFollowTime').value && recordFormModel.valid" nzTitle="下次跟进时间未填写，保存后此客户将放入暂无意向客户中，确认继续发布？" nzOkText="继续发布" nzCancelText="取消" (nzOnConfirm)="_submitFollowRecord()">
+                    <nz-popconfirm *ngIf="!recordFormModel.get('nextFollowTime').value" nzTitle="下次跟进时间未填写，保存后此客户将放入暂无意向客户中，确认继续发布？" nzOkText="继续发布" nzCancelText="取消" (nzOnConfirm)="_submitFollowRecord()">
                       <button nz-button nzType="primary" nz-popconfirm>发布</button>
                     </nz-popconfirm>
-                    <button *ngIf="recordFormModel.get('nextFollowTime').value || recordFormModel.invalid" nz-button nzType="primary" (click)="_submitFollowRecord()">发布</button>
+                    <button *ngIf="recordFormModel.get('nextFollowTime').value" nz-button nzType="primary" (click)="_submitFollowRecord()">发布</button>
                   </div>
                 </div>
               </form>
