@@ -51,6 +51,7 @@ export class CreateCustomerComponent implements OnInit {
         this.http.post('/customer/showCustomerInfo', { paramJson: JSON.stringify({ id: this._id }) }).then(res => {
           this._selectLoading = false;
           if (res.code == 1000 ){
+            res.result.member.birthday = res.result.member.birthday ? new Date(res.result.member.birthday) : '';
             this.customerForm.patchValue(res.result.member);
           }
         })
@@ -190,4 +191,8 @@ export class CreateCustomerComponent implements OnInit {
       })
     })
   };
+
+  _disabledDate(current: Date): boolean {
+    return current && current.getTime() > Date.now();
+  }
 }

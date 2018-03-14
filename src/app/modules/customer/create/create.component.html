@@ -68,7 +68,7 @@
           <label for="birthday">宝宝生日</label>
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
-          <nz-datepicker formControlName="birthday" nzPlaceHolder="请选择宝宝生日" [style.width]="'100%'"></nz-datepicker>
+          <nz-datepicker formControlName="birthday" nzPlaceHolder="请选择宝宝生日" [style.width]="'100%'" [nzDisabledDate]="_disabledDate"></nz-datepicker>
         </div>
       </div>
       <div nz-form-item nz-row nz-col [nzSpan]="12">
