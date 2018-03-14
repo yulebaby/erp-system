@@ -19,12 +19,12 @@
           </td>
           <td>{{ data.nick }}</td>
           <td><i class="iconfont" [title]="data.sex" [ngClass]="[ data.sex === '男' ? 'icon-nan' : 'icon-nv']"></i></td>
-          <td>{{ data.xxxxx }}</td>
+          <td>{{ data.birthday | monthdiff }}</td>
           <td>{{ data.parentName }}</td>
           <td>{{ data.mobilePhone }}</td>
           <td>{{ data.createDate }}</td>
-          <td>{{ data.source }}</td>
-          <td>{{ data.xxxxx }}</td>
+          <td>{{ data.sourceName }}</td>
+          <td>{{ data.memberStatus || '--' }}</td>
           <td>{{ data.followStage }}</td>
         </tr>
         <tr nz-tbody-tr *ngIf="data.expand">

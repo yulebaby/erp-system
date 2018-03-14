@@ -29,8 +29,8 @@
           <td>{{ data.parentName }}</td>
           <td><cm-gettel [id]="data.id"></cm-gettel></td>
           <td>{{ data.createDate }}</td>
-          <td>{{ data.source || '--' }}</td>
-          <td>{{ data.idName || '--' }}</td>
+          <td>{{ data.sourceName || '--' }}</td>
+          <td>{{ data.memberStatus || '--' }}</td>
           <td>{{ data.followStage || '--' }}</td>
         </tr>
         <tr nz-tbody-tr *ngIf="data.expand">
