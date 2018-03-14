@@ -188,7 +188,10 @@ export class PreviewCustomerComponent implements OnInit {
       this.recordFormModel.get('reserve')['controls'][key].markAsDirty();
     }
 
-    if (this.recordFormModel.valid) {
+    let [ model, reserve ] = [ this.recordFormModel, this.recordFormModel.get('reserve') ];
+    let mainValid = model.get('content').valid && model.get('followStage').valid && model.get('followType').valid;
+    let childValid = reserve.get('status').value && reserve.get('reserveDate').valid && reserve.get('reserveHour').valid || !reserve.get('status').value;
+    if (mainValid && childValid) {
       let params = this.recordFormModel.value;
       params.memberId = this._id;
       params.nextFollowTime = params.nextFollowTime ? this.format.transform(params.nextFollowTime, 'yyyy-MM-dd') : '';

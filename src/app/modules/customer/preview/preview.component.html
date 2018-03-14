@@ -150,7 +150,7 @@
           <nz-tab>
             <ng-template #nzTabHeading>跟进记录({{ followRecord.length }})</ng-template>
             <div class="record">
-              <form nz-form [formGroup]="recordFormModel" (ngSubmit)="_submitFollowRecord()">
+              <form nz-form [formGroup]="recordFormModel">
                 <div nz-form-item>
                   <div nz-form-control [nzValidateStatus]="recordFormModel.get('textarea')">
                     <nz-input formControlName="content" nzType="textarea" [nzAutosize]="{ minRows: 3, maxRows: 6 }" nzPlaceHolder="新建跟进记录......(必填, 限200字)"></nz-input>
@@ -209,7 +209,10 @@
                     </div>
                   </div>
                   <div nz-form-item class="form-btn">
-                    <button nz-button nzType="primary">发布</button>
+                    <nz-popconfirm *ngIf="!recordFormModel.get('nextFollowTime').value && recordFormModel.valid" nzTitle="下次跟进时间未填写，保存后此客户将放入暂无意向客户中，确认继续发布？" nzOkText="继续发布" nzCancelText="取消" (nzOnConfirm)="_submitFollowRecord()">
+                      <button nz-button nzType="primary" nz-popconfirm>发布</button>
+                    </nz-popconfirm>
+                    <button *ngIf="recordFormModel.get('nextFollowTime').value || recordFormModel.invalid" nz-button nzType="primary" (click)="_submitFollowRecord()">发布</button>
                   </div>
                 </div>
               </form>
