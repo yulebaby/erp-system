@@ -219,7 +219,7 @@ export class PreviewCustomerComponent implements OnInit {
     this.http.post('/customer/transitioNoIntentionCustomer', { paramJson: JSON.stringify({ id: this._id }) }).then( res => {
       this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
       if (res.code == 1000) {
-        this.router.navigateByUrl('/home/customer/all');
+        this.router.navigateByUrl('/home/customer/all?reset=true');
       }
     });
   }

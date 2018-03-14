@@ -1,6 +1,7 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from './../../../relax/services/http/http.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
@@ -10,6 +11,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 })
 export class AllCustomerComponent implements OnInit {
 
+  @ViewChild('CmTable') table;
   
   queryNode: object[] = [
     {
@@ -144,9 +146,18 @@ export class AllCustomerComponent implements OnInit {
   ]
   checkedItems: any[] = [];
 
-  constructor( ) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router        : Router
+  ) { }
 
   ngOnInit() {
+    this.activatedRoute.queryParamMap.subscribe( (res: any) => {
+      if (res.params.reset) {
+        this.table._request();
+        this.router.navigateByUrl('/home/customer/all');
+      }
+    })
   }
 
 }
