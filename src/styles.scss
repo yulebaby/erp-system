@@ -24,3 +24,22 @@
 .icon-xingbie-nan:before { content: "\e634"; }
 
 .icon-wushuju:before { content: "\e642"; }
+
+
+.icon-nan {
+    color: #74b9ec
+}
+.icon-nv {
+    color: #ff3ec9
+}
+
+.record-status {
+    li{
+      cursor: pointer;
+      padding: 0 6px;
+      line-height: 2;
+      &:hover {
+          background: #ecf6fd;
+      }
+    }
+}

@@ -31,7 +31,7 @@ export class CmQueryComponent implements OnInit {
     this._node.map((res: any, idx) => {
       this._queryForm.addControl(res.key, new FormControl(res.default || ''));
       if (res.type === 'select') {
-        res.optionKey = res.optionKey || { label: 'label', value: 'value' };
+        res.optionKey = res.optionKey || { label: 'name', value: 'id' };
         if (res.optionsUrl) {
           this.http.post(res.optionsUrl).then( result => {
             if (result.code == 1000) {

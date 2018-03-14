@@ -13,9 +13,10 @@
   (nzPageSizeChange)="isChecked()">
   <thead nz-thead>
     <tr>
-      <th nz-th nzCheckbox>
+      <th nz-th nzCheckbox *ngIf="checked">
         <label nz-checkbox [(ngModel)]="_allChecked" [nzIndeterminate]="_indeterminate" (ngModelChange)="_checkAll($event)"></label>
       </th>
+      <th nz-th nzExpand *ngIf="expand"></th>
       <ng-container *ngFor="let head of thead">
         <th nz-th [nzWidth]="head.width || ''">
           <span>{{ head.name || head }}</span>

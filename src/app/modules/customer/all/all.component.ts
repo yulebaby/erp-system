@@ -1,11 +1,7 @@
 import { HttpService } from './../../../relax/services/http/http.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
-import { FormGroup, FormBuilder } from '@angular/forms';
-=======
 import { NzMessageService } from 'ng-zorro-antd';
->>>>>>> dev
 
 @Component({
   selector: 'app-all',
@@ -14,79 +10,104 @@ import { NzMessageService } from 'ng-zorro-antd';
 })
 export class AllCustomerComponent implements OnInit {
 
-<<<<<<< HEAD
-  queryForm: FormGroup;
-
-  constructor(
-    private fb: FormBuilder = new FormBuilder()
-  ) { }
-=======
   
   queryNode: object[] = [
     {
       label       : '宝宝姓名',
       key         : 'babyName',
       type        : 'input',
-      default     : '默认值',
       placeholder : '请输入宝宝昵称'
     },
     {
-      label       : '选择框',
+      label       : '跟进阶段',
+      key         : 'followStageId',
+      type        : 'select',
+      optionsUrl  : '/common/followStageList',
+      placeholder : '请选择跟进状态'
+    },
+    {
+      label       : '来源',
+      key         : 'sourceId',
+      type        : 'select',
+      optionsUrl  : '/common/sourceList',
+      placeholder : '请选择客户来源'
+    },
+    {
+      label       : '家长姓名',
+      key         : 'parentName',
+      type        : 'input',
+      placeholder : '请输入家长姓名',
+      isHide      : true
+    }, 
+    {
+      label       : '手机号码',
+      key         : 'mobilePhone',
+      type        : 'input',
+      placeholder : '请输入家长手机号码',
+      isHide      : true
+    },
+    {
+      label       : '宝宝性别',
       key         : 'sex',
       type        : 'select',
-      options     : [ { label: '男', value: 1 }, { label: '女', value: 2 } ],
-      placeholder : '请选择需要的值'
+      options     : [ { name: '男', id: '男' }, { name: '女', id: '女' } ],
+      placeholder : '请选择宝宝性别',
+      isHide      : true
     },
     {
-      label       : '选择框',
-      key         : 'people',
-      type        : 'select',
-      options     : [ { name: '随便', id: 0 } ],
-      optionsUrl  : '/common/recommenderList',
-      optionKey   : { label: 'name', value: 'id' },
-      placeholder : '请选择需要的值'
-    },
-    {
-      label       : '时间区间',
-      key         : 'timeSlot',
+      label       : '宝宝生日',
+      key         : 'birthday',
       type        : 'datepicker',
-      valueKey    : ['timeStart', 'timeEnd'],
-      placeholder : ['选择开始时间', '选择结束时间']
-    },
-    {
-      label       : '隐藏输入框',
-      key         : 'hide0',
-      type        : 'select',
-      options     : [ { label: '男', value: 1 }, { label: '女', value: 2 } ],
-      placeholder : '请选择需要的值',
+      valueKey    : ['babyBirthdayStart', 'babyBirthdayEnd'],
+      placeholder : ['选择开始时间', '选择结束时间'],
       isHide      : true
     },
     {
-      label       : '隐藏输入框',
-      key         : 'hide1',
+      label       : '创建时间',
+      key         : 'createTime',
+      type        : 'datepicker',
+      valueKey    : ['createDateStart', 'createDateEnd'],
+      placeholder : ['选择开始时间', '选择结束时间'],
+      isHide      : true
+    },
+    {
+      label       : '下次跟进',
+      key         : 'nextFollowTime',
+      type        : 'datepicker',
+      valueKey    : ['nextFollowTimeStart', 'nextFollowTimeEnd'],
+      placeholder : ['选择开始时间', '选择结束时间'],
+      isHide      : true
+    },
+    {
+      label       : '最后跟进',
+      key         : 'lastFollowTime',
+      type        : 'datepicker',
+      valueKey    : ['lastFollowTimeStart', 'lastFollowTimeEnd'],
+      placeholder : ['选择开始时间', '选择结束时间'],
+      isHide      : true
+    },
+    {
+      label       : '负责销售',
+      key         : 'followSellerId',
       type        : 'select',
-      options     : [ { name: '随便', id: 0 } ],
+      optionsUrl  : '/common/followSellerList',
+      placeholder : '请选择负责销售',
+      isHide      : true
+    },
+    {
+      label       : '收集者',
+      key         : 'collectorId',
+      type        : 'select',
+      optionsUrl  : '/common/collectorList',
+      placeholder : '请选择收集者',
+      isHide      : true
+    },
+    {
+      label       : '推荐人',
+      key         : 'recommendedId',
+      type        : 'select',
       optionsUrl  : '/common/recommenderList',
-      optionKey   : { label: 'name', value: 'id' },
-      placeholder : '请选择需要的值',
-      isHide      : true
-    },
-    {
-      label       : '隐藏输入框',
-      key         : 'hide2',
-      type        : 'select',
-      options     : [ { label: '男', value: 1 }, { label: '女', value: 2 } ],
-      placeholder : '请选择需要的值',
-      isHide      : true
-    },
-    {
-      label       : '隐藏输入框',
-      key         : 'hide3',
-      type        : 'select',
-      options     : [ { name: '随便', id: 0 } ],
-      optionsUrl  : '/common/recommenderList',
-      optionKey   : { label: 'name', value: 'id' },
-      placeholder : '请选择需要的值',
+      placeholder : '请选择推荐人',
       isHide      : true
     },
   ]
@@ -121,52 +142,20 @@ export class AllCustomerComponent implements OnInit {
       width : '80px'
     },
     {
-      name  : '所属小区',
-      width : '120px'
-    },
-    {
-      name  : '跟进状态',
+      name  : '客户状态',
       width : '80px'
     },
     {
       name  : '跟进阶段',
       width : '120px'
-    },
-    {
-      name  : '最后跟进时间',
-      width : '140px'
-    },
-    {
-      name  : '下次跟进时间',
-      width : '140px'
-    },
-    {
-      name  : '跟进销售',
-      width : '80px'
-    },
+    }
   ]
   checkedItems: any[] = [];
 
   constructor( ) { }
->>>>>>> dev
 
   ngOnInit() {
-    this.queryForm = this.fb.group({
-      babyName: [],
-      status: [],
-      source: [],
-      name: [],
-      phone: [],
-      sex: [],
-      birthdayStart: [],
-      birthdayEnd: [],
-      createStart: [],
-      createEnd: []
-    })
   }
 
-  _queryForm():void {
-    console.log(1)
-  }
 
 }

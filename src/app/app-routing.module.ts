@@ -1,8 +1,9 @@
+import { IndexComponent } from './base/index/index.component';
 import { ErrorComponent } from './base/error/error.component';
 import { BaseComponent } from './frames/base.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './base/login/login.component';
+
 
 const routes: Routes = [
   {
@@ -11,22 +12,19 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'login',
-    component: LoginComponent
+    path: 'user',
+    loadChildren: 'app/modules/user/user.module#UserModule'
   },
   {
     path: 'home',
     component: BaseComponent,
     children: [
       {
-<<<<<<< HEAD
-=======
-        path: 'test',
-        data: { title: '测试模块' },
-        loadChildren: 'app/modules/test/test.module#TestModule'
+        path: '',
+        data: { title: '首页' },
+        component: IndexComponent
       },
       {
->>>>>>> dev
         path: 'wechat',
         data: { title: '微信' },
         loadChildren: 'app/modules/wechat/wechat.module#WechatModule'
@@ -37,11 +35,6 @@ const routes: Routes = [
         loadChildren: 'app/modules/customer/customer.module#CustomerModule'
       }
     ]
-  },
-  {
-    path: 'login',
-    data: { title: '登录' },
-    component: LoginComponent
   },
   {
     path: 'error/:type',

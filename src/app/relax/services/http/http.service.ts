@@ -3,13 +3,15 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from "./../../../../environments/environment";
 import 'rxjs/add/operator/retry';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Injectable()
 export class HttpService {
 
   constructor(
-    private http: HttpClient,
-    private router: Router
+    private http    : HttpClient,
+    private router  : Router,
+    private message : NzMessageService
   ) { }
 
   /*
@@ -25,13 +27,14 @@ export class HttpService {
         .retry(1)
         .subscribe(
           res => {
-            if (res['code'] == 1030) {
-              this.router.navigateByUrl('/login');
+            if (res['code'] == 3000) {
+              this.router.navigateByUrl('/user/login');
             } else {
               resolve(res);
             }
           },
           err => {
+            this.message.error('网络错误，请刷新重试！！！')
             reject(err);
           }
         )
@@ -45,13 +48,14 @@ export class HttpService {
         .retry(1)
         .subscribe(
           res => {
-            if (res['code'] == 1030) {
-              this.router.navigateByUrl('/login');
+            if (res['code'] == 3000) {
+              this.router.navigateByUrl('/user/login');
             } else {
               resolve(res);
             }
           },
           err => {
+            this.message.error('网络错误，请刷新重试！！！')
             reject(err);
           }
         )

@@ -1,3 +1,4 @@
+import { NointentionComponent } from './nointention/nointention.component';
 import { PreviewCustomerComponent } from './preview/preview.component';
 import { CreateCustomerComponent } from './create/create.component';
 import { TrackingRecordComponent } from './tracking-record/tracking-record.component';
@@ -24,6 +25,11 @@ const routes: Routes = [
 				outlet: 'aux'
 			}
 		]
+	},
+	{
+		path: 'nointention',
+		data: { title: '无意向客户' },
+		component: NointentionComponent
 	},
 	{
 		path: 'create/:id',

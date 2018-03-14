@@ -1,0 +1,64 @@
+<cm-query [node]="queryNode" (onSubmit)="CmTable.request($event)"></cm-query>
+
+
+<cm-alert [isShow]="checkedItems.length" type="info">
+  选择 <a href="javascript: void(0)">{{ checkedItems.length }}条</a> 相关记录
+  <a href="javascript:;" (click)="gainClue()">捞取</a>
+</cm-alert>
+
+<cm-table #CmTable [thead]="tableNode" [expand]="true" [checked]="true" [(checkedItems)]="checkedItems" url="/customer/showNoIntentionCustomer">
+  <ng-container>
+    <tbody nz-tbody>
+      <ng-template ngFor let-data [ngForOf]="CmTable.dataSet">
+        <tr nz-tbody-tr>
+          <td nz-td nzCheckbox>
+            <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="CmTable.isChecked($event)"></label>
+          </td>
+          <td nz-td nzExpand>
+            <nz-row-expand-icon [(nzExpand)]="data.expand"></nz-row-expand-icon>
+          </td>
+          <td>{{ data.nick }}</td>
+          <td><i class="iconfont" [title]="data.sex" [ngClass]="[ data.sex === '男' ? 'icon-nan' : 'icon-nv']"></i></td>
+          <td>{{ data.xxxxx }}</td>
+          <td>{{ data.parentName }}</td>
+          <td>{{ data.mobilePhone }}</td>
+          <td>{{ data.createDate }}</td>
+          <td>{{ data.source }}</td>
+          <td>{{ data.xxxxx }}</td>
+          <td>{{ data.followStage }}</td>
+        </tr>
+        <tr nz-tbody-tr *ngIf="data.expand">
+          <td nz-td></td>
+          <td nz-td colspan="14">
+            <div class="expand-box">
+              <div nz-col [nzXl]="6" [nzLg]="8" [nzSm]="12" [nzXs]="24">
+                <label nz-col [nzSpan]="8">宝宝姓名：</label>
+                <div nz-col [nzSpan]="16">{{ data.name || '--' }}</div>
+              </div>
+              <div nz-col [nzXl]="6" [nzLg]="8" [nzSm]="12" [nzXs]="24">
+                <label nz-col [nzSpan]="8">所属小区：</label>
+                <div nz-col [nzSpan]="16">{{ data.community || '--' }}</div>
+              </div>
+              <div nz-col [nzXl]="6" [nzLg]="8" [nzSm]="12" [nzXs]="24">
+                <label nz-col [nzSpan]="8">宝宝生日</label>
+                <div nz-col [nzSpan]="16">{{ data.birthday ? data.birthday :'--' }}</div>
+              </div>
+              <div nz-col [nzXl]="6" [nzLg]="8" [nzSm]="12" [nzXs]="24" style="margin-bottom: 0;">
+                <label nz-col [nzSpan]="8">下次跟进时间</label>
+                <div nz-col [nzSpan]="16">{{ data.nextFollowTime || '--' }}</div>
+              </div>
+              <div nz-col [nzXl]="6" [nzLg]="8" [nzSm]="12" [nzXs]="24" style="margin-bottom: 0;">
+                <label nz-col [nzSpan]="8">最后跟进时间</label>
+                <div nz-col [nzSpan]="16">{{ data.lastFollowTime || '--' }}</div>
+              </div>
+              <div nz-col [nzXl]="6" [nzLg]="8" [nzSm]="12" [nzXs]="24" style="margin-bottom: 0;">
+                <label nz-col [nzSpan]="8">跟进销售</label>
+                <div nz-col [nzSpan]="16">{{ data.followSeller || '--' }}</div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </ng-container>
+</cm-table>

@@ -11,10 +11,10 @@
 
     <div class="ui-user-cell">
       <img src="./assets/images/default-boy.png" alt="">
-      <span>管理员</span>
+      <span>{{ user.userInfo?.name }}</span>
       <div class="ui-user-fixed">
         <ul>
-          <li>退出</li>
+          <li (click)="user.signOut()">退出</li>
         </ul>
       </div>
     </div>
