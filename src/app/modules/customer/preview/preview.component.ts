@@ -280,6 +280,9 @@ export class PreviewCustomerComponent implements OnInit {
               item.nextFollowTime = res.result.nextFollowTime;
               item.status         = res.result.status;
               item.contentLabel   = res.result.contentLabel;
+              item.reserveDate    = res.result.reserveDate;
+              item.reserveHour    = res.result.reserveHour;
+              item.reserveMinute  = res.result.reserveMinute;
             }
           });
           this._followRecordModal.destroy()
