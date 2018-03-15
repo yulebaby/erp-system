@@ -7,7 +7,7 @@
   </ng-template>
   <ng-template #body>
     <div nz-card-grid [ngStyle]="{ width: '25%',extAlign: 'center',color: '#fff', background: '#108ee9' }">今日需回访客户: {{ result?.todayReturnVisit }}</div>
-    <div nz-card-grid [ngStyle]="{ width: '25%',extAlign: 'center' }">{{ _monthString }}月份新增需客户: {{ result?.monthAdded }}</div>
+    <div nz-card-grid [ngStyle]="{ width: '25%',extAlign: 'center' }">{{ _monthString }}月份新增客户: {{ result?.monthAdded }}</div>
     <div nz-card-grid [ngStyle]="{ width: '25%',extAlign: 'center' }">{{ _monthString }}月份邀约成功率: {{ result?.monthSuccessRate || 0 }}%</div>
     <div nz-card-grid [ngStyle]="{ width: '25%',extAlign: 'center' }">全部客户: {{ result?.allClient }}</div>
   </ng-template>
