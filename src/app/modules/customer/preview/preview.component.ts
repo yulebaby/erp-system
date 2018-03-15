@@ -296,7 +296,6 @@ export class PreviewCustomerComponent implements OnInit {
           this.followRecord.map(item => {
             if (item.id === this._updateFollowRecordFormModel.value.id) {
               item.content        = res.result.content;
-              item.memberStatusId = res.result.memberStatusId;
               item.followType     = res.result.followType;
               item.nextFollowTime = res.result.nextFollowTime;
               item.status         = res.result.status;
@@ -305,6 +304,8 @@ export class PreviewCustomerComponent implements OnInit {
               item.reserveHour    = res.result.reserveHour;
               item.reserveMinute  = res.result.reserveMinute;
               item.followTypeName = res.result.followTypeName;
+              item.memberStatusId = res.result.memberStatusId;
+              item.memberStatusName = res.result.memberStatusName;
             }
           });
           console.log(this.followRecord)
