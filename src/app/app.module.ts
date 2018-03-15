@@ -1,3 +1,4 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from './relax/services/login.service';
 import { HttpService } from './relax/services/http/http.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -40,6 +41,8 @@ import { UserService } from './modules/user/user.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     NgZorroAntdModule.forRoot()
   ],

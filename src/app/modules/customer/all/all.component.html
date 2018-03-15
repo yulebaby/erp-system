@@ -31,7 +31,7 @@
           <td>{{ data.createDate }}</td>
           <td>{{ data.sourceName || '--' }}</td>
           <td>{{ data.memberStatus || '--' }}</td>
-          <td>{{ data.followStage || '--' }}</td>
+          <td>{{ data.followStage + (data.followNum ? '('+ data.followNum +')' : '') }}</td>
         </tr>
         <tr nz-tbody-tr *ngIf="data.expand">
           <td nz-td></td>

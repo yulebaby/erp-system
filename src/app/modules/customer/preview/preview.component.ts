@@ -89,17 +89,8 @@ export class PreviewCustomerComponent implements OnInit {
 
     this.routeInfo.params.subscribe( param => {
       this._id = param.id;
-      /* ------------------- 查看用户信息 ------------------- */
-      this.isLoading = true;
-      this.http.post('/customer/showCustomerInfo', { paramJson: JSON.stringify({ id: this._id }) }).then( res => {
-        this.isLoading = false;
-        this.userInfo = res.result.member || {};
-        this.currentUserName = res.result.currentUserName;
-        if (res.code != 1000) {
-          this.message.warning(res.info);
-        }
-      });
 
+      this.selectUserInfoInit();
 
       /* ------------------- 查看跟进记录 ------------------- */
       this.http.post('/customer/showFollowRecord', { paramJson: JSON.stringify({ id: this._id }) }).then(res => {
@@ -175,6 +166,22 @@ export class PreviewCustomerComponent implements OnInit {
   }
 
 
+
+
+  selectUserInfoInit(): void {
+
+    /* ------------------- 查看用户信息 ------------------- */
+    this.isLoading = true;
+    this.http.post('/customer/showCustomerInfo', { paramJson: JSON.stringify({ id: this._id }) }).then(res => {
+      this.isLoading = false;
+      this.userInfo = res.result.member || {};
+      this.currentUserName = res.result.currentUserName;
+      if (res.code != 1000) {
+        this.message.warning(res.info);
+      }
+    });
+  }
+
   /* ------------------- 点击记录标签 ------------------- */
   tapTag(value: string, form: FormGroup): void {
     form.patchValue({
@@ -211,6 +218,7 @@ export class PreviewCustomerComponent implements OnInit {
           if (isReset) {
             this.router.navigateByUrl('/home/customer/all?reset=true');
           } else {
+            this.selectUserInfoInit();
             res.result.contentLabel = this._resetFollowRecordContent(res.result.content);
             this.followRecord.unshift(res.result);
             this.recordFormModel.reset();
