@@ -112,6 +112,14 @@ export class AllCustomerComponent implements OnInit {
       width : '100px'
     },
     {
+      name  : '宝宝姓名',
+      width : '100px'
+    },
+    {
+      name  : '宝宝生日',
+      width : '100px'
+    },
+    {
       name  : '性别',
       width : '60px'
     },
@@ -128,7 +136,19 @@ export class AllCustomerComponent implements OnInit {
       width : '100px'
     },
     {
+      name  : '所属小区',
+      width : '140px'
+    }, 
+    {
       name  : '入库时间',
+      width : '140px'
+    },
+    {
+      name  : '下次跟进时间',
+      width : '140px'
+    },
+    {
+      name  : '最后跟进时间',
       width : '140px'
     },
     {
@@ -141,6 +161,10 @@ export class AllCustomerComponent implements OnInit {
     },
     {
       name  : '跟进阶段',
+      width : '120px'
+    },
+    {
+      name  : '跟进销售',
       width : '120px'
     }
   ]
