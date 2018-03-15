@@ -296,9 +296,16 @@ export class PreviewCustomerComponent implements OnInit {
 
 
   /* -------------------- 修改到店记录状态 -------------------- */
-  editToShopRecord(status: number): void {
-    this.http.post('/customer/editToShopRecord', { paramJson: JSON.stringify({ id: this._id, status: status }) }).then(res => {
+  editToShopRecord(status: number, id: number): void {
+    this.http.post('/customer/editToShopRecord', { paramJson: JSON.stringify({ id: id, status: status }) }).then(res => {
       this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
+      if (res.code == 1000) {
+        this.followRecord.map( item => {
+          if (item.id == id) {
+            item.status = status;
+          }
+        })
+      }
     })
   }
 

@@ -252,9 +252,9 @@
                         <ng-template #nzTemplate>
                           <div>
                             <ul class="record-status">
-                              <li (click)="editToShopRecord(1)">已到店体验</li>
-                              <li (click)="editToShopRecord(2)">已到店未体验</li>
-                              <li (click)="editToShopRecord(3)">未到店</li>
+                              <li (click)="editToShopRecord(1, item.id)">已到店体验</li>
+                              <li (click)="editToShopRecord(2, item.id)">已到店未体验</li>
+                              <li (click)="editToShopRecord(3, item.id)">未到店</li>
                             </ul>
                           </div>
                         </ng-template>
