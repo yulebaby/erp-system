@@ -249,8 +249,8 @@ export class PreviewCustomerComponent implements OnInit {
       
       reserve        : {
                         status      : item.status == 0,
-                        reserveDate : new Date(item.reserveDate),
-                        reserveHour : item.reserveHour + ':' + item.reserveMinute
+                        reserveDate : item.reserveDate ? new Date(item.reserveDate) : '',
+                        reserveHour : item.reserveHour ? item.reserveHour + ':' + item.reserveMinute : ''
                       }
     };
     this._updateFollowRecordFormModel.patchValue(controls);
