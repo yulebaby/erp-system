@@ -264,6 +264,7 @@
                       <div class="card-title">
                         <nz-tag nzColor="#108ee9">{{ item.userName }}</nz-tag>
                         <span>跟进家长：{{ userInfo?.parentName }}</span>
+                        <span *ngIf="item.reserveDate">预约时间：{{ item.reserveDate + ' ' + item.reserveHour + ':' + item.reserveMinute }}</span>
                       </div>
                       <div class="card-main" [innerHTML]="item.contentLabel"></div>
                     </ng-template>
