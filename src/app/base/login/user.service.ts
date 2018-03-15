@@ -23,12 +23,12 @@ export class UserService {
             if (!userInfo.id) throw "未登录";
                 this.userInfo = userInfo;
         } catch (e) {
-            this.router.navigateByUrl('/user/login');
+            this.router.navigateByUrl('/login');
         }
     }
     signOut(): void {
         window.localStorage.removeItem('userInfo');
-        this.router.navigateByUrl('/user/login');
+        this.router.navigateByUrl('/login');
     }
 }
 

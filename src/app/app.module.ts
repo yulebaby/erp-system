@@ -1,5 +1,6 @@
+import { LoginComponent } from './base/login/login.component';
+import { LoginService } from './base/login/login.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginService } from './relax/services/login.service';
 import { HttpService } from './relax/services/http/http.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -21,7 +22,7 @@ import { BreadcrumbComponent } from './frames/content/breadcrumb/breadcrumb.comp
 import { BaseComponent } from './frames/base.component';
 import { NoopInterceptor } from './relax/services/http/http.intercept';
 import { IndexComponent } from './base/index/index.component';
-import { UserService } from './modules/user/user.service';
+import { UserService } from './base/login/user.service';
 
 
 
@@ -35,7 +36,8 @@ import { UserService } from './modules/user/user.service';
     ErrorComponent,
     BreadcrumbComponent,
     BaseComponent,
-    IndexComponent
+    IndexComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

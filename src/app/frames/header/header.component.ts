@@ -1,4 +1,4 @@
-import { UserService } from './../../modules/user/user.service';
+import { UserService } from './../../base/login/user.service';
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 
 @Component({
