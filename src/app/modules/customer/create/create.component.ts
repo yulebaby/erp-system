@@ -54,7 +54,16 @@ export class CreateCustomerComponent implements OnInit {
             res.result.member.birthday = res.result.member.birthday ? new Date(res.result.member.birthday) : '';
             this.customerForm.patchValue(res.result.member);
           }
+        });
+
+        this.http.post('/common/lookParentTelphone', { paramJson: JSON.stringify({ id: this._id }) }).then(res => {
+          if (res.code == 1000) {
+            this.customerForm.patchValue({
+              mobilePhone: res.result.mobilePhone
+            })
+          }
         })
+
       }
 
     });
