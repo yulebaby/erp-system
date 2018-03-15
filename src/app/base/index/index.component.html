@@ -1,38 +1,14 @@
-<div class="container">
-  
-  <nz-card>
-    <ng-template #title>数据统计</ng-template>
-    <ng-template #extra>
-      <nz-datepicker style="width: 200px;" [nzDisabledDate]="_disabledDate" [(ngModel)]="_month" nzMode="month" nzSize="size" [nzAllowClear]="false" nzPlaceHolder="请选择月份" nzFormat="YYYY-MM"></nz-datepicker>
-    </ng-template>
-    <ng-template #body>
-      <div nz-row>
-        <nz-card nz-col [nzSpan]="6">
-          <ng-template #title>今日需回访客户</ng-template>
-          <ng-template #body>
-            <p>{{ result?.todayReturnVisit }}</p>
-          </ng-template>
-        </nz-card>
-        <nz-card nz-col [nzSpan]="6">
-          <ng-template #title>{{ _monthString }}月份新增需客户</ng-template>
-          <ng-template #body>
-            <p>{{ result?.monthAdded }}</p>
-          </ng-template>
-        </nz-card>
-        <nz-card nz-col [nzSpan]="6">
-          <ng-template #title>{{ _monthString }}月份邀约成功率</ng-template>
-          <ng-template #body>
-            <p>{{ result?.monthSuccessRate || 0 }}%</p>
-          </ng-template>
-        </nz-card>
-        <nz-card nz-col [nzSpan]="6">
-          <ng-template #title>全部客户</ng-template>
-          <ng-template #body>
-            <p>{{ result?.allClient }}</p>
-          </ng-template>
-        </nz-card>
-      </div>
-    </ng-template>
-  </nz-card>
+<nz-card nzNoHovering>
+  <ng-template #title>数据统计</ng-template>
 
-</div>
+  <ng-template #extra>
+    <nz-datepicker style="width: 200px;" [nzDisabledDate]="_disabledDate" [(ngModel)]="_month" nzMode="month" nzSize="size" [nzAllowClear]="false"
+      nzPlaceHolder="请选择月份" nzFormat="YYYY-MM"></nz-datepicker>
+  </ng-template>
+  <ng-template #body>
+    <div nz-card-grid [ngStyle]="{ width: '25%',extAlign: 'center',color: '#fff', background: '#108ee9' }">今日需回访客户: {{ result?.todayReturnVisit }}</div>
+    <div nz-card-grid [ngStyle]="{ width: '25%',extAlign: 'center' }">{{ _monthString }}月份新增需客户: {{ result?.monthAdded }}</div>
+    <div nz-card-grid [ngStyle]="{ width: '25%',extAlign: 'center' }">{{ _monthString }}月份邀约成功率: {{ result?.monthSuccessRate || 0 }}%</div>
+    <div nz-card-grid [ngStyle]="{ width: '25%',extAlign: 'center' }">全部客户: {{ result?.allClient }}</div>
+  </ng-template>
+</nz-card>
