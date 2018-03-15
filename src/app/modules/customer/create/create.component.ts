@@ -102,7 +102,7 @@ export class CreateCustomerComponent implements OnInit {
       constellation        : [''],                                                                               // 星座
       babyType             : [''],                                                                               // 宝宝类型
       communityId          : [''],                                                                               // 所属小区
-      visitRemarks         : [''],                                                                               // 备注
+      visitRemarks         : ['', [Validators.maxLength(300)]],                                                  // 备注
 
       parentName           : ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],     // 家长姓名
       mobilePhone: ['', [Validators.required, Validators.pattern(/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/)], [this._parentPhoneAsyncValidator]],
