@@ -23,6 +23,8 @@ export class CmTableComponent implements OnInit {
 
   @Input() checked            : boolean;
 
+  @Input() allowSpace         : boolean = true;
+
   @Output() checkedItemsChange: EventEmitter<any[]> = new EventEmitter();
 
   dataSet       : object[] = [];

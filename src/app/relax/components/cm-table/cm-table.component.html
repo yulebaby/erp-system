@@ -1,5 +1,6 @@
 <nz-table 
   #nzTable 
+  [ngClass]="[ allowSpace ? 'break' : 'nowrap' ]"
   [nzAjaxData]="dataSet" 
   [nzShowSizeChanger]="true" 
   [nzShowTotal]="true"
