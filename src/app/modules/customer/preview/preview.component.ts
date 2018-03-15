@@ -196,8 +196,8 @@ export class PreviewCustomerComponent implements OnInit {
       let params = this.recordFormModel.value;
       params.memberId = this._id;
       params.nextFollowTime = params.nextFollowTime ? this.format.transform(params.nextFollowTime, 'yyyy-MM-dd') : '';
-      params.status = params.reserve.status ? 0 : 1;
-      if (params.status === 0) {
+      params.status = params.reserve.status ? 1 : 0;
+      if (params.status === 1) {
         params.reserveDate   = params.reserve.reserveDate ? this.format.transform(params.reserve.reserveDate, 'yyyy-MM-dd') : '';
         params.reserveHour   = params.reserve.reserveHour ? params.reserve.reserveHour.split(':')[0] : '';
         params.reserveMinute = params.reserve.reserveHour ? params.reserve.reserveHour.split(':')[1] : '';
@@ -227,7 +227,6 @@ export class PreviewCustomerComponent implements OnInit {
   /* -------------------- 修改跟进记录 -------------------- */
   _followRecordModal;
   updateFollowRecord(title, content, footer, item): void {
-    console.log(item)
     this._followRecordModal = this.modal.open({
       title   : title,
       content : content,
@@ -264,8 +263,8 @@ export class PreviewCustomerComponent implements OnInit {
 
       let params = this._updateFollowRecordFormModel.value;
       params.nextFollowTime = params.nextFollowTime ? this.format.transform(params.nextFollowTime, 'yyyy-MM-dd') : '';
-      params.status = params.reserve.status ? 0 : 1;
-      if (params.status === 0) {
+      params.status = params.reserve.status ? 1 : 0;
+      if (params.status === 1) {
         params.reserveDate                    = params.reserve.reserveDate ? this.format.transform(params.reserve.reserveDate, 'yyyy-MM-dd') : '';
         params.reserveHour   = params.reserve.reserveHour ? params.reserve.reserveHour.split(':')[0] : '';
         params.reserveMinute = params.reserve.reserveHour ? params.reserve.reserveHour.split(':')[1] : '';

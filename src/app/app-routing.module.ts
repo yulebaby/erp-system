@@ -25,11 +25,6 @@ const routes: Routes = [
         component: IndexComponent
       },
       {
-        path: 'test',
-        data: { title: '测试模块' },
-        loadChildren: 'app/modules/test/test.module#TestModule'
-      },
-      {
         path: 'wechat',
         data: { title: '微信' },
         loadChildren: 'app/modules/wechat/wechat.module#WechatModule'

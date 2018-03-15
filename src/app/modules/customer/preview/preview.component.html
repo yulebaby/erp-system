@@ -241,14 +241,14 @@
                           <label>跟进阶段：</label><span>第{{ followRecord.length - idx }}次跟进</span>
                         </div>
                         <div>
-                          <nz-tag nzColor="#2db7f5" *ngIf="item.status == 0">已预约到店</nz-tag>
-                          <nz-tag nzColor="#ccc" *ngIf="item.status == 1">未预约到店</nz-tag>
+                          <nz-tag nzColor="#2db7f5" *ngIf="item.status > 0">已预约到店-{{ item.status == 1 ? '体验' : item.status == 2 ? '未体验' : '未到店' }}</nz-tag>
+                          <nz-tag nzColor="#ccc" *ngIf="item.status == 0">未预约到店</nz-tag>
                         </div>
                       </div>
                     </ng-template>
                     <ng-template #extra>
                       <nz-popover>
-                        <a href="javascript:;" nz-popover style="margin-right: 5px;" *ngIf="item.status == 0">到店记录</a>
+                        <a href="javascript:;" nz-popover style="margin-right: 5px;" *ngIf="item.status > 0">到店记录</a>
                         <ng-template #nzTemplate>
                           <div>
                             <ul class="record-status">
