@@ -93,7 +93,7 @@ export class CreateCustomerComponent implements OnInit {
 
   _customerFormInit(obj: any = {}) {
     this.customerForm = this.fb.group({
-      followStageId        : ['', [Validators.required]],                                                        // 跟进阶段
+      // followStageId        : ['', [Validators.required]],                                                        // 跟进阶段
       nick                 : ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],     // 宝宝昵称
       name                 : [''],                                                                               // 宝宝姓名
       sex                  : ['男'],                                                                             // 宝宝性别
