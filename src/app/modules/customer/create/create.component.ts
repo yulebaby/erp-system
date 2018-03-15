@@ -126,11 +126,10 @@ export class CreateCustomerComponent implements OnInit {
       });
     });
     this.customerForm.get('parentRelationShipId').valueChanges.subscribe(res => {
-      let parentName = this.customerForm.get('parentName').value.replace(/家长/g, '');
       this.parentIdentityList.map( item => {
         if (item.id == res) {
           this.customerForm.patchValue({
-            parentName: parentName + item.name
+            parentName: this.customerForm.get('nick').value + item.name
           });
         }
       })
