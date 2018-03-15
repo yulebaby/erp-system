@@ -181,7 +181,7 @@ export class PreviewCustomerComponent implements OnInit {
   }
 
   /* ------------------- 发布跟进记录 ------------------- */
-  _submitFollowRecord(): void {
+  _submitFollowRecord(isReset?: boolean): void {
     for (const key in this.recordFormModel.controls) {
       this.recordFormModel.controls[key].markAsDirty();
     }
@@ -206,9 +206,13 @@ export class PreviewCustomerComponent implements OnInit {
       this.http.post('/customer/addFollowRecord', { paramJson: JSON.stringify(params) }).then( res => {
         this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
         if (res.code == 1000) {
-          res.result.contentLabel = this._resetFollowRecordContent(res.result.content);
-          this.followRecord.unshift(res.result);
-          this.recordFormModel.reset();
+          if (isReset) {
+            this.router.navigateByUrl('/home/customer/all?reset=true');
+          } else {
+            res.result.contentLabel = this._resetFollowRecordContent(res.result.content);
+            this.followRecord.unshift(res.result);
+            this.recordFormModel.reset();
+          }
         }
       })
     }
