@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, DatePipe } from '@angular/common';
 
 import { NgZorroAntdModule, NZ_MESSAGE_CONFIG } from 'ng-zorro-antd';
 
@@ -50,6 +50,7 @@ import { UserService } from './modules/user/user.service';
     HttpService,
     LoginService,
     UserService,
+    DatePipe,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     {
       provide: HTTP_INTERCEPTORS,

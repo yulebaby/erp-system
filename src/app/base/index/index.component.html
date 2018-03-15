@@ -3,40 +3,32 @@
   <nz-card>
     <ng-template #title>数据统计</ng-template>
     <ng-template #extra>
-      <nz-datepicker style="width: 200px;" [(ngModel)]="_month" nzMode="month" nzSize="size" nzPlaceHolder="请选择月份" nzFormat="YYYY-MM"></nz-datepicker>
+      <nz-datepicker style="width: 200px;" [(ngModel)]="_month" nzMode="month" nzSize="size" [nzAllowClear]="false" nzPlaceHolder="请选择月份" nzFormat="YYYY-MM"></nz-datepicker>
     </ng-template>
     <ng-template #body>
       <div nz-row>
         <nz-card nz-col [nzSpan]="6">
-          <ng-template #title>数据统计</ng-template>
+          <ng-template #title>今日需回访客户</ng-template>
           <ng-template #body>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
+            <p>{{ result?.todayReturnVisit }}</p>
           </ng-template>
         </nz-card>
         <nz-card nz-col [nzSpan]="6">
-          <ng-template #title>数据统计</ng-template>
+          <ng-template #title>1月份新增需客户</ng-template>
           <ng-template #body>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
+            <p>{{ result?.monthAdded }}</p>
           </ng-template>
         </nz-card>
         <nz-card nz-col [nzSpan]="6">
-          <ng-template #title>数据统计</ng-template>
+          <ng-template #title>1月份邀约成功率</ng-template>
           <ng-template #body>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
+            <p>{{ result?.monthSuccessRate || 0 }}%</p>
           </ng-template>
         </nz-card>
         <nz-card nz-col [nzSpan]="6">
-          <ng-template #title>数据统计</ng-template>
+          <ng-template #title>全部客户</ng-template>
           <ng-template #body>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
+            <p>{{ result?.allClient }}</p>
           </ng-template>
         </nz-card>
       </div>
