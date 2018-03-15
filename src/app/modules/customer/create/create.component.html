@@ -4,7 +4,7 @@
 
   <form nz-form [formGroup]="customerForm">
 
-    <div class="form-block">
+    <!-- <div class="form-block">
       <div nz-form-item nz-row nz-col [nzSpan]="12">
         <div nz-form-label nz-col [nzSpan]="8">
           <label nz-form-item-required>跟进阶段</label>
@@ -16,7 +16,7 @@
           <div nz-form-explain *ngIf="getFormControl('followStageId').dirty && getFormControl('followStageId').hasError('required')">请选择跟进阶段</div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <cm-quote>宝宝信息</cm-quote>
 
@@ -68,7 +68,7 @@
           <label for="birthday">宝宝生日</label>
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
-          <nz-datepicker formControlName="birthday" nzPlaceHolder="请选择宝宝生日" [style.width]="'100%'"></nz-datepicker>
+          <nz-datepicker formControlName="birthday" nzPlaceHolder="请选择宝宝生日" [style.width]="'100%'" [nzDisabledDate]="_disabledDate"></nz-datepicker>
         </div>
       </div>
       <div nz-form-item nz-row nz-col [nzSpan]="12">
@@ -84,7 +84,7 @@
           <label>宝宝类型</label>
         </div>
         <div nz-form-control nz-col [nzSpan]="16">
-          <nz-select formControlName="babyType" nzPlaceHolder="请选择宝宝类型" nzAllowClear>
+          <nz-select formControlName="babyType" nzPlaceHolder="请选择宝宝类型" nzDisabled>
             <nz-option nzLabel="婴儿" nzValue="婴儿"></nz-option>
             <nz-option nzLabel="幼儿" nzValue="幼儿"></nz-option>
           </nz-select>
@@ -107,7 +107,7 @@
         </div>
         <div nz-form-control nz-col [nzSpan]="20">
           <nz-input formControlName="visitRemarks" nzType="textarea" nzPlaceHolder="请输入备注" nzId="visitRemarks"></nz-input>
-          <div nz-form-explain *ngIf="getFormControl('visitRemarks').dirty && getFormControl('visitRemarks').hasError('maxlength')">最多200个字符</div>
+          <div nz-form-explain *ngIf="getFormControl('visitRemarks').dirty && getFormControl('visitRemarks').hasError('maxlength')">最多300个字符</div>
         </div>
       </div>
 

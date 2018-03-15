@@ -179,8 +179,10 @@
 }
 
 .tags-content {
-    overflow-x: auto;
-    white-space:nowrap;
+    padding-bottom: 10px;
+    nz-tag {
+        margin-bottom: 8px;
+    }
 }
 
 

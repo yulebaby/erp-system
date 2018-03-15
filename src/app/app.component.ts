@@ -1,9 +1,9 @@
+import { UserService } from './base/login/user.service';
+import { LoginService } from './base/login/login.service';
 import { NzNotificationService } from 'ng-zorro-antd';
-import { LoginService } from './modules/user/login/login.service';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { HttpService } from './relax/services/http/http.service';
 import { Component } from '@angular/core';
-import { UserService } from './modules/user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -23,13 +23,13 @@ export class AppComponent {
     router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.login.loginToPath = event.url;
-        if (event.url.indexOf('/user/login') === -1) {
+        if (event.url.indexOf('/login') === -1) {
           this.login.loginSource = event.url;
         }
       }
 
       if (event instanceof NavigationEnd) {
-        this.loginEnd = event.url.indexOf('/user/login') > -1;
+        this.loginEnd = event.url.indexOf('/login') > -1;
         if (!this.carried && !this.loginEnd) {
           this._getRkInfo();
           this.carried = true;

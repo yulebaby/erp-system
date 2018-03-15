@@ -1,4 +1,4 @@
-import { UserService } from './../../modules/user/user.service';
+import { UserService } from './../../base/login/user.service';
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 
 @Component({
@@ -11,8 +11,14 @@ export class HeaderComponent implements OnInit {
   @Output() isCollapsedChange: EventEmitter<boolean> = new EventEmitter();
 
   @Input() isCollapsed: boolean = false;
+  
+  user;
 
-  constructor(public user: UserService) { }
+  constructor(
+    private userService: UserService
+  ) { 
+    this.user = userService;
+  }
 
   ngOnInit() {
   }

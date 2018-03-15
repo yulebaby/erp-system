@@ -1,6 +1,7 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from './../../../relax/services/http/http.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
@@ -10,11 +11,12 @@ import { NzMessageService } from 'ng-zorro-antd';
 })
 export class AllCustomerComponent implements OnInit {
 
+  @ViewChild('CmTable') table;
   
   queryNode: object[] = [
     {
-      label       : '宝宝姓名',
-      key         : 'babyName',
+      label       : '宝宝昵称',
+      key         : 'nick',
       type        : 'input',
       placeholder : '请输入宝宝昵称'
     },
@@ -87,14 +89,6 @@ export class AllCustomerComponent implements OnInit {
       isHide      : true
     },
     {
-      label       : '负责销售',
-      key         : 'followSellerId',
-      type        : 'select',
-      optionsUrl  : '/common/followSellerList',
-      placeholder : '请选择负责销售',
-      isHide      : true
-    },
-    {
       label       : '收集者',
       key         : 'collectorId',
       type        : 'select',
@@ -118,6 +112,14 @@ export class AllCustomerComponent implements OnInit {
       width : '100px'
     },
     {
+      name  : '宝宝姓名',
+      width : '100px'
+    },
+    {
+      name  : '宝宝生日',
+      width : '100px'
+    },
+    {
       name  : '性别',
       width : '60px'
     },
@@ -134,7 +136,19 @@ export class AllCustomerComponent implements OnInit {
       width : '100px'
     },
     {
+      name  : '所属小区',
+      width : '140px'
+    }, 
+    {
       name  : '入库时间',
+      width : '140px'
+    },
+    {
+      name  : '下次跟进时间',
+      width : '140px'
+    },
+    {
+      name  : '最后跟进时间',
       width : '140px'
     },
     {
@@ -148,13 +162,26 @@ export class AllCustomerComponent implements OnInit {
     {
       name  : '跟进阶段',
       width : '120px'
+    },
+    {
+      name  : '跟进销售',
+      width : '120px'
     }
   ]
   checkedItems: any[] = [];
 
-  constructor( ) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router        : Router
+  ) { }
 
   ngOnInit() {
+    this.activatedRoute.queryParamMap.subscribe( (res: any) => {
+      if (res.params.reset) {
+        this.table._request();
+        this.router.navigateByUrl('/home/customer/all');
+      }
+    })
   }
 
 

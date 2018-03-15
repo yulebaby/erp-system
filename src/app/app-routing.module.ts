@@ -1,3 +1,4 @@
+import { LoginComponent } from './base/login/login.component';
 import { IndexComponent } from './base/index/index.component';
 import { ErrorComponent } from './base/error/error.component';
 import { BaseComponent } from './frames/base.component';
@@ -12,8 +13,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'user',
-    loadChildren: 'app/modules/user/user.module#UserModule'
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: 'home',

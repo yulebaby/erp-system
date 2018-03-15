@@ -19,12 +19,12 @@
           </td>
           <td>{{ data.nick }}</td>
           <td><i class="iconfont" [title]="data.sex" [ngClass]="[ data.sex === '男' ? 'icon-nan' : 'icon-nv']"></i></td>
-          <td>{{ data.xxxxx }}</td>
+          <td>{{ data.birthday | monthdiff }}</td>
           <td>{{ data.parentName }}</td>
-          <td>{{ data.mobilePhone }}</td>
+          <td><cm-gettel [id]="data.id"></cm-gettel></td>
           <td>{{ data.createDate }}</td>
-          <td>{{ data.source }}</td>
-          <td>{{ data.xxxxx }}</td>
+          <td>{{ data.sourceName }}</td>
+          <td>{{ data.memberStatus || '--' }}</td>
           <td>{{ data.followStage }}</td>
         </tr>
         <tr nz-tbody-tr *ngIf="data.expand">
@@ -37,22 +37,22 @@
               </div>
               <div nz-col [nzXl]="6" [nzLg]="8" [nzSm]="12" [nzXs]="24">
                 <label nz-col [nzSpan]="8">所属小区：</label>
-                <div nz-col [nzSpan]="16">{{ data.community || '--' }}</div>
+                <div nz-col [nzSpan]="16">{{ data.communityName || '--' }}</div>
               </div>
               <div nz-col [nzXl]="6" [nzLg]="8" [nzSm]="12" [nzXs]="24">
-                <label nz-col [nzSpan]="8">宝宝生日</label>
+                <label nz-col [nzSpan]="8">宝宝生日：</label>
                 <div nz-col [nzSpan]="16">{{ data.birthday ? data.birthday :'--' }}</div>
               </div>
               <div nz-col [nzXl]="6" [nzLg]="8" [nzSm]="12" [nzXs]="24" style="margin-bottom: 0;">
-                <label nz-col [nzSpan]="8">下次跟进时间</label>
+                <label nz-col [nzSpan]="8">下次跟进时间：</label>
                 <div nz-col [nzSpan]="16">{{ data.nextFollowTime || '--' }}</div>
               </div>
               <div nz-col [nzXl]="6" [nzLg]="8" [nzSm]="12" [nzXs]="24" style="margin-bottom: 0;">
-                <label nz-col [nzSpan]="8">最后跟进时间</label>
+                <label nz-col [nzSpan]="8">最后跟进时间：</label>
                 <div nz-col [nzSpan]="16">{{ data.lastFollowTime || '--' }}</div>
               </div>
               <div nz-col [nzXl]="6" [nzLg]="8" [nzSm]="12" [nzXs]="24" style="margin-bottom: 0;">
-                <label nz-col [nzSpan]="8">跟进销售</label>
+                <label nz-col [nzSpan]="8">跟进销售：</label>
                 <div nz-col [nzSpan]="16">{{ data.followSeller || '--' }}</div>
               </div>
             </div>

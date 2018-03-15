@@ -51,9 +51,19 @@ export class CreateCustomerComponent implements OnInit {
         this.http.post('/customer/showCustomerInfo', { paramJson: JSON.stringify({ id: this._id }) }).then(res => {
           this._selectLoading = false;
           if (res.code == 1000 ){
+            res.result.member.birthday = res.result.member.birthday ? new Date(res.result.member.birthday) : '';
             this.customerForm.patchValue(res.result.member);
           }
+        });
+
+        this.http.post('/common/lookParentTelphone', { paramJson: JSON.stringify({ id: this._id }) }).then(res => {
+          if (res.code == 1000) {
+            this.customerForm.patchValue({
+              mobilePhone: res.result.mobilePhone
+            })
+          }
         })
+
       }
 
     });
@@ -92,7 +102,7 @@ export class CreateCustomerComponent implements OnInit {
 
   _customerFormInit(obj: any = {}) {
     this.customerForm = this.fb.group({
-      followStageId        : ['', [Validators.required]],                                                        // 跟进阶段
+      // followStageId        : ['', [Validators.required]],                                                        // 跟进阶段
       nick                 : ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],     // 宝宝昵称
       name                 : [''],                                                                               // 宝宝姓名
       sex                  : ['男'],                                                                             // 宝宝性别
@@ -101,7 +111,7 @@ export class CreateCustomerComponent implements OnInit {
       constellation        : [''],                                                                               // 星座
       babyType             : [''],                                                                               // 宝宝类型
       communityId          : [''],                                                                               // 所属小区
-      visitRemarks         : [''],                                                                               // 备注
+      visitRemarks         : ['', [Validators.maxLength(300)]],                                                  // 备注
 
       parentName           : ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],     // 家长姓名
       mobilePhone: ['', [Validators.required, Validators.pattern(/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/)], [this._parentPhoneAsyncValidator]],
@@ -117,7 +127,23 @@ export class CreateCustomerComponent implements OnInit {
         constellation: res ? this._getAstro(this.format.transform(res, 'yyyy-MM-dd').split('-')[1], this.format.transform(res, 'yyyy-MM-dd').split('-')[2]) : '',
         babyType     : !res ? '' : this.monthDiff.transform(this.format.transform(res, 'yyyy-MM-dd')) > 10 ? '幼儿' : '婴儿'
       });
+    });
+
+    this.customerForm.get('nick').valueChanges.subscribe( res => {
+      this.customerForm.patchValue({
+        parentName: `${res}家长`
+      });
+    });
+    this.customerForm.get('parentRelationShipId').valueChanges.subscribe(res => {
+      this.parentIdentityList.map( item => {
+        if (item.id == res) {
+          this.customerForm.patchValue({
+            parentName: this.customerForm.get('nick').value + item.name
+          });
+        }
+      })
     })
+
   }  
 
   _submit(): void {
@@ -190,4 +216,8 @@ export class CreateCustomerComponent implements OnInit {
       })
     })
   };
+
+  _disabledDate(current: Date): boolean {
+    return current && current.getTime() > Date.now();
+  }
 }

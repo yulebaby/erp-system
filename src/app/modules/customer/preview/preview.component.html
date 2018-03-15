@@ -1,6 +1,6 @@
 <div class="container">
 
-  <nz-spin [nzSpinning]="false" nzTip="正在读取数据...">
+  <nz-spin [nzSpinning]="isLoading" nzTip="正在读取数据...">
 
     <div class="box">
 
@@ -24,7 +24,7 @@
             </div>
             <div>
               <label>跟进阶段：</label>
-              <span>{{ userInfo?.memberStatusId }}</span>
+              <span>{{ userInfo?.followStage }}</span>
             </div>
           </div>
           <div class="head-buttons">
@@ -157,10 +157,8 @@
                     <div nz-form-explain *ngIf="recordFormModel.get('content').dirty && recordFormModel.get('content').hasError('required')">请输入200字以下跟进记录</div>
                   </div>
                 </div>
-                <div nz-form-item *ngIf="labelList.length">
-                  <div class="tags-content">
-                    <nz-tag nzColor="blue" (click)="tapTag('#'+ item.name +'#', recordFormModel)" *ngFor="let item of labelList">#{{ item.name }}#</nz-tag>
-                  </div>
+                <div class="tags-content" *ngIf="labelList.length">
+                  <nz-tag nzColor="blue" (click)="tapTag('#'+ item.name +'#', recordFormModel)" *ngFor="let item of labelList">#{{ item.name }}#</nz-tag>
                 </div>
                 <div class="form-content">
                   <div style="float: left;" formGroupName="reserve">
@@ -205,11 +203,11 @@
                   </div>
                   <div nz-form-item class="form-item">
                     <div nz-form-control>
-                      <nz-datepicker formControlName="nextFollowTime" nzPlaceHolder="选择下次跟进时间"></nz-datepicker>
+                      <nz-datepicker formControlName="nextFollowTime" nzPlaceHolder="选择下次跟进时间" [nzDisabledDate]="_disabledDate"></nz-datepicker>
                     </div>
                   </div>
                   <div nz-form-item class="form-btn">
-                    <nz-popconfirm *ngIf="!recordFormModel.get('nextFollowTime').value" nzTitle="下次跟进时间未填写，保存后此客户将放入暂无意向客户中，确认继续发布？" nzOkText="继续发布" nzCancelText="取消" (nzOnConfirm)="_submitFollowRecord()">
+                    <nz-popconfirm *ngIf="!recordFormModel.get('nextFollowTime').value" nzTitle="下次跟进时间未填写，保存后此客户将放入暂无意向客户中，确认继续发布？" nzOkText="继续发布" nzCancelText="取消" (nzOnConfirm)="_submitFollowRecord(true)">
                       <button nz-button nzType="primary" nz-popconfirm>发布</button>
                     </nz-popconfirm>
                     <button *ngIf="recordFormModel.get('nextFollowTime').value" nz-button nzType="primary" (click)="_submitFollowRecord()">发布</button>
@@ -241,20 +239,20 @@
                           <label>跟进阶段：</label><span>第{{ followRecord.length - idx }}次跟进</span>
                         </div>
                         <div>
-                          <nz-tag nzColor="#2db7f5" *ngIf="item.status == 0">已预约到店</nz-tag>
-                          <nz-tag nzColor="#ccc" *ngIf="item.status == 1">未预约到店</nz-tag>
+                          <nz-tag nzColor="#2db7f5" *ngIf="item.status > 0">已预约到店-{{ item.status == 1 ? '体验' : item.status == 2 ? '未体验' : '未到店' }}</nz-tag>
+                          <nz-tag nzColor="#ccc" *ngIf="item.status == 0">未预约到店</nz-tag>
                         </div>
                       </div>
                     </ng-template>
                     <ng-template #extra>
                       <nz-popover>
-                        <a href="javascript:;" nz-popover style="margin-right: 5px;" *ngIf="item.status == 0">到店记录</a>
+                        <a href="javascript:;" nz-popover style="margin-right: 5px;" *ngIf="item.status > 0">到店记录</a>
                         <ng-template #nzTemplate>
                           <div>
                             <ul class="record-status">
-                              <li (click)="editToShopRecord(1)">已到店体验</li>
-                              <li (click)="editToShopRecord(2)">已到店未体验</li>
-                              <li (click)="editToShopRecord(3)">未到店</li>
+                              <li (click)="editToShopRecord(1, item.id)">已到店体验</li>
+                              <li (click)="editToShopRecord(2, item.id)">已到店未体验</li>
+                              <li (click)="editToShopRecord(3, item.id)">未到店</li>
                             </ul>
                           </div>
                         </ng-template>
@@ -266,6 +264,7 @@
                       <div class="card-title">
                         <nz-tag nzColor="#108ee9">{{ item.userName }}</nz-tag>
                         <span>跟进家长：{{ userInfo?.parentName }}</span>
+                        <span *ngIf="item.reserveDate">预约时间：{{ item.reserveDate + ' ' + item.reserveHour + ':' + item.reserveMinute }}</span>
                       </div>
                       <div class="card-main" [innerHTML]="item.contentLabel"></div>
                     </ng-template>
@@ -296,10 +295,8 @@
           <div nz-form-explain *ngIf="recordFormModel.get('content').dirty && recordFormModel.get('content').hasError('required')">请输入200字以下跟进记录</div>
         </div>
       </div>
-      <div nz-form-item *ngIf="labelList.length">
-        <div class="tags-content">
-          <nz-tag nzColor="blue" (click)="tapTag('#'+ item.name +'#', _updateFollowRecordFormModel)" *ngFor="let item of labelList">#{{ item.name }}#</nz-tag>
-        </div>
+      <div class="tags-content" *ngIf="labelList.length">
+        <nz-tag nzColor="blue" (click)="tapTag('#'+ item.name +'#', _updateFollowRecordFormModel)" *ngFor="let item of labelList">#{{ item.name }}#</nz-tag>
       </div>
       <div nz-row class="form-content">
         <div style="float: left" formGroupName="reserve">

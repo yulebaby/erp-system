@@ -11,8 +11,8 @@ export class NointentionComponent implements OnInit {
 
   queryNode: object[] = [
     {
-      label       : '宝宝姓名',
-      key         : 'babyName',
+      label       : '宝宝昵称',
+      key         : 'nick',
       type        : 'input',
       placeholder : '请输入宝宝昵称'
     },
@@ -82,14 +82,6 @@ export class NointentionComponent implements OnInit {
       type        : 'datepicker',
       valueKey    : ['lastFollowTimeStart', 'lastFollowTimeEnd'],
       placeholder : ['选择开始时间', '选择结束时间'],
-      isHide      : true
-    },
-    {
-      label       : '负责销售',
-      key         : 'followSellerId',
-      type        : 'select',
-      optionsUrl  : '/common/followSellerList',
-      placeholder : '请选择负责销售',
       isHide      : true
     },
     {

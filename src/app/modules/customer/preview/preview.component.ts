@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { HttpService } from './../../../relax/services/http/http.service';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -81,33 +81,27 @@ export class PreviewCustomerComponent implements OnInit {
     private http      : HttpService,
     private message   : NzMessageService,
     private format    : DatePipe,
-    private modal     : NzModalService
+    private modal     : NzModalService,
+    private router    : Router
   ) { }
 
   ngOnInit() {
 
-    /* ------------------- 查看用户信息 ------------------- */
     this.routeInfo.params.subscribe( param => {
       this._id = param.id;
-      this.isLoading = true;
-      this.http.post('/customer/showCustomerInfo', { paramJson: JSON.stringify({ id: this._id }) }).then( res => {
-        this.isLoading = false;
-        this.userInfo = res.result.member || {};
-        this.currentUserName = res.result.currentUserName;
-        if (res.code != 1000) {
-          this.message.warning(res.info);
-        }
-      })
-    })
 
-    /* ------------------- 查看跟进记录 ------------------- */
-    this.http.post('/customer/showFollowRecord', { paramJson: JSON.stringify({ id: this._id}) }).then( res => {
-      if (res.code == 1000) {
-        this.followRecord = res.result;
-      }
-      this.followRecord.map( item => {
-        item.contentLabel = this._resetFollowRecordContent(item.content);
+      this.selectUserInfoInit();
+
+      /* ------------------- 查看跟进记录 ------------------- */
+      this.http.post('/customer/showFollowRecord', { paramJson: JSON.stringify({ id: this._id }) }).then(res => {
+        if (res.code == 1000) {
+          this.followRecord = res.result;
+        }
+        this.followRecord.map(item => {
+          item.contentLabel = this._resetFollowRecordContent(item.content);
+        })
       })
+
     })
 
     /* ------------------- 获取记录标签 ------------------- */
@@ -118,7 +112,7 @@ export class PreviewCustomerComponent implements OnInit {
     })
 
     this.recordFormModel = this.fb.group({
-      content       : ['', [Validators.required, Validators.max(200)]],     // 记录内容
+      content       : ['', [Validators.required, Validators.maxLength(200)]],     // 记录内容
       followType    : ['', [Validators.required]],                          // 跟进方式
       memberStatusId   : ['', [Validators.required]],                          // 客户状态
       nextFollowTime: [''],                                                 // 下次跟进时间
@@ -172,6 +166,22 @@ export class PreviewCustomerComponent implements OnInit {
   }
 
 
+
+
+  selectUserInfoInit(): void {
+
+    /* ------------------- 查看用户信息 ------------------- */
+    this.isLoading = true;
+    this.http.post('/customer/showCustomerInfo', { paramJson: JSON.stringify({ id: this._id }) }).then(res => {
+      this.isLoading = false;
+      this.userInfo = res.result.member || {};
+      this.currentUserName = res.result.currentUserName;
+      if (res.code != 1000) {
+        this.message.warning(res.info);
+      }
+    });
+  }
+
   /* ------------------- 点击记录标签 ------------------- */
   tapTag(value: string, form: FormGroup): void {
     form.patchValue({
@@ -180,7 +190,7 @@ export class PreviewCustomerComponent implements OnInit {
   }
 
   /* ------------------- 发布跟进记录 ------------------- */
-  _submitFollowRecord(): void {
+  _submitFollowRecord(isReset?: boolean): void {
     for (const key in this.recordFormModel.controls) {
       this.recordFormModel.controls[key].markAsDirty();
     }
@@ -195,8 +205,8 @@ export class PreviewCustomerComponent implements OnInit {
       let params = this.recordFormModel.value;
       params.memberId = this._id;
       params.nextFollowTime = params.nextFollowTime ? this.format.transform(params.nextFollowTime, 'yyyy-MM-dd') : '';
-      params.status = params.reserve.status ? 0 : 1;
-      if (params.status === 0) {
+      params.status = params.reserve.status ? 1 : 0;
+      if (params.status === 1) {
         params.reserveDate   = params.reserve.reserveDate ? this.format.transform(params.reserve.reserveDate, 'yyyy-MM-dd') : '';
         params.reserveHour   = params.reserve.reserveHour ? params.reserve.reserveHour.split(':')[0] : '';
         params.reserveMinute = params.reserve.reserveHour ? params.reserve.reserveHour.split(':')[1] : '';
@@ -205,9 +215,14 @@ export class PreviewCustomerComponent implements OnInit {
       this.http.post('/customer/addFollowRecord', { paramJson: JSON.stringify(params) }).then( res => {
         this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
         if (res.code == 1000) {
-          res.result.contentLabel = this._resetFollowRecordContent(res.result.content);
-          this.followRecord.unshift(res.result);
-          this.recordFormModel.reset();
+          if (isReset) {
+            this.router.navigateByUrl('/home/customer/all?reset=true');
+          } else {
+            this.selectUserInfoInit();
+            res.result.contentLabel = this._resetFollowRecordContent(res.result.content);
+            this.followRecord.unshift(res.result);
+            this.recordFormModel.reset();
+          }
         }
       })
     }
@@ -217,13 +232,15 @@ export class PreviewCustomerComponent implements OnInit {
   intentionCustomer(): void {
     this.http.post('/customer/transitioNoIntentionCustomer', { paramJson: JSON.stringify({ id: this._id }) }).then( res => {
       this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
+      if (res.code == 1000) {
+        this.router.navigateByUrl('/home/customer/all?reset=true');
+      }
     });
   }
 
   /* -------------------- 修改跟进记录 -------------------- */
   _followRecordModal;
   updateFollowRecord(title, content, footer, item): void {
-    console.log(item)
     this._followRecordModal = this.modal.open({
       title   : title,
       content : content,
@@ -239,9 +256,9 @@ export class PreviewCustomerComponent implements OnInit {
       nextFollowTime : item.nextFollowTime,
       
       reserve        : {
-                        status      : item.status == 0,
-                        reserveDate : new Date(item.reserveDate),
-                        reserveHour : item.reserveHour + ':' + item.reserveMinute
+                        status      : item.status > 0,
+                        reserveDate : item.reserveDate ? new Date(item.reserveDate) : '',
+                        reserveHour : item.reserveHour ? item.reserveHour + ':' + item.reserveMinute : ''
                       }
     };
     this._updateFollowRecordFormModel.patchValue(controls);
@@ -255,13 +272,17 @@ export class PreviewCustomerComponent implements OnInit {
       this._updateFollowRecordFormModel.get('reserve')['controls'][key].markAsDirty();
     }
 
-    if (this._updateFollowRecordFormModel.valid && !this._saveUpdateFollowRecordLoading) {
+
+    let [model, reserve] = [this._updateFollowRecordFormModel, this._updateFollowRecordFormModel.get('reserve')];
+    let mainValid = model.get('content').valid && model.get('memberStatusId').valid && model.get('followType').valid;
+    let childValid = reserve.get('status').value && reserve.get('reserveDate').valid && reserve.get('reserveHour').valid || !reserve.get('status').value;
+    if (mainValid && childValid) {
       this._saveUpdateFollowRecordLoading = true;
 
       let params = this._updateFollowRecordFormModel.value;
       params.nextFollowTime = params.nextFollowTime ? this.format.transform(params.nextFollowTime, 'yyyy-MM-dd') : '';
-      params.status = params.reserve.status ? 0 : 1;
-      if (params.status === 0) {
+      params.status = params.reserve.status ? 1 : 0;
+      if (params.status === 1) {
         params.reserveDate                    = params.reserve.reserveDate ? this.format.transform(params.reserve.reserveDate, 'yyyy-MM-dd') : '';
         params.reserveHour   = params.reserve.reserveHour ? params.reserve.reserveHour.split(':')[0] : '';
         params.reserveMinute = params.reserve.reserveHour ? params.reserve.reserveHour.split(':')[1] : '';
@@ -275,13 +296,19 @@ export class PreviewCustomerComponent implements OnInit {
           this.followRecord.map(item => {
             if (item.id === this._updateFollowRecordFormModel.value.id) {
               item.content        = res.result.content;
-              item.memberStatusId    = res.result.memberStatusId;
               item.followType     = res.result.followType;
               item.nextFollowTime = res.result.nextFollowTime;
               item.status         = res.result.status;
               item.contentLabel   = res.result.contentLabel;
+              item.reserveDate    = res.result.reserveDate;
+              item.reserveHour    = res.result.reserveHour;
+              item.reserveMinute  = res.result.reserveMinute;
+              item.followTypeName = res.result.followTypeName;
+              item.memberStatusId = res.result.memberStatusId;
+              item.memberStatusName = res.result.memberStatusName;
             }
           });
+          console.log(this.followRecord)
           this._followRecordModal.destroy()
         }
       })
@@ -290,9 +317,16 @@ export class PreviewCustomerComponent implements OnInit {
 
 
   /* -------------------- 修改到店记录状态 -------------------- */
-  editToShopRecord(status: number): void {
-    this.http.post('/customer/editToShopRecord', { paramJson: JSON.stringify({ id: this._id, status: status }) }).then(res => {
+  editToShopRecord(status: number, id: number): void {
+    this.http.post('/customer/editToShopRecord', { paramJson: JSON.stringify({ id: id, status: status }) }).then(res => {
       this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
+      if (res.code == 1000) {
+        this.followRecord.map( item => {
+          if (item.id == id) {
+            item.status = status;
+          }
+        })
+      }
     })
   }
 
@@ -308,7 +342,7 @@ export class PreviewCustomerComponent implements OnInit {
   }
 
   _disabledDate(current: Date): boolean {
-    return current && current.getTime() < Date.now();
+    return current && current.getTime() < Date.now() - 1000 * 60 * 60 * 24;
   }
 
 }

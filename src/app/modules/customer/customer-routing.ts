@@ -15,7 +15,7 @@ import { CreateCanDeactivate } from './create/create.guard';
 const routes: Routes = [
 	{
 		path: 'all',
-		data: { title: '全部客户' },
+		data: { title: '潜在客户' },
 		component: AllCustomerComponent,
 		children: [
 			{

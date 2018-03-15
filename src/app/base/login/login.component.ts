@@ -1,9 +1,9 @@
+import { UserService } from './user.service';
+import { LoginService } from './login.service';
+import { HttpService } from './../../relax/services/http/http.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from './login.service';
-import { HttpService } from './../../../relax/services/http/http.service';
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
 declare const CryptoJS;
 
 @Component({
@@ -60,12 +60,15 @@ export class LoginComponent implements OnInit {
 
     if (this.loginForm.valid && !this.loginLoading) {
       this.loginLoading = true;
+
+      /* ------------------ AES加密密码 ------------------ */
       let params = JSON.parse(JSON.stringify(this.loginForm.value));
       params.password = this._encrypt(params.password);
       this.http.post('/auth/login', params).then(res => {
         this.loginLoading = false;
         if (res.code == 1000) {
           this.user.setUser(res.result);
+          /* ------------------ 存储用户名密码 ------------------ */
           if (params.remember) {
             window.localStorage.setItem('username', JSON.stringify(this.loginForm.value));
           }

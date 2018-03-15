@@ -1,10 +1,12 @@
-import { LoginService } from './modules/user/login/login.service';
+import { LoginComponent } from './base/login/login.component';
+import { LoginService } from './base/login/login.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpService } from './relax/services/http/http.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, DatePipe } from '@angular/common';
 
 import { NgZorroAntdModule, NZ_MESSAGE_CONFIG } from 'ng-zorro-antd';
 
@@ -20,7 +22,7 @@ import { BreadcrumbComponent } from './frames/content/breadcrumb/breadcrumb.comp
 import { BaseComponent } from './frames/base.component';
 import { NoopInterceptor } from './relax/services/http/http.intercept';
 import { IndexComponent } from './base/index/index.component';
-import { UserService } from './modules/user/user.service';
+import { UserService } from './base/login/user.service';
 
 
 
@@ -34,12 +36,15 @@ import { UserService } from './modules/user/user.service';
     ErrorComponent,
     BreadcrumbComponent,
     BaseComponent,
-    IndexComponent
+    IndexComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     NgZorroAntdModule.forRoot()
   ],
@@ -47,6 +52,7 @@ import { UserService } from './modules/user/user.service';
     HttpService,
     LoginService,
     UserService,
+    DatePipe,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     {
       provide: HTTP_INTERCEPTORS,

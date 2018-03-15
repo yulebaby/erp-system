@@ -1,4 +1,4 @@
-import { LoginService } from './../../../modules/user/login/login.service';
+import { LoginService } from './../../../base/login/login.service';
 import { Observable } from 'rxjs/Rx';
 import { CreateCustomerComponent } from './create.component';
 import { Injectable } from '@angular/core';
@@ -7,8 +7,8 @@ import { NzModalService } from 'ng-zorro-antd';
 @Injectable()
 export class CreateCanDeactivate implements CanDeactivate<CreateCustomerComponent> {
     constructor(
-        private confirm: NzModalService,
-        private login: LoginService
+        private confirm : NzModalService,
+        private login   : LoginService
     ) {}
 
     canDeactivate(
