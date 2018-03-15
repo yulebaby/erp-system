@@ -32,7 +32,7 @@ export class IndexComponent implements OnInit, AfterViewChecked {
   }
 
   request(): void {
-    this.http.post('/homePage/showHomePage', { paramJson: JSON.stringify({ month: this.format.transform(this._month, 'yyyy-MM'); }) }).then(res => {
+    this.http.post('/homePage/showHomePage', { paramJson: JSON.stringify({ month: this.format.transform(this._month, 'yyyy-MM') }) }).then(res => {
       if (res.code == 1000) {
         this.result = res.result;
       }
