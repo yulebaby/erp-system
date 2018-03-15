@@ -272,7 +272,11 @@ export class PreviewCustomerComponent implements OnInit {
       this._updateFollowRecordFormModel.get('reserve')['controls'][key].markAsDirty();
     }
 
-    if (this._updateFollowRecordFormModel.valid && !this._saveUpdateFollowRecordLoading) {
+
+    let [model, reserve] = [this._updateFollowRecordFormModel, this._updateFollowRecordFormModel.get('reserve')];
+    let mainValid = model.get('content').valid && model.get('memberStatusId').valid && model.get('followType').valid;
+    let childValid = reserve.get('status').value && reserve.get('reserveDate').valid && reserve.get('reserveHour').valid || !reserve.get('status').value;
+    if (mainValid && childValid) {
       this._saveUpdateFollowRecordLoading = true;
 
       let params = this._updateFollowRecordFormModel.value;
@@ -292,7 +296,7 @@ export class PreviewCustomerComponent implements OnInit {
           this.followRecord.map(item => {
             if (item.id === this._updateFollowRecordFormModel.value.id) {
               item.content        = res.result.content;
-              item.memberStatusId    = res.result.memberStatusId;
+              item.memberStatusId = res.result.memberStatusId;
               item.followType     = res.result.followType;
               item.nextFollowTime = res.result.nextFollowTime;
               item.status         = res.result.status;
@@ -300,8 +304,10 @@ export class PreviewCustomerComponent implements OnInit {
               item.reserveDate    = res.result.reserveDate;
               item.reserveHour    = res.result.reserveHour;
               item.reserveMinute  = res.result.reserveMinute;
+              item.followTypeName = res.result.followTypeName;
             }
           });
+          console.log(this.followRecord)
           this._followRecordModal.destroy()
         }
       })
