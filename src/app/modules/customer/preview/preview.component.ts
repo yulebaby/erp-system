@@ -112,7 +112,7 @@ export class PreviewCustomerComponent implements OnInit {
     })
 
     this.recordFormModel = this.fb.group({
-      content       : ['', [Validators.required, Validators.max(200)]],     // 记录内容
+      content       : ['', [Validators.required, Validators.maxLength(200)]],     // 记录内容
       followType    : ['', [Validators.required]],                          // 跟进方式
       memberStatusId   : ['', [Validators.required]],                          // 客户状态
       nextFollowTime: [''],                                                 // 下次跟进时间
@@ -256,7 +256,7 @@ export class PreviewCustomerComponent implements OnInit {
       nextFollowTime : item.nextFollowTime,
       
       reserve        : {
-                        status      : item.status == 0,
+                        status      : item.status > 0,
                         reserveDate : item.reserveDate ? new Date(item.reserveDate) : '',
                         reserveHour : item.reserveHour ? item.reserveHour + ':' + item.reserveMinute : ''
                       }
