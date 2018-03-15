@@ -3,7 +3,7 @@
   <nz-card>
     <ng-template #title>数据统计</ng-template>
     <ng-template #extra>
-      <nz-datepicker style="width: 200px;" [(ngModel)]="_month" nzMode="month" nzSize="size" [nzAllowClear]="false" nzPlaceHolder="请选择月份" nzFormat="YYYY-MM"></nz-datepicker>
+      <nz-datepicker style="width: 200px;" [nzDisabledDate]="_disabledDate" [(ngModel)]="_month" nzMode="month" nzSize="size" [nzAllowClear]="false" nzPlaceHolder="请选择月份" nzFormat="YYYY-MM"></nz-datepicker>
     </ng-template>
     <ng-template #body>
       <div nz-row>

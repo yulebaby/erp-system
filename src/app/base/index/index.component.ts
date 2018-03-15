@@ -9,9 +9,9 @@ import { Component, OnInit, AfterViewChecked } from '@angular/core';
 })
 export class IndexComponent implements OnInit, AfterViewChecked {
 
-  _month: Date;
+  _month;
 
-  result
+  result;
 
   constructor(
     private http  : HttpService,
@@ -19,23 +19,28 @@ export class IndexComponent implements OnInit, AfterViewChecked {
   ) { }
 
   ngOnInit() {
-    this.request();
+    this._month = new Date();
   }
   private monthValue: string;
   ngAfterViewChecked() {
-    let nowVal = this.format.transform(this._month, 'yyyy-MM');
+    let nowVal = this._month;
     if (nowVal != this.monthValue){
+      this._month = nowVal;
       this.monthValue = nowVal;
       this.request();
     }
   }
 
   request(): void {
-    this.http.post('/homePage/showHomePage').then(res => {
+    this.http.post('/homePage/showHomePage', { paramJson: JSON.stringify({ month: this.format.transform(this._month, 'yyyy-MM'); }) }).then(res => {
       if (res.code == 1000) {
         this.result = res.result;
       }
     })
+  }
+
+  _disabledDate(current: Date): boolean {
+    return current && current.getTime() > Date.now();
   }
 
 
