@@ -335,7 +335,7 @@ export class PreviewCustomerComponent implements OnInit {
   }
 
   _disabledDate(current: Date): boolean {
-    return current && current.getTime() < Date.now();
+    return current && current.getTime() < Date.now() - 1000 * 60 * 60 * 24;
   }
 
 }
