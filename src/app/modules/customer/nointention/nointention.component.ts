@@ -11,8 +11,8 @@ export class NointentionComponent implements OnInit {
 
   queryNode: object[] = [
     {
-      label       : '宝宝姓名',
-      key         : 'babyName',
+      label       : '宝宝昵称',
+      key         : 'nick',
       type        : 'input',
       placeholder : '请输入宝宝昵称'
     },
