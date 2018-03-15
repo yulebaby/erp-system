@@ -21,7 +21,7 @@
           <td><i class="iconfont" [title]="data.sex" [ngClass]="[ data.sex === '男' ? 'icon-nan' : 'icon-nv']"></i></td>
           <td>{{ data.birthday | monthdiff }}</td>
           <td>{{ data.parentName }}</td>
-          <td>{{ data.mobilePhone }}</td>
+          <td><cm-gettel [id]="data.id"></cm-gettel></td>
           <td>{{ data.createDate }}</td>
           <td>{{ data.sourceName }}</td>
           <td>{{ data.memberStatus || '--' }}</td>
