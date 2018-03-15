@@ -14,13 +14,13 @@
           </ng-template>
         </nz-card>
         <nz-card nz-col [nzSpan]="6">
-          <ng-template #title>1月份新增需客户</ng-template>
+          <ng-template #title>{{ _monthString }}月份新增需客户</ng-template>
           <ng-template #body>
             <p>{{ result?.monthAdded }}</p>
           </ng-template>
         </nz-card>
         <nz-card nz-col [nzSpan]="6">
-          <ng-template #title>1月份邀约成功率</ng-template>
+          <ng-template #title>{{ _monthString }}月份邀约成功率</ng-template>
           <ng-template #body>
             <p>{{ result?.monthSuccessRate || 0 }}%</p>
           </ng-template>

@@ -10,6 +10,7 @@ import { Component, OnInit, AfterViewChecked } from '@angular/core';
 export class IndexComponent implements OnInit, AfterViewChecked {
 
   _month;
+  _monthString;
 
   result;
 
@@ -35,6 +36,7 @@ export class IndexComponent implements OnInit, AfterViewChecked {
     this.http.post('/homePage/showHomePage', { paramJson: JSON.stringify({ month: this.format.transform(this._month, 'yyyy-MM') }) }).then(res => {
       if (res.code == 1000) {
         this.result = res.result;
+        this._monthString = Number(this.format.transform(this._month, 'yyyy-MM').split('-')[1]);
       }
     })
   }
