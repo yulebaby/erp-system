@@ -87,9 +87,9 @@ export class PreviewCustomerComponent implements OnInit {
 
   ngOnInit() {
 
-    /* ------------------- 查看用户信息 ------------------- */
     this.routeInfo.params.subscribe( param => {
       this._id = param.id;
+      /* ------------------- 查看用户信息 ------------------- */
       this.isLoading = true;
       this.http.post('/customer/showCustomerInfo', { paramJson: JSON.stringify({ id: this._id }) }).then( res => {
         this.isLoading = false;
@@ -98,17 +98,19 @@ export class PreviewCustomerComponent implements OnInit {
         if (res.code != 1000) {
           this.message.warning(res.info);
         }
-      })
-    })
+      });
 
-    /* ------------------- 查看跟进记录 ------------------- */
-    this.http.post('/customer/showFollowRecord', { paramJson: JSON.stringify({ id: this._id}) }).then( res => {
-      if (res.code == 1000) {
-        this.followRecord = res.result;
-      }
-      this.followRecord.map( item => {
-        item.contentLabel = this._resetFollowRecordContent(item.content);
+
+      /* ------------------- 查看跟进记录 ------------------- */
+      this.http.post('/customer/showFollowRecord', { paramJson: JSON.stringify({ id: this._id }) }).then(res => {
+        if (res.code == 1000) {
+          this.followRecord = res.result;
+        }
+        this.followRecord.map(item => {
+          item.contentLabel = this._resetFollowRecordContent(item.content);
+        })
       })
+
     })
 
     /* ------------------- 获取记录标签 ------------------- */
