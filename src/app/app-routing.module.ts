@@ -38,6 +38,11 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'system',
+    data: { title: '系统管理' },
+    loadChildren: 'app/modules/system/system.module#SystemModule'
+  },
+  {
     path: 'error/:type',
     component: ErrorComponent
   },

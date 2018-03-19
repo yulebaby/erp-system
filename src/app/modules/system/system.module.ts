@@ -1,3 +1,5 @@
+import { SystemRoutingModule } from './system-routing.module';
+import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChangelogComponent } from './changelog/changelog.component';
@@ -6,7 +8,9 @@ import { HelpComponent } from './help/help.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    NgZorroAntdModule,
+    SystemRoutingModule
   ],
   declarations: [ChangelogComponent, ClauseComponent, HelpComponent]
 })
