@@ -207,7 +207,9 @@ export class CreateCustomerComponent implements OnInit {
 
   _parentPhoneAsyncValidator = (control: FormControl): any => {
     return Observable.create( observer => {
-      this.http.post('/common/checkTelphoneNum', { paramJson: JSON.stringify({ mobilePhone: this.customerForm.get('mobilePhone').value }) }).then( res => {
+      let params: any = { mobilePhone: this.customerForm.get('mobilePhone').value };
+      if (this._id != '0') { params.id = this._id; }
+      this.http.post('/common/checkTelphoneNum', { paramJson: JSON.stringify(params) }).then( res => {
         observer.next(res.result ? null : { error: true, duplicated: true });
         observer.complete();
       }, err => {

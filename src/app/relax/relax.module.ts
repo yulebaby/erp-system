@@ -1,3 +1,4 @@
+import { CacheService } from './services/cache/cache.service';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { HttpService } from './services/http/http.service';
 import { CmAlertComponent } from './components/cm-alert/cm-alert.component';
@@ -25,6 +26,7 @@ import { CmGettelComponent } from './components/cm-gettel/cm-gettel.component';
   ],
   providers: [
     HttpService,
+    CacheService,
     DatePipe
   ],
   exports: [
