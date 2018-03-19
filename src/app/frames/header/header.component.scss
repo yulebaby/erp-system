@@ -22,57 +22,29 @@
 
   display: flex;
   justify-content: flex-end;
-  & > .ui-user-cell {
-    margin-left: 20px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all .25s;
-    position: relative;
 
+  .ant-dropdown-link {
+    padding: 0 12px;
+    transition: all .2s;
     span {
+      font-size: 13px;
       vertical-align: middle;
+      margin-left: 6px;
     }
     &:hover {
-      span {
-        color: rgba(0, 0, 0, .75);
-      }
-      .ui-user-fixed {
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-      }
-    }
-    i {
-      font-size: 20px;
-      vertical-align: middle;
-    }
-    img {
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      vertical-align: middle;
+      background: #e6f7ff;
     }
   }
-  .ui-user-fixed {
-    min-width: 100%;
-    padding: 4px 0;
-    background: #fff;
-    box-shadow: 0 2px 2px #ccc;
-    position: absolute;
-    top: 64px;
-    left: 0;
-    z-index: 999;
-    opacity: 0;
-    visibility: hidden;
-    transform: translate3d(0, 10px, 0);
-    transition: all .25s;
-    li {
-      line-height: 34px;
-      padding: 0 10px;
-      &:hover {
-        background: rgba(0, 0, 0, .05);
-      }
+  .change-log {
+    padding: 0 12px;
+    transition: all .2s;
+    cursor: pointer;
+    &:hover {
+      background: #e6f7ff;
+    }
+    i {
+      font-size: 18px;
+      vertical-align: middle;
     }
   }
 }
