@@ -22,7 +22,7 @@ export class CacheService {
           typeof value === 'object' ? JSON.stringify(value) : value, 
           JSON.stringify({ version: environment.version, setTime: new Date().getTime() })
         ];
-    let cacheValue = `${valToStr}||${descStr}`;
+    let cacheValue = `${valToStr}|--cache--|${descStr}`;
     window.localStorage.setItem(key, cacheValue);
     return new Observable( observer => {
       observer.next(cacheValue);
@@ -42,7 +42,7 @@ export class CacheService {
       let value = window.localStorage.getItem(key);
       if (value) {
         try {
-          let [val, desc] = [JSON.parse(value.split('||')[0]), JSON.parse(value.split('||')[1])];
+          let [val, desc] = [JSON.parse(value.split('|--cache--|')[0]), JSON.parse(value.split('|--cache--|')[1])];
           if (desc.version === environment.version) {
             observer.next(val);
             observer.complete();
