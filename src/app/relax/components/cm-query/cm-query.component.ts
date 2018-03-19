@@ -1,3 +1,4 @@
+import { CacheService } from './../../services/cache/cache.service';
 import { HttpService } from './../../../relax/services/http/http.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
@@ -23,7 +24,8 @@ export class CmQueryComponent implements OnInit {
   constructor(
     private fb      : FormBuilder = new FormBuilder(),
     private http    : HttpService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private cache   : CacheService
   ) { }
 
   ngOnInit() {
@@ -33,10 +35,8 @@ export class CmQueryComponent implements OnInit {
       if (res.type === 'select') {
         res.optionKey = res.optionKey || { label: 'name', value: 'id' };
         if (res.optionsUrl) {
-          this.http.post(res.optionsUrl).then( result => {
-            if (result.code == 1000) {
-              res.options = (res.options || []).concat(result.result);
-            }
+          this.cache.get(res.optionsUrl).subscribe( result => {
+            res.options = (res.options || []).concat(result);
           })
         }
       }
