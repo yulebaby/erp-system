@@ -1,5 +1,5 @@
 import { IndexComponent } from './frames/index/index.component';
-import { LoginComponent } from './base/login/login.component';
+import { LoginComponent } from './frames/login/login.component';
 import { ErrorComponent } from './base/error/error.component';
 import { BaseComponent } from './frames/base.component';
 import { NgModule } from '@angular/core';

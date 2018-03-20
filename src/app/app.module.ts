@@ -1,7 +1,7 @@
 import { IndexComponent } from './frames/index/index.component';
 import { AppUserService } from './app-user.service';
 import { AppRouterService } from './app-router.service';
-import { LoginComponent } from './base/login/login.component';
+import { LoginComponent } from './frames/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpService } from './relax/services/http/http.service';
 import { BrowserModule } from '@angular/platform-browser';
