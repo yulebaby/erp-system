@@ -29,15 +29,11 @@ export class AppComponent {
 
       if (event instanceof NavigationEnd) {
         this.baseRouter.toPath = event.url;
-        this.loginEnd = event.url.indexOf('/login') > -1;
-        if (!this.carried && !this.loginEnd) {
-          this._getRkInfo();
-          this.carried = true;
-        }
       }
     });
 
     user.getUser();
+    this._getRkInfo();
   }
 
   _getRkInfo(): void {
@@ -46,13 +42,11 @@ export class AppComponent {
     }, 10 * 60 * 1000);
     setTimeout(() => {
       this._showHomePage();
-    }, 1000);
+    }, 3000);
   }
 
-  private loginEnd: boolean;
-  private carried : boolean;
   _showHomePage(): void {
-    if (!this.loginEnd) {
+    if (this.baseRouter.toPath.indexOf('/login') === -1) {
       this.http.post('/customer/statisticsMemberTotalForHour').then( res => {
         try {
           if (res.code == 1000 && res.result.list.length) {
@@ -64,4 +58,5 @@ export class AppComponent {
       })
     }
   }
+  
 }
