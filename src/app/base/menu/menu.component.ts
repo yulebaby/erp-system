@@ -1,3 +1,4 @@
+import { AppRouterService } from './../../app-router.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -9,9 +10,16 @@ export class MenuComponent implements OnInit {
 
   @Input() isCollapsed: boolean = false;
 
-  constructor() { }
+
+  baseRouter
+  constructor(
+    private router : AppRouterService
+  ) {
+    this.baseRouter = router
+  }
 
   ngOnInit() {
+    console.log(this.baseRouter.toPath)
   }
 
 }

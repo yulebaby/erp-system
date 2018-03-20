@@ -3,28 +3,22 @@
     <img src="./assets/images/logo.png" alt="logo" [ngStyle]="{'margin-left': isCollapsed ? '12px' : '26px'}">
   </div>
   <ul nz-menu [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed" nzTheme='dark'>
-    <li nz-menu-item [routerLink]="['/home']">
+    <li nz-menu-item [routerLink]="['/home']" [nzSelected]="baseRouter.toPath == '/home'">
       <span title>
         <i class="anticon anticon-mail"></i>
         <span>首页</span>
       </span>
     </li>
-    <!-- <li nz-menu-item [routerLink]="['/home/wechat/wechat-program']">
-      <span title>
-        <i class="anticon anticon-mail"></i>
-        <span>微信小程序</span>
-      </span>
-    </li> -->
-    <li nz-submenu>
+    <li nz-submenu [nzOpen]="baseRouter.toPath.indexOf('/home/customer') > -1">
       <span title>
         <i class="anticon anticon-appstore"></i>
         <span>客户管理</span>
       </span>
       <ul>
-        <li nz-menu-item routerLink="/home/customer/all"><span>潜在客户</span></li>
+        <li nz-menu-item routerLink="/home/customer/all" [nzSelected]="baseRouter.toPath == '/home/customer/all'"><span>潜在客户</span></li>
         <!-- <li nz-menu-item routerLink="/home/customer/unassigned"><span [ngStyle]="{'margin-left': '24px'}">待分配客户</span></li>
         <li nz-menu-item routerLink="/home/customer/allocated"><span [ngStyle]="{'margin-left': '24px'}">已分配客户</span></li> -->
-        <li nz-menu-item routerLink="/home/customer/nointention"><span>无意向客户</span></li>
+        <li nz-menu-item routerLink="/home/customer/nointention" [nzSelected]="baseRouter.toPath == '/home/customer/nointention'"><span>无意向客户</span></li>
         <!-- <li nz-menu-item routerLink="/home/customer/tracking-record"><span>跟踪记录</span></li>
         <li nz-menu-item routerLink="/home/customer/all"><span>到访</span></li>
         <li nz-menu-item routerLink="/home/customer/public-sea-pool"><span>公海池</span></li>
