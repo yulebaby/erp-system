@@ -1,5 +1,5 @@
+import { AppRouterService } from './app-router.service';
 import { LoginComponent } from './base/login/login.component';
-import { LoginService } from './base/login/login.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpService } from './relax/services/http/http.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -49,8 +49,8 @@ import { UserService } from './base/login/user.service';
     NgZorroAntdModule.forRoot()
   ],
   providers: [
+    AppRouterService,
     HttpService,
-    LoginService,
     UserService,
     DatePipe,
     { provide: LocationStrategy, useClass: HashLocationStrategy },

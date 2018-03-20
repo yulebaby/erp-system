@@ -1,5 +1,5 @@
+import { AppRouterService } from './app-router.service';
 import { UserService } from './base/login/user.service';
-import { LoginService } from './base/login/login.service';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { HttpService } from './relax/services/http/http.service';
@@ -14,21 +14,22 @@ export class AppComponent {
   
   constructor( 
     private router       : Router,
-    private login        : LoginService,
     private http         : HttpService,
     private notification : NzNotificationService,
-    private user         : UserService
+    private user         : UserService,
+    private baseRouter   : AppRouterService
   ) { 
     /* ----------------------- 监听路由变化, 获取未登录来源页 ----------------------- */
     router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
-        this.login.loginToPath = event.url;
+        this.baseRouter.goPath = event.url;
         if (event.url.indexOf('/login') === -1) {
-          this.login.loginSource = event.url;
+          this.baseRouter.loginSource = event.url;
         }
       }
 
       if (event instanceof NavigationEnd) {
+        this.baseRouter.toPath = event.url;
         this.loginEnd = event.url.indexOf('/login') > -1;
         if (!this.carried && !this.loginEnd) {
           this._getRkInfo();
