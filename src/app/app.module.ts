@@ -1,3 +1,4 @@
+import { IndexComponent } from './frames/index/index.component';
 import { AppUserService } from './app-user.service';
 import { AppRouterService } from './app-router.service';
 import { LoginComponent } from './base/login/login.component';
@@ -22,8 +23,6 @@ import { ErrorComponent } from './base/error/error.component';
 import { BreadcrumbComponent } from './frames/content/breadcrumb/breadcrumb.component';
 import { BaseComponent } from './frames/base.component';
 import { NoopInterceptor } from './relax/services/http/http.intercept';
-import { IndexComponent } from './base/index/index.component';
-
 
 
 @NgModule({
