@@ -1,3 +1,4 @@
+import { ErrorComponent } from './error/error.component';
 import { SystemRoutingModule } from './system-routing.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgModule } from '@angular/core';
@@ -12,6 +13,6 @@ import { HelpComponent } from './help/help.component';
     NgZorroAntdModule,
     SystemRoutingModule
   ],
-  declarations: [ChangelogComponent, ClauseComponent, HelpComponent]
+  declarations: [ChangelogComponent, ClauseComponent, HelpComponent, ErrorComponent]
 })
 export class SystemModule { }

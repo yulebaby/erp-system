@@ -1,3 +1,4 @@
+import { ErrorComponent } from './error/error.component';
 import { HelpComponent } from './help/help.component';
 import { ClauseComponent } from './clause/clause.component';
 import { ChangelogComponent } from './changelog/changelog.component';
@@ -20,7 +21,11 @@ const routes: Routes = [
         path: 'help',
         data: { title: '帮助' },
         component: HelpComponent
-    }
+    },
+    {
+        path: 'error/:type',
+        component: ErrorComponent
+    },
 ]
 
 @NgModule({

@@ -1,6 +1,5 @@
 import { IndexComponent } from './frames/index/index.component';
 import { LoginComponent } from './frames/login/login.component';
-import { ErrorComponent } from './base/error/error.component';
 import { BaseComponent } from './frames/base.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -43,12 +42,8 @@ const routes: Routes = [
     loadChildren: 'app/modules/system/system.module#SystemModule'
   },
   {
-    path: 'error/:type',
-    component: ErrorComponent
-  },
-  {
     path: '**',
-    redirectTo: '/error/404',
+    redirectTo: '/system/error/404',
     pathMatch: 'full'
   }
 ];

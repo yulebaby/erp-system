@@ -19,7 +19,6 @@ import { HeaderComponent } from './frames/header/header.component';
 import { MenuComponent } from './frames/menu/menu.component';
 import { ContentComponent } from './frames/content/content.component';
 import { FooterComponent } from './frames/footer/footer.component';
-import { ErrorComponent } from './base/error/error.component';
 import { BreadcrumbComponent } from './frames/content/breadcrumb/breadcrumb.component';
 import { BaseComponent } from './frames/base.component';
 import { NoopInterceptor } from './relax/services/http/http.intercept';
@@ -32,7 +31,6 @@ import { NoopInterceptor } from './relax/services/http/http.intercept';
     MenuComponent,
     ContentComponent,
     FooterComponent,
-    ErrorComponent,
     BreadcrumbComponent,
     BaseComponent,
     IndexComponent,
