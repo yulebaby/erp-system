@@ -1,7 +1,6 @@
-import { LoginComponent } from './base/login/login.component';
 import { IndexComponent } from './base/index/index.component';
-import { ErrorComponent } from './base/error/error.component';
-import { BaseComponent } from './frames/base.component';
+import { LoginComponent } from './base/login/login.component';
+import { BaseComponent } from './base/base.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -38,12 +37,13 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'error/:type',
-    component: ErrorComponent
+    path: 'system',
+    data: { title: '系统管理' },
+    loadChildren: 'app/modules/system/system.module#SystemModule'
   },
   {
     path: '**',
-    redirectTo: '/error/404',
+    redirectTo: '/system/error/404',
     pathMatch: 'full'
   }
 ];

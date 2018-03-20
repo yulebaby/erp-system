@@ -1,4 +1,4 @@
-import { LoginService } from './../../../base/login/login.service';
+import { AppRouterService } from './../../../app-router.service';
 import { Observable } from 'rxjs/Rx';
 import { CreateCustomerComponent } from './create.component';
 import { Injectable } from '@angular/core';
@@ -7,8 +7,8 @@ import { NzModalService } from 'ng-zorro-antd';
 @Injectable()
 export class CreateCanDeactivate implements CanDeactivate<CreateCustomerComponent> {
     constructor(
-        private confirm : NzModalService,
-        private login   : LoginService
+        private confirm    : NzModalService,
+        private baseRouter : AppRouterService
     ) {}
 
     canDeactivate(
@@ -16,7 +16,7 @@ export class CreateCanDeactivate implements CanDeactivate<CreateCustomerComponen
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Promise<boolean> | boolean | Observable<boolean> {
-        if (this.login.loginToPath.indexOf('/login') > -1 || component._submitLoading) { return true; }
+        if (this.baseRouter.goPath.indexOf('/login') > -1 || component._submitLoading) { return true; }
         return new Observable( (observer) => {
             this.confirm.confirm({
                 title: '确认离开此页面吗?',

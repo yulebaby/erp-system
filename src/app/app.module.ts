@@ -1,5 +1,7 @@
+import { IndexComponent } from './base/index/index.component';
+import { AppUserService } from './app-user.service';
+import { AppRouterService } from './app-router.service';
 import { LoginComponent } from './base/login/login.component';
-import { LoginService } from './base/login/login.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpService } from './relax/services/http/http.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,17 +15,13 @@ import { NgZorroAntdModule, NZ_MESSAGE_CONFIG } from 'ng-zorro-antd';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './frames/header/header.component';
-import { MenuComponent } from './frames/menu/menu.component';
-import { ContentComponent } from './frames/content/content.component';
-import { FooterComponent } from './frames/footer/footer.component';
-import { ErrorComponent } from './base/error/error.component';
-import { BreadcrumbComponent } from './frames/content/breadcrumb/breadcrumb.component';
-import { BaseComponent } from './frames/base.component';
+import { HeaderComponent } from './base/header/header.component';
+import { MenuComponent } from './base/menu/menu.component';
+import { ContentComponent } from './base/content/content.component';
+import { FooterComponent } from './base/footer/footer.component';
+import { BreadcrumbComponent } from './base/content/breadcrumb/breadcrumb.component';
+import { BaseComponent } from './base/base.component';
 import { NoopInterceptor } from './relax/services/http/http.intercept';
-import { IndexComponent } from './base/index/index.component';
-import { UserService } from './base/login/user.service';
-
 
 
 @NgModule({
@@ -33,7 +31,6 @@ import { UserService } from './base/login/user.service';
     MenuComponent,
     ContentComponent,
     FooterComponent,
-    ErrorComponent,
     BreadcrumbComponent,
     BaseComponent,
     IndexComponent,
@@ -49,9 +46,9 @@ import { UserService } from './base/login/user.service';
     NgZorroAntdModule.forRoot()
   ],
   providers: [
+    AppRouterService,
+    AppUserService,
     HttpService,
-    LoginService,
-    UserService,
     DatePipe,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     {

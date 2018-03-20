@@ -1,5 +1,5 @@
-import { UserService } from './user.service';
-import { LoginService } from './login.service';
+import { AppUserService } from './../../app-user.service';
+import { AppRouterService } from './../../app-router.service';
 import { HttpService } from './../../relax/services/http/http.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -20,11 +20,11 @@ export class LoginComponent implements OnInit {
   loginError   : string = '';
 
   constructor(
-    private http    : HttpService,
-    private login   : LoginService,
-    private router  : Router,
-    private fb      : FormBuilder = new FormBuilder(),
-    private user    : UserService
+    private http       : HttpService,
+    private baseRouter : AppRouterService,
+    private router     : Router,
+    private fb         : FormBuilder = new FormBuilder(),
+    private user       : AppUserService
   ) { }
 
   ngOnInit() {
@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
           if (params.remember) {
             window.localStorage.setItem('username', JSON.stringify(this.loginForm.value));
           }
-          this.router.navigateByUrl(this.login.loginSource || '/home');
+          this.router.navigateByUrl(this.baseRouter.loginSource || '/home');
         } else {
           this.loginError = res.info;
         }

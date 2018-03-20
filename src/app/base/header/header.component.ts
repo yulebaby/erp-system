@@ -1,4 +1,4 @@
-import { UserService } from './../../base/login/user.service';
+import { AppUserService } from './../../app-user.service';
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 
 @Component({
@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   user;
 
   constructor(
-    private userService: UserService
+    private userService: AppUserService
   ) { 
     this.user = userService;
   }
