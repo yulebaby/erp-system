@@ -1,5 +1,5 @@
+import { AppUserService } from './../../app-user.service';
 import { AppRouterService } from './../../app-router.service';
-import { UserService } from './user.service';
 import { HttpService } from './../../relax/services/http/http.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     private baseRouter : AppRouterService,
     private router     : Router,
     private fb         : FormBuilder = new FormBuilder(),
-    private user       : UserService
+    private user       : AppUserService
   ) { }
 
   ngOnInit() {

@@ -1,3 +1,4 @@
+import { AppUserService } from './app-user.service';
 import { AppRouterService } from './app-router.service';
 import { LoginComponent } from './base/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,7 +23,6 @@ import { BreadcrumbComponent } from './frames/content/breadcrumb/breadcrumb.comp
 import { BaseComponent } from './frames/base.component';
 import { NoopInterceptor } from './relax/services/http/http.intercept';
 import { IndexComponent } from './base/index/index.component';
-import { UserService } from './base/login/user.service';
 
 
 
@@ -50,8 +50,8 @@ import { UserService } from './base/login/user.service';
   ],
   providers: [
     AppRouterService,
+    AppUserService,
     HttpService,
-    UserService,
     DatePipe,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     {

@@ -1,5 +1,5 @@
+import { AppUserService } from './app-user.service';
 import { AppRouterService } from './app-router.service';
-import { UserService } from './base/login/user.service';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { HttpService } from './relax/services/http/http.service';
@@ -15,7 +15,7 @@ export class AppComponent {
     private router       : Router,
     private http         : HttpService,
     private notification : NzNotificationService,
-    private user         : UserService,
+    private user         : AppUserService,
     private baseRouter   : AppRouterService
   ) { 
     /* ----------------------- 监听路由变化, 获取未登录来源页 ----------------------- */
