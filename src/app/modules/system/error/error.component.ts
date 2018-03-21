@@ -20,7 +20,7 @@ export class ErrorComponent implements OnInit {
     this.activatedRoute.params.subscribe( params => {
       
       this.errorType = this.allowParams.indexOf(Number(params.type)) > -1 ? params.type : 404;
-      console.log(this.errorType)
+      
     })
   }
 

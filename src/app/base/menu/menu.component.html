@@ -26,5 +26,16 @@
         <li nz-menu-item routerLink="/home/customer/distribution"><span>分配规则设置</span></li> -->
       </ul>
     </li>
+    <li nz-submenu [nzOpen]="baseRouter.toPath.indexOf('/home/marketing') > -1">
+      <span title>
+        <i class="anticon anticon-area-chart"></i>
+        <span>营销管理</span>
+      </span>
+      <ul>
+        <li nz-menu-item routerLink="/home/marketing/activity" [nzSelected]="baseRouter.toPath == '/home/marketing/activity'"><span>活动</span></li>
+        <li nz-menu-item routerLink="/home/marketing/admin" [nzSelected]="baseRouter.toPath == '/home/marketing/admin'"><span>管理</span></li>
+        <li nz-menu-item routerLink="/home/marketing/data" [nzSelected]="baseRouter.toPath == '/home/marketing/data'"><span>数据</span></li>
+      </ul>
+    </li>
   </ul>
 </div>

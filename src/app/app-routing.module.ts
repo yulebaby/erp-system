@@ -33,6 +33,11 @@ const routes: Routes = [
         path: 'customer',
         data: { title: '客户管理' },
         loadChildren: 'app/modules/customer/customer.module#CustomerModule'
+      },
+      {
+        path: 'marketing',
+        data: { title: '营销管理' },
+        loadChildren: 'app/modules/marketing/marketing.module#MarketingModule'
       }
     ]
   },

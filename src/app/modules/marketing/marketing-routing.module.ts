@@ -1,0 +1,30 @@
+import { AdminComponent } from './admin/admin.component';
+import { DataComponent } from './data/data.component';
+import { ActivityComponent } from './activity/activity.component';
+import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+const routes: Routes = [
+    {
+        path: 'activity',
+        data: { title: '活动' },
+        component: ActivityComponent
+    },
+    {
+        path: 'data',
+        data: { title: '数据' },
+        component: DataComponent
+    },
+    {
+        path: 'admin',
+        data: { title: '管理' },
+        component: AdminComponent
+    }
+]
+
+@NgModule({
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
+})
+export class MarketingRoutingModule { }
