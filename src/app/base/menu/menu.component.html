@@ -5,13 +5,13 @@
   <ul nz-menu [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed" nzTheme='dark'>
     <li nz-menu-item [routerLink]="['/home']" [nzSelected]="baseRouter.toPath == '/home'">
       <span title>
-        <i class="anticon anticon-mail"></i>
+        <i class="anticon anticon-home"></i>
         <span>首页</span>
       </span>
     </li>
     <li nz-submenu [nzOpen]="baseRouter.toPath.indexOf('/home/customer') > -1">
       <span title>
-        <i class="anticon anticon-appstore"></i>
+        <i class="anticon anticon-team"></i>
         <span>客户管理</span>
       </span>
       <ul>
