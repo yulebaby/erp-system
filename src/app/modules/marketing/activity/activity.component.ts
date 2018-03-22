@@ -12,4 +12,10 @@ export class ActivityComponent implements OnInit {
   ngOnInit() {
   }
 
+  _checked = false;
+
+  _handleChange(checked: boolean): void {
+    this._checked = checked;
+  }
+
 }
