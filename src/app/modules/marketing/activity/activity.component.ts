@@ -9,7 +9,7 @@ export class ActivityComponent implements OnInit {
 
   /* -------- 查询条件 场景/节日集合 -------- */
   queryForm = {
-    name,
+    name: '',
     scene: [],
     festival: []
   };
