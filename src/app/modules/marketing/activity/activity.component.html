@@ -1,9 +1,9 @@
 <div class="container">
   <div class="header">
     <div class="search-input">
-      <nz-input nzPlaceHolder="请输入活动名称">
+      <nz-input nzPlaceHolder="请输入活动名称" [(ngModel)]="queryForm.name">
         <ng-template #addOnAfter>
-          <button nz-button [nzType]="'primary'">
+          <button nz-button [nzType]="'primary'" (click)="searchSubmit()">
             <span>搜 索</span>
           </button>
         </ng-template>
@@ -13,20 +13,15 @@
       <div class="form-item">
         <div class="item-label">场景:</div>
         <div class="item-content">
-          <nz-checkable-tag [nzChecked]="_checked" (nzChange)="_handleChange($event)">开业促销</nz-checkable-tag>
-          <nz-checkable-tag [nzChecked]="_checked" (nzChange)="_handleChange($event)">周年庆</nz-checkable-tag>
-          <nz-checkable-tag [nzChecked]="_checked" (nzChange)="_handleChange($event)">大甩卖</nz-checkable-tag>
+          <nz-checkable-tag [nzChecked]="!queryForm.scene.length || queryForm.scene.length === sceneItems.length" (nzChange)="queryForm.scene = []">全部</nz-checkable-tag>
+          <nz-checkable-tag *ngFor="let item of sceneItems" [nzChecked]="queryForm.scene.indexOf(item.id) > -1" (nzChange)="queryCheckChange($event, 'scene', item.id)">{{ item.name }}</nz-checkable-tag>
         </div>
       </div>
       <div class="form-item">
         <div class="item-label">节日:</div>
         <div class="item-content">
-          <nz-checkable-tag [nzChecked]="_checked" (nzChange)="_handleChange($event)">春节</nz-checkable-tag>
-          <nz-checkable-tag [nzChecked]="_checked" (nzChange)="_handleChange($event)">劳动节</nz-checkable-tag>
-          <nz-checkable-tag [nzChecked]="_checked" (nzChange)="_handleChange($event)">国庆节</nz-checkable-tag>
-          <nz-checkable-tag [nzChecked]="_checked" (nzChange)="_handleChange($event)">元旦</nz-checkable-tag>
-          <nz-checkable-tag [nzChecked]="_checked" (nzChange)="_handleChange($event)">中秋节</nz-checkable-tag>
-          <nz-checkable-tag [nzChecked]="_checked" (nzChange)="_handleChange($event)">元宵节</nz-checkable-tag>
+          <nz-checkable-tag [nzChecked]="!queryForm.festival.length || queryForm.festival.length === festivalItems.length" (nzChange)="queryForm.festival = []">全部</nz-checkable-tag>
+          <nz-checkable-tag *ngFor="let item of festivalItems" [nzChecked]="queryForm.festival.indexOf(item.id) > -1" (nzChange)="queryCheckChange($event, 'festival', item.id)">{{ item.name }}</nz-checkable-tag>
         </div>
       </div>
     </div>
