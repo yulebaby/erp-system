@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create.component.scss']
 })
 export class CreateComponent implements OnInit {
+  width = 960;
 
   constructor() { }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.width = 400;
+    }, 3000);
   }
 
 }

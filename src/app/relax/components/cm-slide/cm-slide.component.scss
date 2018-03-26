@@ -1,0 +1,18 @@
+.container {
+    width: 960px;
+    height: 100%;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 5px #ccc;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 999;
+    animation: slideIn .5s;
+    transition: all .3s;
+}
+
+@keyframes slideIn {
+    0%  {transform: translate3d(960px, 0, 0)}
+    100%{transform: none;}
+}
