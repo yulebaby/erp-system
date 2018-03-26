@@ -1,3 +1,4 @@
+import { CreateComponent } from './create/create.component';
 import { AdminComponent } from './admin/admin.component';
 import { DataComponent } from './data/data.component';
 import { ActivityComponent } from './activity/activity.component';
@@ -19,7 +20,15 @@ const routes: Routes = [
     {
         path: 'admin',
         data: { title: '管理' },
-        component: AdminComponent
+        component: AdminComponent,
+        children: [
+            {
+                path: 'create/:id',
+                data: { title: '新建活动' },
+                component: CreateComponent,
+                outlet: 'aux'
+            }
+        ]
     }
 ]
 

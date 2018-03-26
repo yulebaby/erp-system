@@ -109,15 +109,29 @@
             position: absolute;
             top: 0;
         }
+        p {
+            width: 100%;
+            color: #fff;
+            font-size: 13px;
+            line-height: 28px;
+            text-align: center;
+            background: rgba($color: #fff, $alpha: .5);
+            position: absolute;
+            bottom: 0;
+        }
     }
     .add-btn {
         width: 100%;
         height: 46px;
-        cursor: pointer;
         border-radius: 2px;
         border: dashed 1px #ddd;
         margin-bottom: 24px;
         transition: all .3s;
+        cursor: pointer;
+        outline: none;
+        &:active {
+            background: #f9f9f9;
+        }
         &:hover {
             box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
             border-color: rgba(0, 0, 0, 0.2);

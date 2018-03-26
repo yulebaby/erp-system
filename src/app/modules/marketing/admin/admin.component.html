@@ -28,7 +28,7 @@
   </div>
 
   <div class="content" nz-row>
-    <div class="add-btn">
+    <div class="add-btn" [routerLink]="{outlets: {aux: 'create/0'}}">
       <p><i class="anticon anticon-plus"></i>新建活动</p>
     </div>
     <div class="content-not-found" [hidden]="true">
@@ -42,6 +42,7 @@
             <div class="custom-image">
               <img alt="activity" class="activity-cover" width="100%" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
               />
+              <p>已有16家门店参与</p>
             </div>
             <div class="custom-card">
               <h3>开春乐游</h3>
@@ -62,6 +63,7 @@
             <div class="custom-image">
               <img alt="activity" class="activity-cover" width="100%" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
               />
+              <p>已有16家门店参与</p>
             </div>
             <div class="custom-card">
               <h3>开春乐游</h3>
@@ -78,3 +80,5 @@
     </div>
   </div>
 </div>
+
+<router-outlet name="aux"></router-outlet>
