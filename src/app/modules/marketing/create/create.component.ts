@@ -11,9 +11,7 @@ export class CreateComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.width = 400;
-    }, 3000);
+    
   }
 
 }
