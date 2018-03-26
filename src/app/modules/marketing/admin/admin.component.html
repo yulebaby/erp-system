@@ -28,14 +28,18 @@
   </div>
 
   <div class="content" nz-row>
+    <div class="add-btn">
+      <p><i class="anticon anticon-plus"></i>新建活动</p>
+    </div>
     <div class="content-not-found" [hidden]="true">
       <i class="anticon anticon-frown-o"></i>无结果!
     </div>
+
     <div nz-col [nzXs]="24" [nzSm]="8" [nzLg]="6" [nzXl]="4">
       <div class="card-item">
         <nz-card>
           <ng-template #body>
-            <div class="custom-image" style="height: 240px; overflow: hidden;">
+            <div class="custom-image">
               <img alt="activity" class="activity-cover" width="100%" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
               />
             </div>
@@ -55,7 +59,7 @@
       <div class="card-item">
         <nz-card>
           <ng-template #body>
-            <div class="custom-image" style="height: 240px; overflow: hidden;">
+            <div class="custom-image">
               <img alt="activity" class="activity-cover" width="100%" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
               />
             </div>

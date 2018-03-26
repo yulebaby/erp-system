@@ -94,20 +94,48 @@
             }
         }
         .card-footer {
-            margin-top: 14px;
+            margin-top: 13px;
             line-height: 28px;
+        }
+    }
+
+    .custom-image {
+        padding-bottom: 100%;
+        position: relative;
+        overflow: hidden;
+        img {
+            display: block;
+            min-width: 100%;
+            position: absolute;
+            top: 0;
+        }
+    }
+    .add-btn {
+        width: 100%;
+        height: 46px;
+        cursor: pointer;
+        border-radius: 2px;
+        border: dashed 1px #ddd;
+        margin-bottom: 24px;
+        transition: all .3s;
+        &:hover {
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+        p {
+            width: 100%;
+            color: #ccc;
+            font-size: 14px;
+            line-height: 46px;
+            font-weight: 400;
+            text-align: center;
+            i {
+                font-size: 16px;
+            }
         }
     }
 }
 
-
-
-
-
-
-:host ::ng-deep .custom-image img {
-    display: block;
-}
 
 :host ::ng-deep .custom-card {
     padding: 10px 16px;

@@ -94,16 +94,20 @@
             }
         }
     }
+
+    .custom-image {
+        padding-bottom: 100%;
+        position: relative;
+        overflow: hidden;
+        img {
+            display: block;
+            min-width: 100%;
+            position: absolute;
+            top: 0;
+        }
+    }
 }
 
-
-
-
-
-
-:host ::ng-deep .custom-image img {
-    display: block;
-}
 
 :host ::ng-deep .custom-card {
     padding: 10px 16px;
