@@ -1,7 +1,7 @@
 <div class="container">
   <div class="header">
     <div class="search-input">
-      <nz-input nzPlaceHolder="请输入活动名称" [(ngModel)]="queryForm.name">
+      <nz-input nzPlaceHolder="请输入活动名称" [(ngModel)]="queryForm.name" [nzType]="'search'" (nzOnSearch)="searchSubmit()">
         <ng-template #addOnAfter>
           <button nz-button [nzType]="'primary'" (click)="searchSubmit()">
             <span>搜 索</span>

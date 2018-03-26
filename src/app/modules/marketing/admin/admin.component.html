@@ -1,3 +1,76 @@
-<p>
-  admin works!
-</p>
+<div class="container">
+  <div class="header">
+    <div class="search-input">
+      <nz-input nzPlaceHolder="请输入活动名称" [(ngModel)]="queryForm.name" [nzType]="'search'" (nzOnSearch)="searchSubmit()">
+        <ng-template #addOnAfter>
+          <button nz-button [nzType]="'primary'" (click)="searchSubmit()">
+            <span class="search-text">搜 索</span>
+          </button>
+        </ng-template>
+      </nz-input>
+    </div>
+    <div class="search-form">
+      <div class="form-item">
+        <div class="item-label">场景:</div>
+        <div class="item-content">
+          <nz-checkable-tag [nzChecked]="!queryForm.scene.length || queryForm.scene.length === sceneItems.length" (nzChange)="queryForm.scene = []">全部</nz-checkable-tag>
+          <nz-checkable-tag *ngFor="let item of sceneItems" [nzChecked]="queryForm.scene.indexOf(item.id) > -1" (nzChange)="queryCheckChange($event, 'scene', item.id)">{{ item.name }}</nz-checkable-tag>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="item-label">节日:</div>
+        <div class="item-content">
+          <nz-checkable-tag [nzChecked]="!queryForm.festival.length || queryForm.festival.length === festivalItems.length" (nzChange)="queryForm.festival = []">全部</nz-checkable-tag>
+          <nz-checkable-tag *ngFor="let item of festivalItems" [nzChecked]="queryForm.festival.indexOf(item.id) > -1" (nzChange)="queryCheckChange($event, 'festival', item.id)">{{ item.name }}</nz-checkable-tag>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content" nz-row>
+    <div class="content-not-found" [hidden]="true">
+      <i class="anticon anticon-frown-o"></i>无结果!
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="8" [nzLg]="6" [nzXl]="4">
+      <div class="card-item">
+        <nz-card>
+          <ng-template #body>
+            <div class="custom-image" style="height: 240px; overflow: hidden;">
+              <img alt="activity" class="activity-cover" width="100%" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+              />
+            </div>
+            <div class="custom-card">
+              <h3>开春乐游</h3>
+              <p>婴幼儿游泳体验，春季暖暖引流</p>
+              <div class="card-footer">
+                <button nz-button [nzType]="'dashed'" style="float: right;">取消发布</button>
+                <nz-tag [nzColor]="'#2db7f5'">已发布</nz-tag>
+              </div>
+            </div>
+          </ng-template>
+        </nz-card>
+      </div>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="8" [nzLg]="6" [nzXl]="4">
+      <div class="card-item">
+        <nz-card>
+          <ng-template #body>
+            <div class="custom-image" style="height: 240px; overflow: hidden;">
+              <img alt="activity" class="activity-cover" width="100%" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+              />
+            </div>
+            <div class="custom-card">
+              <h3>开春乐游</h3>
+              <p>婴幼儿游泳体验，春季暖暖引流</p>
+              <div class="card-footer">
+                <button nz-button [nzType]="'primary'" style="float: right;">发布</button>
+                <button nz-button [nzType]="'default'" style="float: right; margin-right: 6px;">编辑</button>
+                <nz-tag>未发布</nz-tag>
+              </div>
+            </div>
+          </ng-template>
+        </nz-card>
+      </div>
+    </div>
+  </div>
+</div>
