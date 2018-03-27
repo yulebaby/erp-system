@@ -13,6 +13,8 @@ export class CmTableComponent implements OnInit {
 
   @Input('url') _url          : string;
 
+  @Input() autoRequest        : boolean = true;
+
   @Input('params') _params    : object = {};
 
   @Input() checkedItems       : any[];
@@ -42,7 +44,9 @@ export class CmTableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._request();
+    if (this.autoRequest) {
+      this._request();
+    }
   }
 
   _request(isReset?: boolean): void {

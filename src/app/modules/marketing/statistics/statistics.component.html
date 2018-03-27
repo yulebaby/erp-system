@@ -1,3 +1,18 @@
-<p>
-  statistics works!
-</p>
+<cm-query [node]="queryNode" (onSubmit)="CmTable.request($event)"></cm-query>
+
+<cm-table #CmTable [thead]="tableNode" [autoRequest]="false" [allowSpace]="false" url="/market/effectiveUserList">
+  <ng-container>
+    <tbody nz-tbody>
+      <ng-template ngFor let-data [ngForOf]="CmTable.dataSet">
+        <tr nz-tbody-tr>
+          <td>{{ data.num }}</td>
+          <td>{{ data.createDate }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.birthday }}</td>
+          <td>{{ data.mobilePhone }}</td>
+          <td>{{ data.contributors }}</td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </ng-container>
+</cm-table>
