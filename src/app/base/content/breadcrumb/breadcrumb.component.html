@@ -3,7 +3,7 @@
     <i class="anticon anticon-home"></i>
   </nz-breadcrumb-item>
   <ng-container *ngFor="let item of breadcrumb">
-    <nz-breadcrumb-item>
+    <nz-breadcrumb-item *ngIf="!item.titleHide">
       <span>{{ item.title }}</span>
     </nz-breadcrumb-item>
   </ng-container>

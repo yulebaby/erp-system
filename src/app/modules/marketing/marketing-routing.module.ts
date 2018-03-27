@@ -1,3 +1,4 @@
+import { StatisticsComponent } from './statistics/statistics.component';
 import { CreateComponent } from './create/create.component';
 import { AdminComponent } from './admin/admin.component';
 import { DataComponent } from './data/data.component';
@@ -15,7 +16,18 @@ const routes: Routes = [
     {
         path: 'data',
         data: { title: '数据' },
-        component: DataComponent
+        children: [
+            {
+                path: '',
+                data: { titleHide: true },
+                component: DataComponent
+            },
+            {
+                path: 'statistics/:id',
+                data: { title: '数据统计' },
+                component: StatisticsComponent
+            }
+        ]
     },
     {
         path: 'admin',
