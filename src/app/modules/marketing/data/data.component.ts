@@ -22,13 +22,13 @@ export class DataComponent implements OnInit {
       placeholder : ['选择开始时间', '选择结束时间']
     },
     {
-      label       : '有限客户>',
+      label       : '有限客户',
       key         : 'effectiveUser',
-      type        : 'input',
-      placeholder : '请输入活动名称'
+      type        : 'numbetween',
+      valueKey    : ['effectiveUserMin', 'effectiveUserMax']
     },
     {
-      label       : '浏览数>',
+      label       : '浏览数',
       key         : 'views',
       type        : 'input',
       placeholder : '请输入浏览数'
@@ -38,6 +38,10 @@ export class DataComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  c(e) {
+    console.log(e)
   }
 
 }
