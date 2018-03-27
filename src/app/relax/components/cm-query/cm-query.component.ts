@@ -19,6 +19,8 @@ export class CmQueryComponent implements OnInit {
 
   _queryForm            : FormGroup;
 
+  _showSlideBtn         : boolean;
+
 
 
   constructor(
@@ -31,6 +33,7 @@ export class CmQueryComponent implements OnInit {
   ngOnInit() {
     this._queryForm = this.fb.group({});
     this._node.map((res: any, idx) => {
+      if (res.isHide) { this._showSlideBtn = true; }
       this._queryForm.addControl(res.key, new FormControl(res.default || ''));
       if (res.type === 'select') {
         res.optionKey = res.optionKey || { label: 'name', value: 'id' };
