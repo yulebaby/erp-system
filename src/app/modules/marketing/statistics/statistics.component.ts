@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-statistics',
@@ -8,35 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StatisticsComponent implements OnInit {
 
-    queryNode: object[] = [
+  queryNode: object[] = [
     {
-      label       : '活动名称',
-      key         : 'activityName',
+      label       : '家长电话',
+      key         : 'mobilePhone',
       type        : 'input',
-      placeholder : '请输入活动名称'
+      placeholder : '请输入家长电话'
     },
     {
-      label       : '创建时间',
-      key         : 'createTime',
+      label       : '提交时间',
+      key         : 'time',
       type        : 'datepicker',
-      valueKey    : ['createStartTime', 'createEndTime'],
+      valueKey    : ['startDate', 'endDate'],
       placeholder : ['选择开始时间', '选择结束时间']
-    },
-    {
-      label       : '有限客户',
-      key         : 'effectiveUser',
-      type        : 'numbetween',
-      valueKey    : ['effectiveUserMin', 'effectiveUserMax']
-    },
-    {
-      label       : '浏览数',
-      key         : 'views',
-      type        : 'numbetween',
-      valueKey    : ['viewsMin', 'viewsMax']
     }
   ]
+  
 
-    tableNode: any[]    = [
+  tableNode: any[]    = [
     {
       name  : '编号',
       width : '80px'
@@ -63,14 +52,19 @@ export class StatisticsComponent implements OnInit {
     }
   ]
 
+  @ViewChild('CmTable') CmTable;
+
   constructor(
     private activatedRoute: ActivatedRoute
   ) { }
 
+  paramsDefault;
+
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((res: any) => {
-      console.log(res.params.id)
+      this.paramsDefault = { activityId: res.params.id };
     })
   }
+
 
 }

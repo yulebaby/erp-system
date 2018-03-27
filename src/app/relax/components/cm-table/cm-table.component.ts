@@ -13,7 +13,7 @@ export class CmTableComponent implements OnInit {
 
   @Input('url') _url          : string;
 
-  @Input() autoRequest        : boolean = true;
+  @Input() paramsDefault      : any = {};
 
   @Input('params') _params    : object = {};
 
@@ -44,15 +44,13 @@ export class CmTableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.autoRequest) {
-      this._request();
-    }
+    this._request();
   }
 
   _request(isReset?: boolean): void {
     if (this._pageInfo.loading) { return; }
     this._pageInfo.loading = true;
-    let params = Object.assign({ paramJson: JSON.stringify(this._params) }, { pageNum: isReset ? 1 : this._pageInfo.pageNum, pageSize: this._pageInfo.pageSize });
+    let params = Object.assign({ paramJson: JSON.stringify(Object.assign(this._params, this.paramsDefault)) }, { pageNum: isReset ? 1 : this._pageInfo.pageNum, pageSize: this._pageInfo.pageSize });
     this.http.post(this._url, params).then(res => {
       if (res.code == 1000) {
         this.dataSet = res.result.list;
