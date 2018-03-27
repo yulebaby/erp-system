@@ -30,18 +30,41 @@ export class DataComponent implements OnInit {
     {
       label       : '浏览数',
       key         : 'views',
-      type        : 'input',
-      placeholder : '请输入浏览数'
+      type        : 'numbetween',
+      valueKey    : ['viewsMin', 'viewsMax']
+    }
+  ]
+
+    tableNode: any[]    = [
+    {
+      name  : '活动名称',
+      width : '140px'
+    },
+    {
+      name  : '发布状态',
+      width : '100px'
+    },
+    {
+      name  : '有效用户',
+      width : '100px'
+    },
+    {
+      name  : '浏览数',
+      width : '60px'
+    },
+    {
+      name  : '活动时间',
+      width : '60px'
+    },
+    {
+      name  : '创建时间',
+      width : '100px'
     }
   ]
 
   constructor() { }
 
   ngOnInit() {
-  }
-
-  c(e) {
-    console.log(e)
   }
 
 }

@@ -1,1 +1,18 @@
-<cm-query [node]="queryNode" (onSubmit)="c($event)"></cm-query>
+<cm-query [node]="queryNode" (onSubmit)="CmTable.request($event)"></cm-query>
+
+<cm-table #CmTable [thead]="tableNode" [allowSpace]="false" url="/market/activityStaticsList">
+    <ng-container>
+        <tbody nz-tbody>
+            <ng-template ngFor let-data [ngForOf]="CmTable.dataSet">
+                <tr nz-tbody-tr>
+                    <td><a href="javascript: void(0);">{{ data.activityName }}</a></td>
+                    <td>{{ data.activityStatus }}</td>
+                    <td><a href="javascript: void(0);" [routerLink]="['/home/marketing/statistics', data.id]">{{ data.effectiveUser }}</a></td>
+                    <td>{{ data.views }}</td>
+                    <td>{{ data.activityStartTime + '-' + data.activityEndTime }}</td>
+                    <td>{{ data.createTime }}</td>
+                </tr>
+            </ng-template>
+        </tbody>
+    </ng-container>
+</cm-table>
