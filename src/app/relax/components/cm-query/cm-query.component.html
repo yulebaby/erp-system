@@ -42,6 +42,7 @@
     <div nz-form-item nz-col [nzXl]="6" [nzLg]="8" [nzSm]="12" [nzXs]="24" [style.text-align]="'right'" [style.float]="'right'">
       <button nz-button nzSize="large" nzType="primary" (click)="_submit()">查询</button>
       <button nz-button nzSize="large" (click)="_reset()" style="margin-left: 8px;">重置</button>
+      <ng-content></ng-content>
       <a style="margin-left:8px;font-size:12px;" (click)="isCollapse = !isCollapse" *ngIf="_showSlideBtn">
         {{ isCollapse ? '展开' : '收起' }}
         <i class="anticon" [class.anticon-down]="isCollapse" [class.anticon-up]="!isCollapse"></i>

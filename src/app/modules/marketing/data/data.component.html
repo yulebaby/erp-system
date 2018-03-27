@@ -9,7 +9,7 @@
                     <td>{{ data.activityStatus }}</td>
                     <td><a href="javascript: void(0);" [routerLink]="['/home/marketing/data/statistics', data.id]">{{ data.effectiveUser }}</a></td>
                     <td>{{ data.views }}</td>
-                    <td>{{ data.activityStartTime + '-' + data.activityEndTime }}</td>
+                    <td>{{ data.activityStartTime + ' 至 ' + data.activityEndTime }}</td>
                     <td>{{ data.createTime }}</td>
                 </tr>
             </ng-template>

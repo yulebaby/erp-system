@@ -1,4 +1,6 @@
-<cm-query [node]="queryNode" (onSubmit)="CmTable.request($event)"></cm-query>
+<cm-query [node]="queryNode" (onSubmit)="CmTable.request($event)">
+  <button nz-button nzSize="large" nzType="primary" [style.margin-left]="'8px'">导出数据</button>
+</cm-query>
 
 <cm-table #CmTable [thead]="tableNode" [paramsDefault]="paramsDefault" [allowSpace]="false" url="/market/effectiveUserList">
   <ng-container>
