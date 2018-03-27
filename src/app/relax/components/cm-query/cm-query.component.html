@@ -29,9 +29,9 @@
 
             <ng-container *ngIf="control.type === 'numbetween'">
               <nz-input-group nzSize="large" nzCompact style="display: flex;">
-                <nz-input-number [formControlName]="control.valueKey[0]" [nzPlaceHolder]="control.placeholder ? control.placeholder[0] : '最小值'" [nzStep]="1" style="flex: 1; margin-right: 0;" (nzBlur)="numbetweenBlur(control.valueKey[0])"></nz-input-number>
-                <input type="text" placeholder="~" nz-input style="width: 24px;">
-                <nz-input-number [formControlName]="control.valueKey[1]" [nzPlaceHolder]="control.placeholder ? control.placeholder[1] : '最大值'" [nzStep]="1" style="flex: 1; margin-right: 0;" (nzBlur)="numbetweenBlur(control.valueKey[1])"></nz-input-number>
+                <nz-input-number nzSize="large" [formControlName]="control.valueKey[0]" [nzMin]="0" [nzPlaceHolder]="control.placeholder ? control.placeholder[0] : '最小值'" [nzStep]="1" style="flex: 1; margin-right: 0;" (nzBlur)="numbetweenBlur(control.valueKey[0])"></nz-input-number>
+                <input type="text" nzSize="large" placeholder="~" nz-input style="width: 24px; pointer-events: none;">
+                <nz-input-number nzSize="large" [formControlName]="control.valueKey[1]" [nzMin]="0" [nzPlaceHolder]="control.placeholder ? control.placeholder[1] : '最大值'" [nzStep]="1" style="flex: 1; margin-right: 0;" (nzBlur)="numbetweenBlur(control.valueKey[1])"></nz-input-number>
               </nz-input-group>
             </ng-container>
 
