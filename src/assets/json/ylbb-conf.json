@@ -6,8 +6,10 @@
             "label": "活动名称",
             "type": "input",
             "key": "activityName",
+            "placeholder": "请输入活动名称",
+            "errorText": "请输入2-10位字符!",
             "required": true,
-            "pattern": "/^[0-9]+$/"
+            "pattern": "^[0-9]*$"
         },
         {
             "label": "活动价格",
@@ -23,15 +25,27 @@
                     "name": "10-20"
                 }
             ],
+            "optionsKey": {
+              "label": "name",
+              "value": "id"
+            },
+            "required": true
+        },
+        {
+            "label": "生日",
+            "type": "datepicker",
+            "key": "time",
             "required": true
         },
         {
             "label": "活动日期",
-            "type": "datePicker",
-            "key": [
+            "type": "rangepicker",
+            "key": "rangepicker",
+            "valueKey": [
                 "startTime",
                 "endTime"
             ],
+            "placeholder": ["开始日期", "结束日期"],
             "required": true
         }
     ],

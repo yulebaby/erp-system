@@ -33,7 +33,7 @@
       </span>
       <ul>
         <li nz-menu-item routerLink="/home/marketing/activity" [nzSelected]="baseRouter.toPath == '/home/marketing/activity'"><span>活动</span></li>
-        <li nz-menu-item routerLink="/home/marketing/admin" [nzSelected]="baseRouter.toPath == '/home/marketing/admin'"><span>管理</span></li>
+        <li nz-menu-item routerLink="/home/marketing/admin" [nzSelected]="baseRouter.toPath.indexOf('/home/marketing/admin') > -1"><span>管理</span></li>
         <li nz-menu-item routerLink="/home/marketing/data" [nzSelected]="baseRouter.toPath.indexOf('/home/marketing/data') > -1"><span>数据</span></li>
       </ul>
     </li>

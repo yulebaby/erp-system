@@ -41,4 +41,10 @@ h1 {
             padding-top: 24px;
         }
     }
+    nz-datepicker {
+        width: 100%;
+    }
+    nz-rangepicker .ant-calendar-picker {
+        @extend nz-datepicker
+    }
 }

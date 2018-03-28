@@ -96,7 +96,48 @@
         </nz-spin>
       </nz-tab>
       <nz-tab>
-        2222
+        <form [formGroup]="activityFormModel">
+          <ng-container *ngFor="let item of _tmplDataset?.configItems">
+            <div nz-form-item nz-row>
+              <div nz-form-label nz-col [nzSpan]="6">
+                <label [for]="item.key" nz-form-item-required *ngIf="item.required">{{ item.label }}</label>
+                <label [for]="item.key" *ngIf="!item.required">{{ item.label }}</label>
+              </div>
+              <div nz-form-control nz-col [nzSpan]="8" [nzValidateStatus]="tmplFormModel.controls[item.key]">
+                <ng-container *ngIf="item.type === 'input'">
+                  <nz-input [formControlName]="item.key" [nzPlaceHolder]="item.placeholder || '请输入' + item.label" nzSize="large" [nzId]="item.key"></nz-input>
+                </ng-container>
+
+                <ng-container *ngIf="item.type === 'select'">
+                  <nz-select [formControlName]="item.key" [nzPlaceHolder]="item.placeholder || '请选择' + item.label" nzSize="large">
+                    <nz-option *ngFor="let option of item.options" [nzLabel]="option[item.optionsKey?.label || 'name']" [nzValue]="option[item.optionsKey?.value || 'id']"></nz-option>
+                  </nz-select>
+                </ng-container>
+
+                <ng-container *ngIf="item.type === 'datepicker'">
+                  <nz-datepicker [formControlName]="item.key" [nzPlaceHolder]="item.placeholder || '请选择' + item.label"></nz-datepicker>
+                </ng-container>
+
+                <ng-container *ngIf="item.type === 'rangepicker'">
+                  <nz-rangepicker [formControlName]="item.key" [nzPlaceholder]="[item.placeholder[0] || '开始日期', item.placeholder[0] || '结束日期']"></nz-rangepicker>
+                </ng-container>
+
+                <ng-container *ngIf="item.required">
+                  <div nz-form-explain *ngIf="activityFormModel.get(item.key)?.dirty && activityFormModel.get(item.key)?.hasError('required')">{{ item.errorText || '请' + (item.type === 'input' ? '输入' : '选择') + item.label }}</div>
+                </ng-container>
+                <ng-container *ngIf="item.pattern">
+                  <div nz-form-explain *ngIf="activityFormModel.get(item.key)?.dirty && activityFormModel.get(item.key)?.hasError('pattern')">{{ item.errorText || '请' + (item.type === 'input' ? '输入' : '选择') + item.label }}</div>
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+            <div nz-form-item nz-row>
+              <div nz-col [nzSpan]="8" [nzOffset]="6">
+                <button nz-button [nzType]="'primary'" nzSize="large" style="width: 120px;" (click)="_tmplInfoSubmit()">提交</button>
+                <button nz-button [nzType]="'default'" nzSize="large" style="width: 120px;" (click)="current = 0">上一步</button>
+              </div>
+            </div>
+        </form>
       </nz-tab>
       <nz-tab>
         33333
