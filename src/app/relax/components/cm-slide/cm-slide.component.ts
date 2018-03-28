@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'cm-slide',
@@ -7,22 +7,15 @@ import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
 })
 export class CmSlideComponent implements OnInit {
 
-  @Input() width: number = 960;
+  @Input() width    : number = 960;
 
-  @Input() template: any; 
+  @Input() closeLink: string; 
 
 
-  constructor(private _viewContainerRef: ViewContainerRef) { }
+  constructor() { }
 
   ngOnInit() {
-    setTimeout(() => {
-      if (this.template) {
-        console.log(this.template)
-        this._viewContainerRef.createEmbeddedView(this.template);
-
-      }
-      
-    }, 1000);
+    
   }
 
 }

@@ -11,11 +11,13 @@ import { CmQuoteComponent } from './components/cm-quote/cm-quote.component';
 import { CmGettelComponent } from './components/cm-gettel/cm-gettel.component';
 import { CmSlideComponent } from './components/cm-slide/cm-slide.component';
 import { CmTitleComponent } from './components/cm-title/cm-title.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     ReactiveFormsModule,
     NgZorroAntdModule
   ],
