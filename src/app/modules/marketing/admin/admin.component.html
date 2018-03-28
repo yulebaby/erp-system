@@ -40,8 +40,10 @@
         <nz-card>
           <ng-template #body>
             <div class="custom-image">
-              <img alt="activity" class="activity-cover" width="100%" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-              />
+              <img class="thumbnail" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+              <div class="qrcode">
+                <img src="http://qr.liantu.com/api.php?bg=333333&fg=ffffff&text=https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+              </div>
               <p>已有16家门店参与</p>
             </div>
             <div class="custom-card">
@@ -56,28 +58,7 @@
         </nz-card>
       </div>
     </div>
-    <div nz-col [nzXs]="24" [nzSm]="8" [nzLg]="6" [nzXl]="4">
-      <div class="card-item">
-        <nz-card>
-          <ng-template #body>
-            <div class="custom-image">
-              <img alt="activity" class="activity-cover" width="100%" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-              />
-              <p>已有16家门店参与</p>
-            </div>
-            <div class="custom-card">
-              <h3>开春乐游</h3>
-              <p>婴幼儿游泳体验，春季暖暖引流</p>
-              <div class="card-footer">
-                <button nz-button [nzType]="'primary'" style="float: right;">发布</button>
-                <button nz-button [nzType]="'default'" style="float: right; margin-right: 6px;">编辑</button>
-                <nz-tag>未发布</nz-tag>
-              </div>
-            </div>
-          </ng-template>
-        </nz-card>
-      </div>
-    </div>
+
   </div>
 </div>
 
