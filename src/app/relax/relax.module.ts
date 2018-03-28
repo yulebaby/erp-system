@@ -10,6 +10,7 @@ import { CmTableComponent } from './components/cm-table/cm-table.component';
 import { CmQuoteComponent } from './components/cm-quote/cm-quote.component';
 import { CmGettelComponent } from './components/cm-gettel/cm-gettel.component';
 import { CmSlideComponent } from './components/cm-slide/cm-slide.component';
+import { CmTitleComponent } from './components/cm-title/cm-title.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { CmSlideComponent } from './components/cm-slide/cm-slide.component';
     CmTableComponent,
     CmQuoteComponent,
     CmGettelComponent,
-    CmSlideComponent
+    CmSlideComponent,
+    CmTitleComponent
   ],
   providers: [
     HttpService,
@@ -37,7 +39,8 @@ import { CmSlideComponent } from './components/cm-slide/cm-slide.component';
     CmTableComponent,
     CmQuoteComponent,
     CmGettelComponent,
-    CmSlideComponent
+    CmSlideComponent,
+    CmTitleComponent
   ]
 })
 export class RelaxModule { }

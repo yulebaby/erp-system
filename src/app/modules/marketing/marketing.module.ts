@@ -9,6 +9,7 @@ import { AdminComponent } from './admin/admin.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { CreateComponent } from './create/create.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { JoinComponent } from './join/join.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { StatisticsComponent } from './statistics/statistics.component';
     MarketingRoutingModule,
     RelaxModule
   ],
-  declarations: [ActivityComponent, DataComponent, AdminComponent, CreateComponent, StatisticsComponent]
+  declarations: [ActivityComponent, DataComponent, AdminComponent, CreateComponent, StatisticsComponent, JoinComponent]
 })
 export class MarketingModule { }

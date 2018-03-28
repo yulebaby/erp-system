@@ -45,28 +45,7 @@
               <h3>开春乐游</h3>
               <p>婴幼儿游泳体验，春季暖暖引流</p>
               <div style="margin-top: 16px; margin-bottom: 6px; text-align: center;">
-                <button nz-button [nzType]="'primary'" style="width: 80%;">我要参加</button>
-              </div>
-            </div>
-          </ng-template>
-        </nz-card>
-      </div>
-    </div>
-    <div nz-col [nzXs]="24" [nzSm]="8" [nzLg]="6" [nzXl]="4">
-      <div class="card-item">
-        <nz-card>
-          <ng-template #body>
-            <div class="custom-image">
-              <img class="thumbnail" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
-              <div class="qrcode">
-                <img src="http://qr.liantu.com/api.php?bg=333333&fg=ffffff&text=https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
-              </div>
-            </div>
-            <div class="custom-card">
-              <h3>开春乐游</h3>
-              <p>婴幼儿游泳体验，春季暖暖引流</p>
-              <div style="margin-top: 16px; margin-bottom: 6px; text-align: center;">
-                <button nz-button [nzType]="'dashed'" style="width: 80%;">取消参加</button>
+                <button nz-button [nzType]="'primary'" style="width: 80%;" [routerLink]="{outlets: {aux: 'join/0'}}">我要参加</button>
               </div>
             </div>
           </ng-template>
@@ -75,3 +54,5 @@
     </div>
   </div>
 </div>
+
+<router-outlet name="aux"></router-outlet>

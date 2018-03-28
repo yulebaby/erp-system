@@ -1,3 +1,4 @@
+import { JoinComponent } from './join/join.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { CreateComponent } from './create/create.component';
 import { AdminComponent } from './admin/admin.component';
@@ -11,7 +12,15 @@ const routes: Routes = [
     {
         path: 'activity',
         data: { title: '活动' },
-        component: ActivityComponent
+        component: ActivityComponent,
+        children: [
+            {
+                path: 'join/:id',
+                data: { title: '参与活动' },
+                component: JoinComponent,
+                outlet: 'aux'
+            }
+        ]
     },
     {
         path: 'data',
