@@ -1,0 +1,41 @@
+{
+    "name": "活动名称",
+    "key": "ylbb-conf",
+    "configItems": [
+        {
+            "label": "活动名称",
+            "type": "input",
+            "key": "activityName",
+            "required": true,
+            "pattern": "/^[0-9]+$/"
+        },
+        {
+            "label": "活动价格",
+            "type": "select",
+            "key": "price",
+            "options": [
+                {
+                    "id": 1,
+                    "name": "01-10"
+                },
+                {
+                    "id": 2,
+                    "name": "10-20"
+                }
+            ],
+            "required": true
+        },
+        {
+            "label": "活动日期",
+            "type": "datePicker",
+            "key": [
+                "startTime",
+                "endTime"
+            ],
+            "required": true
+        }
+    ],
+    "status": 1,
+    "createTime": "2018-03-22",
+    "author": "phuhoang"
+}
