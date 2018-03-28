@@ -3,9 +3,9 @@
     "key": "ylbb-conf",
     "configItems": [
         {
-            "label": "活动名称",
+            "label": "xxxxx",
             "type": "input",
-            "key": "activityName",
+            "key": "sssss",
             "placeholder": "请输入活动名称",
             "errorText": "请输入2-10位字符!",
             "required": true,

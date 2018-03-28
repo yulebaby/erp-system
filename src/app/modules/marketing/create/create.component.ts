@@ -1,3 +1,4 @@
+import { NzMessageService } from 'ng-zorro-antd';
 import { HttpClient } from '@angular/common/http';
 import { HttpService } from './../../../relax/services/http/http.service';
 import { Observable } from 'rxjs/Observable';
@@ -6,6 +7,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core';
 import { CacheService } from '../../../relax/services/cache/cache.service';
 import { DatePipe } from '@angular/common';
+import { Subject } from 'rxjs';
+
 
 @Component({
   selector: 'app-create',
@@ -20,10 +23,15 @@ export class CreateComponent implements OnInit {
   activityFormModel : FormGroup;
 
   /* ---------------- 当前页 ---------------- */
-  current   : number = 1;
+  current   : number = 0;
 
   /* --------------- 模板数据 --------------- */
   _tmplDataset: TmplDataset;
+
+
+  /* --------------- 存储信息/结果 --------------- */
+  _saveLoading : boolean;
+  _saveResult;
   
 
   constructor(
@@ -32,9 +40,11 @@ export class CreateComponent implements OnInit {
     private cache     : CacheService,
     private http      : HttpService,
     private httpClient: HttpClient,
-    private format    : DatePipe
+    private format    : DatePipe,
+    private message   : NzMessageService
   ) { 
     this.tmplFormModel = fb.group({
+      activityName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],     // 活动名称
       name        : ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],     // 模板名称
       introduce   : ['', [Validators.required, Validators.maxLength(100)]],                             // 模板介绍
       address     : ['', [Validators.required, Validators.pattern(/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:\/~\+#]*[\w\-\@?^=%&\/~\+#])?/)], [this._tmplAsyncValidator]],
@@ -57,62 +67,6 @@ export class CreateComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.activityFormModelInit({
-      "name": "活动名称",
-      "key": "ylbb-conf",
-      "configItems": [
-        {
-          "label": "活动名称",
-          "type": "input",
-          "key": "activityName",
-          "placeholder": "请输入活动名称",
-          "errorText": "请输入2-10位字符!",
-          "required": true,
-          "pattern": "^[0-9]*$"
-        },
-        {
-          "label": "活动价格",
-          "type": "select",
-          "key": "price",
-          "options": [
-            {
-              "id": 1,
-              "name": "01-10"
-            },
-            {
-              "id": 2,
-              "name": "10-20"
-            }
-          ],
-          "optionsKey": {
-            "label": "name",
-            "value": "id"
-          },
-          "required": true
-        },
-        {
-          "label": "生日",
-          "type": "datepicker",
-          "key": "time",
-          "required": true
-        },
-        {
-          "label": "活动日期",
-          "type": "rangepicker",
-          "key": "rangepicker",
-          "valueKey": [
-            "startTime",
-            "endTime"
-          ],
-          "placeholder": ["开始日期", "结束日期"],
-          "required": true
-        }
-      ],
-      "status": 1,
-      "createTime": "2018-03-22",
-      "author": "phuhoang"
-    })
 
     this.routeInfo.paramMap.subscribe( (res: any) => {
       this._activityId = res.params.id;
@@ -144,28 +98,35 @@ export class CreateComponent implements OnInit {
         control.markAsDirty();
       })
     } else {
-      let params = Object.assign(JSON.parse(JSON.stringify(this.activityFormModel.value)), JSON.parse(JSON.stringify(this.tmplFormModel.value)));
+      let activityCustomizeInfo = JSON.parse(JSON.stringify(this.activityFormModel.value));
+      activityCustomizeInfo.activityName = this.tmplFormModel.get('activityName').value;
       this._tmplDataset.configItems.map( (item: any) => {
         if (item.type === 'datepicker') {
-          params[item.key] = this.format.transform(params[item.key], 'yyyy-MM-dd');
+          activityCustomizeInfo[item.key] = this.format.transform(activityCustomizeInfo[item.key], 'yyyy-MM-dd');
         }
         if (item.type === 'rangepicker') {
-          params[item.valueKey[0]] = this.format.transform(params[item.key][0], 'yyyy-MM-dd');
-          params[item.valueKey[1]] = this.format.transform(params[item.key][1], 'yyyy-MM-dd');
-          delete params[item.key];
+          activityCustomizeInfo[item.valueKey[0]] = this.format.transform(activityCustomizeInfo[item.key][0], 'yyyy-MM-dd');
+          activityCustomizeInfo[item.valueKey[1]] = this.format.transform(activityCustomizeInfo[item.key][1], 'yyyy-MM-dd');
+          delete activityCustomizeInfo[item.key];
         }
       });
+      let params = JSON.parse(JSON.stringify(this.tmplFormModel.value));
+      params.activityCustomizeInfo = JSON.stringify(activityCustomizeInfo);
       if (this._activityId != '0') { params.id = this._activityId; }
+      this._saveLoading = true;
       this.http.post('/market/addTemplate', { paramJson: JSON.stringify(params) }).then( res => {
-
-      })
+        this.current += 1;
+        this._saveLoading = false;
+        this._saveResult = res;
+      }, err => this._saveLoading = false )
     }
   }
 
   /* ------------------------ 验证模板地址是否合法 ------------------------ */
   _tmplAsyncValidator = (control: FormControl): Observable<any> => {
     return Observable.create( observer => {
-      this.httpClient.get(`${this.tmplFormModel.get('agreement').value}${control.value}/ylbb-conf.json`).subscribe((res: any) => {
+      this.httpClient.get(`${this.tmplFormModel.get('agreement').value}${control.value}/ylbb-conf.json`)
+      .subscribe((res: any) => {
         if (res.key && res.key === 'ylbb-conf') {
           this.activityFormModelInit(res);
         }
