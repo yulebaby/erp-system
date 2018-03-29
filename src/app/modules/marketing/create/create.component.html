@@ -9,96 +9,99 @@
     </nz-steps>
     <nz-tabset [nzSelectedIndex]="current">
       <nz-tab>
-        <form nz-form [formGroup]="tmplFormModel">
-          
-          <div nz-form-item nz-row>
-            <div nz-form-label nz-col [nzSpan]="6">
-              <label for="activityName" nz-form-item-required>活动名称</label>
+
+        <nz-spin nzTip="获取数据中..." [nzSpinning]="lookTemplateInfoLoading">
+          <form nz-form [formGroup]="tmplFormModel">
+            
+            <div nz-form-item nz-row>
+              <div nz-form-label nz-col [nzSpan]="6">
+                <label for="activityName" nz-form-item-required>活动名称</label>
+              </div>
+              <div nz-form-control nz-col [nzSpan]="8">
+                <nz-input formControlName="activityName" nzPlaceHolder="请输入活动名称" nzSize="large" nzId="activityName"></nz-input>
+                <div nz-form-explain *ngIf="getFormControl('activityName').dirty && ( getFormControl('activityName').hasError('required') || getFormControl('activityName').hasError('minlength') || getFormControl('activityName').hasError('maxlength') )">请输入2-20位字符!</div>
+              </div>
             </div>
-            <div nz-form-control nz-col [nzSpan]="8">
-              <nz-input formControlName="activityName" nzPlaceHolder="请输入活动名称" nzSize="large" nzId="activityName"></nz-input>
-              <div nz-form-explain *ngIf="getFormControl('activityName').dirty && ( getFormControl('activityName').hasError('required') || getFormControl('activityName').hasError('minlength') || getFormControl('activityName').hasError('maxlength') )">请输入2-20位字符!</div>
+            <div nz-form-item nz-row>
+              <div nz-form-label nz-col [nzSpan]="6">
+                <label for="name" nz-form-item-required>模板名称</label>
+              </div>
+              <div nz-form-control nz-col [nzSpan]="8">
+                <nz-input formControlName="name" nzPlaceHolder="请输入模板名称" nzSize="large" nzId="name"></nz-input>
+                <div nz-form-explain *ngIf="getFormControl('name').dirty && ( getFormControl('name').hasError('required') || getFormControl('name').hasError('minlength') || getFormControl('name').hasError('maxlength') )">请输入2-20位字符!</div>
+              </div>
             </div>
-          </div>
-          <div nz-form-item nz-row>
-            <div nz-form-label nz-col [nzSpan]="6">
-              <label for="name" nz-form-item-required>模板名称</label>
+            <div nz-form-item nz-row>
+              <div nz-form-label nz-col [nzSpan]="6">
+                <label for="introduce" nz-form-item-required>模板介绍</label>
+              </div>
+              <div nz-form-control nz-col [nzSpan]="8">
+                <nz-input formControlName="introduce" nzPlaceHolder="请输入模板介绍" nzSize="large" nzId="introduce"></nz-input>
+                <div nz-form-explain *ngIf="getFormControl('introduce').dirty && ( getFormControl('introduce').hasError('required') || getFormControl('introduce').hasError('maxlength') )">请输入100位字符以下!</div>
+              </div>
             </div>
-            <div nz-form-control nz-col [nzSpan]="8">
-              <nz-input formControlName="name" nzPlaceHolder="请输入模板名称" nzSize="large" nzId="name"></nz-input>
-              <div nz-form-explain *ngIf="getFormControl('name').dirty && ( getFormControl('name').hasError('required') || getFormControl('name').hasError('minlength') || getFormControl('name').hasError('maxlength') )">请输入2-20位字符!</div>
+            <div nz-form-item nz-row>
+              <div nz-form-label nz-col [nzSpan]="6">
+                <label nz-form-item-required>模板地址</label>
+              </div>
+              <div nz-form-control nz-col [nzSpan]="8" [nzValidateStatus]="tmplFormModel.controls['address']">
+                <nz-input-group nzCompact style="display: flex;">
+                  <nz-select formControlName="agreement" nzSize="large" style="width: 72px">
+                    <nz-option nzLabel="http://" nzValue="http://"></nz-option>
+                    <nz-option nzLabel="https://" nzValue="https://"></nz-option>
+                  </nz-select>
+                  <input formControlName="address" placeholder="请输入模板地址" nzSize="large" nz-input>
+                </nz-input-group>
+                <div nz-form-explain *ngIf="getFormControl('address').dirty && (getFormControl('address').hasError('required') || getFormControl('address').hasError('pattern'))">请输入正确的模板地址!</div>
+                <div nz-form-explain *ngIf="getFormControl('address').dirty && getFormControl('address').hasError('duplicated')">该模板不存在,请检查地址是否正确!</div>
+                <div nz-form-explain *ngIf="getFormControl('address').dirty && getFormControl('address').pending">正在解析模板是否合法...</div>
+              </div>
             </div>
-          </div>
-          <div nz-form-item nz-row>
-            <div nz-form-label nz-col [nzSpan]="6">
-              <label for="introduce" nz-form-item-required>模板介绍</label>
-            </div>
-            <div nz-form-control nz-col [nzSpan]="8">
-              <nz-input formControlName="introduce" nzPlaceHolder="请输入模板介绍" nzSize="large" nzId="introduce"></nz-input>
-              <div nz-form-explain *ngIf="getFormControl('introduce').dirty && ( getFormControl('introduce').hasError('required') || getFormControl('introduce').hasError('maxlength') )">请输入100位字符以下!</div>
-            </div>
-          </div>
-          <div nz-form-item nz-row>
-            <div nz-form-label nz-col [nzSpan]="6">
-              <label nz-form-item-required>模板地址</label>
-            </div>
-            <div nz-form-control nz-col [nzSpan]="8" [nzValidateStatus]="tmplFormModel.controls['address']">
-              <nz-input-group nzCompact style="display: flex;">
-                <nz-select formControlName="agreement" nzSize="large" style="width: 72px">
-                  <nz-option nzLabel="http://" nzValue="http://"></nz-option>
-                  <nz-option nzLabel="https://" nzValue="https://"></nz-option>
+            <div nz-form-item nz-row>
+              <div nz-form-label nz-col [nzSpan]="6">
+                <label nz-form-item-required>场景</label>
+              </div>
+              <div nz-form-control nz-col [nzSpan]="8">
+                <nz-select formControlName="scencesId" nzPlaceHolder="请选择模板场景" nzSize="large">
+                  <nz-option *ngFor="let item of scencesList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
                 </nz-select>
-                <input formControlName="address" placeholder="请输入模板地址" nzSize="large" nz-input>
-              </nz-input-group>
-              <div nz-form-explain *ngIf="getFormControl('address').dirty && (getFormControl('address').hasError('required') || getFormControl('address').hasError('pattern'))">请输入正确的模板地址!</div>
-              <div nz-form-explain *ngIf="getFormControl('address').dirty && getFormControl('address').hasError('duplicated')">该模板不存在,请检查地址是否正确!</div>
-              <div nz-form-explain *ngIf="getFormControl('address').dirty && getFormControl('address').pending">正在解析模板是否合法...</div>
+                <div nz-form-explain *ngIf="getFormControl('scencesId').dirty && getFormControl('scencesId').hasError('required')">请选择模板场景!</div>
+              </div>
             </div>
-          </div>
-          <div nz-form-item nz-row>
-            <div nz-form-label nz-col [nzSpan]="6">
-              <label nz-form-item-required>场景</label>
+            <div nz-form-item nz-row>
+              <div nz-form-label nz-col [nzSpan]="6">
+                <label nz-form-item-required>节日</label>
+              </div>
+              <div nz-form-control nz-col [nzSpan]="8">
+                <nz-select formControlName="festivalId" nzPlaceHolder="请选择模板节日" nzSize="large">
+                  <nz-option *ngFor="let item of festivalList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+                </nz-select>
+                <div nz-form-explain *ngIf="getFormControl('festivalId').dirty && getFormControl('festivalId').hasError('required')">请选择模板节日!</div>
+              </div>
             </div>
-            <div nz-form-control nz-col [nzSpan]="8">
-              <nz-select formControlName="scencesId" nzPlaceHolder="请选择模板场景" nzSize="large">
-                <nz-option *ngFor="let item of scencesList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
-              </nz-select>
-              <div nz-form-explain *ngIf="getFormControl('scencesId').dirty && getFormControl('scencesId').hasError('required')">请选择模板场景!</div>
+            <div nz-form-item nz-row>
+              <div nz-form-label nz-col [nzSpan]="6">
+                <label nz-form-item-required>门店自定义活动信息</label>
+              </div>
+              <div nz-form-control nz-col [nzSpan]="8">
+                <nz-radio-group formControlName="isPermit" [style.width]="'100%'">
+                  <label nz-radio-button nzValue="1" [style.width]="'50%'">
+                    <span>允许</span>
+                  </label>
+                  <label nz-radio-button nzValue="0" [style.width]="'50%'">
+                    <span>不允许</span>
+                  </label>
+                </nz-radio-group>
+              </div>
             </div>
-          </div>
-          <div nz-form-item nz-row>
-            <div nz-form-label nz-col [nzSpan]="6">
-              <label nz-form-item-required>节日</label>
+            <div nz-form-item nz-row>
+              <div nz-col [nzSpan]="8" [nzOffset]="6" style="display: flex;">
+                <button nz-button [nzType]="'primary'" nzSize="large" style="flex: 1" (click)="_tmplSubmit()">提交</button>
+              </div>
             </div>
-            <div nz-form-control nz-col [nzSpan]="8">
-              <nz-select formControlName="festivalId" nzPlaceHolder="请选择模板节日" nzSize="large">
-                <nz-option *ngFor="let item of festivalList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
-              </nz-select>
-              <div nz-form-explain *ngIf="getFormControl('festivalId').dirty && getFormControl('festivalId').hasError('required')">请选择模板节日!</div>
-            </div>
-          </div>
-          <div nz-form-item nz-row>
-            <div nz-form-label nz-col [nzSpan]="6">
-              <label nz-form-item-required>门店自定义活动信息</label>
-            </div>
-            <div nz-form-control nz-col [nzSpan]="8">
-              <nz-radio-group formControlName="isPermit" [style.width]="'100%'">
-                <label nz-radio-button [nzValue]="1" [style.width]="'50%'">
-                  <span>允许</span>
-                </label>
-                <label nz-radio-button [nzValue]="0" [style.width]="'50%'">
-                  <span>不允许</span>
-                </label>
-              </nz-radio-group>
-            </div>
-          </div>
-          <div nz-form-item nz-row>
-            <div nz-col [nzSpan]="8" [nzOffset]="6" style="display: flex;">
-              <button nz-button [nzType]="'primary'" nzSize="large" style="flex: 1" (click)="_tmplSubmit()">提交</button>
-            </div>
-          </div>
-    
-        </form>
+      
+          </form>
+        </nz-spin>
       </nz-tab>
       <nz-tab>
         <nz-spin nzTip="模板保存中..." [nzSpinning]="_saveLoading">
@@ -152,10 +155,11 @@
             <i class="anticon" [ngClass]="[_saveResult?.code == 1000 ? 'anticon-check-circle' : 'anticon-close-circle']" [style.color]="_saveResult?.code == 1000 ? '#52c41a' : '#f5222d'"></i>
           </div>
           <h4>{{ _saveResult?.code == 1000 ? '保存成功' : '保存失败' }}</h4>
-          <p>{{ _saveResult?.code == 1000 ? '保存成功,请返回活动列表查看或编辑' : _saveResult?.info || '请核对并修改信息后，再重新提交。' }}</p>
+          <p>{{ _saveResult?.code == 1000 ? '保存成功,请返回活动列表查看或直接发布' : _saveResult?.info || '请核对并修改信息后，再重新提交。' }}</p>
           <div class="result-btn">
-              <button nz-button *ngIf="_saveResult?.code == 1000" [nzType]="'primary'" nzSize="large" routerLink="/homoe/marketing/admin">返回列表</button>
-              <button nz-button *ngIf="_saveResult?.code != 1000" [nzType]="'primary'" nzSize="large" (click)="current = 1">返回修改</button>
+              <button nz-button *ngIf="_saveResult?.code == 1000" [nzType]="'primary'" nzSize="large" routerLink="/home/marketing/admin">返回列表</button>
+              <button nz-button *ngIf="_saveResult?.code == 1000" [nzType]="'primary'" nzSize="large">直接发布</button>
+              <button nz-button *ngIf="_saveResult?.code != 1000" [nzType]="'primary'" nzSize="large" (click)="current = 0">返回修改</button>
           </div>
         </div>
       </nz-tab>

@@ -18,6 +18,8 @@ import { Subject } from 'rxjs';
 export class CreateComponent implements OnInit {
 
   _activityId       : string;
+  lookTemplateInfo;
+  lookTemplateInfoLoading: boolean;
 
   /* ----------- 模板/活动表单模型 ----------- */
   tmplFormModel     : FormGroup;
@@ -58,7 +60,7 @@ export class CreateComponent implements OnInit {
       address     : ['', [Validators.required, Validators.pattern(/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:\/~\+#]*[\w\-\@?^=%&\/~\+#])?/)], [this._tmplAsyncValidator]],
       scencesId   : ['', [Validators.required]],                                  // 模板场景
       festivalId  : ['', [Validators.required]],                                  // 模板节日
-      isPermit    : [1],                                                          // 是否允许用户自定义字段
+      isPermit    : ['1'],                                                        // 是否允许用户自定义字段
       agreement   : ['http://']
     });
     this.activityFormModel = fb.group({});
@@ -71,18 +73,27 @@ export class CreateComponent implements OnInit {
 
   ngOnInit() {
 
-    /* ------------------ 获取模板ID(0 => 新建) ------------------ */
+    /* ---------------- 获取模板ID(0 => 新建) ---------------- */
     this.routeInfo.paramMap.subscribe( (res: any) => {
       this._activityId = res.params.id;
+      if (this._activityId != '0') {
+        this.lookTemplateInfoLoading = true;
+        this.http.post('/market/lookTemplateInfo', { paramJson: JSON.stringify({id: this._activityId}) }).then( res => {
+          this.lookTemplateInfoLoading = false;
+          if (res.code == 1000) {
+            res.result.address = res.result.address.substr(0, 4) == 'http' ? res.result.address.split('://')[1] : res.result.address;
+            this.lookTemplateInfo = res.result;
+            this.tmplFormModel.patchValue(res.result);
+          }
+        }, err => {
+          this.lookTemplateInfoLoading = false;
+        })
+      }
     });
 
     /* ------------------ 获取场景/节日数据 ------------------ */
-    this.cache.get('/market/scencesList').subscribe( res => {
-      this.scencesList = res || [];
-    });
-    this.cache.get('/market/festivalList').subscribe(res => {
-      this.festivalList = res || [];
-    });
+    this.cache.get('/market/scencesList').subscribe(res => this.scencesList = res || []);
+    this.cache.get('/market/festivalList').subscribe(res => this.festivalList = res || []);
 
   }
 
@@ -112,13 +123,16 @@ export class CreateComponent implements OnInit {
           activityCustomizeInfo[item.key] = this.format.transform(activityCustomizeInfo[item.key], 'yyyy-MM-dd');
         }
         if (item.type === 'rangepicker') {
-          activityCustomizeInfo[item.valueKey[0]] = this.format.transform(activityCustomizeInfo[item.key][0], 'yyyy-MM-dd');
-          activityCustomizeInfo[item.valueKey[1]] = this.format.transform(activityCustomizeInfo[item.key][1], 'yyyy-MM-dd');
-          delete activityCustomizeInfo[item.key];
+          activityCustomizeInfo[item.key][0] = this.format.transform(activityCustomizeInfo[item.key][0], 'yyyy-MM-dd');
+          activityCustomizeInfo[item.key][1] = this.format.transform(activityCustomizeInfo[item.key][1], 'yyyy-MM-dd');
+          activityCustomizeInfo[item.valueKey[0]] = activityCustomizeInfo[item.key][0];
+          activityCustomizeInfo[item.valueKey[1]] = activityCustomizeInfo[item.key][1];
         }
       });
+      console.log(activityCustomizeInfo)
       /* ---------------- 深拷贝模板表单数据; 合并模板/活动数据 ---------------- */
       let params = JSON.parse(JSON.stringify(this.tmplFormModel.value));
+      params.address = params.agreement + params.address;
       params.activityCustomizeInfo = JSON.stringify(activityCustomizeInfo);
       if (this._activityId != '0') { params.id = this._activityId; }
       this._saveLoading = true;
@@ -136,7 +150,7 @@ export class CreateComponent implements OnInit {
       this.httpClient.get(`${this.tmplFormModel.get('agreement').value}${control.value}/ylbb-conf.json`)
       .subscribe((res: any) => {
         if (res.status && res.status > 0) {
-          this.activityFormModelInit(res);
+          this.activityFormModelInit(res, this.lookTemplateInfo && this.lookTemplateInfo.address == control.value);
         }
         observer.next(res.status && res.status > 0 ? null : { error: true, duplicated: true });
         observer.complete();
@@ -148,18 +162,33 @@ export class CreateComponent implements OnInit {
   }
 
   /* ------------------- 根据模板配置文件实例化活动表单模型 ------------------- */
-  activityFormModelInit(e: TmplDataset): void {
+  activityFormModelInit(e: TmplDataset, ident?: boolean): void {
     this._tmplDataset = e;
     this.tmplFormModel.patchValue({
       thumbnail: this._tmplDataset.thumbnail
     });
+
+    var activityCustomizeInfo;
+    if (ident) {
+      activityCustomizeInfo = JSON.parse(this.lookTemplateInfo.activityCustomizeInfo);
+    }
+
+    this.activityFormModel = this.fb.group({});
     this._tmplDataset.configItems.map( (item: any) => {
       let validators = [];
       if (item.required) { validators.push(Validators.required); }
-      if (item.pattern) { validators.push(Validators.pattern(new RegExp(item.pattern))); console.log(item.pattern)}
-      
-      this.activityFormModel.addControl(item.key, new FormControl('', validators));
-    })
+      if (item.pattern) { validators.push(Validators.pattern(new RegExp(item.pattern))); }
+
+      if (ident) {
+        if (item.type == 'rangepicker') {
+          this.activityFormModel.addControl(item.key, new FormControl([new Date(activityCustomizeInfo[item.key][0]), new Date(activityCustomizeInfo[item.key][1])], validators));
+        } else {
+          this.activityFormModel.addControl(item.key, new FormControl(activityCustomizeInfo[item.key], validators));
+        }
+      } else {
+        this.activityFormModel.addControl(item.key, new FormControl('', validators));
+      }
+    });
   }
 
 }
@@ -191,3 +220,21 @@ interface TmplDataset {
   createTime  : string;
   author      : string;
 }
+
+
+
+/**
+ * @module 创建/修改活动模板;主要逻辑概述
+ * 
+ * @method 监听路由参数变化,0=>新增-----其他代表编辑
+ *
+ * @method 自定义模板地址验证的时候;只需要输入模板所在地址文件夹即可,因为验证的时候会自动拼接上'ylbb-conf.json',所以需要把'/index.html'去掉
+ * @method 如果模板地址通过验证,则会直接把模板的缩略图地址保存到模板的表单模型中;
+ * 
+ * @method 编辑时根据Id模板Id查询,根据查询结果回显数据
+ * @method  (特别注意address参数);因为保存时是自动添加上'http://'或者'https://'的,所以回显的时候要把'http://'删除掉
+ * @method 编辑的时候会自动根据模板地址验证一次,所以需要加上判断;当前验证的地址和回显的数据地址是否是同一个地址,如果是同一个地址则可以回显自定义信息的数据
+ * 
+ * @method 保存的时候;模板地址'address'会自动拼接上'http://'或者'https://'
+ * 
+ */

@@ -1,0 +1,25 @@
+{
+    "name": "活动名称",
+    "key": "ylbb-conf",
+    "thumbnail": "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
+    "configItems": [
+        {
+            "label": "随便来个",
+            "type": "input",
+            "key": "sssss",
+            "placeholder": "请输入活动名称",
+            "errorText": "请输入2-10位字符!",
+            "required": true,
+            "pattern": "^[0-9]*$"
+        },
+        {
+            "label": "生日",
+            "type": "datepicker",
+            "key": "time",
+            "required": true
+        }
+    ],
+    "status": 1,
+    "createTime": "2018-03-22",
+    "author": "phuhoang"
+}

@@ -93,7 +93,11 @@
         }
         .card-footer {
             margin-top: 13px;
-            line-height: 28px;
+            height: 28px;
+            text-align: center;
+            button{
+                margin: 0 2px;
+            }
         }
     }
 
@@ -167,10 +171,23 @@
 
 :host ::ng-deep .custom-card {
     padding: 10px 16px;
-}
-
-:host ::ng-deep .custom-card p {
-    color: #999;
+    h3 {
+        line-height: 23px;
+        margin-bottom: 12px;
+        nz-tag {
+            float: right;
+            span {
+                margin: 0;
+            }
+        }
+    }
+    p {
+        color: #999;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        cursor: pointer;
+    }
 }
 
 :host ::ng-deep .ant-card-body {
