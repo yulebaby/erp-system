@@ -1,6 +1,7 @@
 {
     "name": "活动名称",
     "key": "ylbb-conf",
+    "thumbnail": "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
     "configItems": [
         {
             "label": "xxxxx",

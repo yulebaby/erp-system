@@ -152,10 +152,9 @@
             <i class="anticon" [ngClass]="[_saveResult?.code == 1000 ? 'anticon-check-circle' : 'anticon-close-circle']" [style.color]="_saveResult?.code == 1000 ? '#52c41a' : '#f5222d'"></i>
           </div>
           <h4>{{ _saveResult?.code == 1000 ? '保存成功' : '保存失败' }}</h4>
-          <p>{{ _saveResult?.code == 1000 ? '保存成功,请返回活动列表查看或编辑' : _saveResult?.info }}</p>
+          <p>{{ _saveResult?.code == 1000 ? '保存成功,请返回活动列表查看或编辑' : _saveResult?.info || '请核对并修改信息后，再重新提交。' }}</p>
           <div class="result-btn">
               <button nz-button *ngIf="_saveResult?.code == 1000" [nzType]="'primary'" nzSize="large" routerLink="/homoe/marketing/admin">返回列表</button>
-              <button nz-button *ngIf="_saveResult?.code == 1000" [nzType]="'default'" nzSize="large" (click)="current = 1">上一页</button>
               <button nz-button *ngIf="_saveResult?.code != 1000" [nzType]="'primary'" nzSize="large" (click)="current = 1">返回修改</button>
           </div>
         </div>
