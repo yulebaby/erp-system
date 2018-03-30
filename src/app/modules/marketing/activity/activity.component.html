@@ -13,45 +13,52 @@
       <div class="form-item">
         <div class="item-label">场景:</div>
         <div class="item-content">
-          <nz-checkable-tag [nzChecked]="!queryForm.scene.length || queryForm.scene.length === sceneItems.length" (nzChange)="queryForm.scene = []">全部</nz-checkable-tag>
-          <nz-checkable-tag *ngFor="let item of sceneItems" [nzChecked]="queryForm.scene.indexOf(item.id) > -1" (nzChange)="queryCheckChange($event, 'scene', item.id)">{{ item.name }}</nz-checkable-tag>
+          <nz-checkable-tag [nzChecked]="!queryForm.scencesId.length || queryForm.scencesId.length === sceneItems.length" (nzChange)="queryCheckAll($event, 'scencesId')">全部</nz-checkable-tag>
+          <nz-checkable-tag *ngFor="let item of sceneItems" [nzChecked]="queryForm.scencesId.indexOf(item.id) > -1"  (nzChange)="queryCheckChange($event, 'scencesId', item.id)">{{ item.name }}</nz-checkable-tag>
         </div>
       </div>
       <div class="form-item">
         <div class="item-label">节日:</div>
         <div class="item-content">
-          <nz-checkable-tag [nzChecked]="!queryForm.festival.length || queryForm.festival.length === festivalItems.length" (nzChange)="queryForm.festival = []">全部</nz-checkable-tag>
-          <nz-checkable-tag *ngFor="let item of festivalItems" [nzChecked]="queryForm.festival.indexOf(item.id) > -1" (nzChange)="queryCheckChange($event, 'festival', item.id)">{{ item.name }}</nz-checkable-tag>
+          <nz-checkable-tag [nzChecked]="!queryForm.festivalId.length || queryForm.festivalId.length === festivalItems.length" (nzChange)="queryCheckAll($event, 'festivalId')">全部</nz-checkable-tag>
+          <nz-checkable-tag *ngFor="let item of festivalItems" [nzChecked]="queryForm.festivalId.indexOf(item.id) > -1" (nzChange)="queryCheckChange($event, 'festivalId', item.id)">{{ item.name }}</nz-checkable-tag>
         </div>
       </div>
     </div>
   </div>
 
   <div class="content" nz-row>
-    <div class="content-not-found" [hidden]="true">
-      <i class="anticon anticon-frown-o"></i>无结果!
-    </div>
-    <div nz-col [nzXs]="24" [nzSm]="8" [nzLg]="6" [nzXl]="4">
-      <div class="card-item">
-        <nz-card>
-          <ng-template #body>
-            <div class="custom-image">
-              <img class="thumbnail" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
-              <div class="qrcode">
-                <img src="http://qr.liantu.com/api.php?bg=333333&fg=ffffff&text=https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
-              </div>
-            </div>
-            <div class="custom-card">
-              <h3>开春乐游</h3>
-              <p>婴幼儿游泳体验，春季暖暖引流</p>
-              <div style="margin-top: 16px; margin-bottom: 6px; text-align: center;">
-                <button nz-button [nzType]="'primary'" style="width: 80%;" [routerLink]="{outlets: {aux: 'join/0'}}">我要参加</button>
-              </div>
-            </div>
-          </ng-template>
-        </nz-card>
+
+    <nz-spin [nzSpinning]="activityLoading" nzTip="正在加载模板数据...">
+      <div class="content-not-found" [hidden]="activityItems.length">
+        <i class="anticon anticon-frown-o"></i>无结果!
       </div>
-    </div>
+      <div nz-col [nzXs]="24" [nzSm]="8" [nzLg]="6" [nzXl]="4" *ngFor="let item of activityItems">
+        <div class="card-item">
+          <nz-card>
+            <ng-template #body>
+              <div class="custom-image">
+                <img class="thumbnail" [src]="item.thumbnail" />
+                <div class="qrcode">
+                  <img src="http://qr.liantu.com/api.php?text={{item.address}}/index.html" />
+                </div>
+              </div>
+              <div class="custom-card">
+                <h3>{{ item.name }}</h3>
+                <p>
+                  <nz-tooltip [nzTitle]="item.introduce">
+                    <p nz-tooltip>{{ item.introduce }}</p>
+                  </nz-tooltip>
+                </p>
+                <div style="margin-top: 16px; margin-bottom: 6px; text-align: center;">
+                  <button nz-button [nzType]="'primary'" style="width: 80%;" [routerLink]="{outlets: {aux: 'join/0'}}">我要参加</button>
+                </div>
+              </div>
+            </ng-template>
+          </nz-card>
+        </div>
+      </div>
+    </nz-spin>
   </div>
 </div>
 

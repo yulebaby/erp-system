@@ -1,4 +1,7 @@
+import { Router, NavigationEnd } from '@angular/router';
+import { HttpService } from './../../../relax/services/http/http.service';
 import { Component, OnInit } from '@angular/core';
+import { CacheService } from '../../../relax/services/cache/cache.service';
 
 @Component({
   selector: 'app-activity',
@@ -8,28 +11,30 @@ import { Component, OnInit } from '@angular/core';
 export class ActivityComponent implements OnInit {
 
   /* -------- 查询条件 场景/节日集合 -------- */
+  activityItems   : any[] = [];
+  activityLoading : boolean;
   queryForm = {
     name: '',
-    scene: [],
-    festival: []
+    scencesId: [],
+    festivalId: []
   };
-  sceneItems = [
-    { name: '开业促销', id: 1 },
-    { name: '周年庆', id: 2 },
-    { name: '大甩卖', id: 3 }
-  ];
-  festivalItems = [
-    { name: '春节', id: 1 },
-    { name: '劳动节', id: 2 },
-    { name: '儿童节', id: 3 },
-    { name: '中秋节', id: 4 },
-    { name: '国庆节', id: 5 },
-    { name: '元旦', id: 6 },
-    { name: '圣诞节', id: 7 },
-    { name: '元宵', id: 8 }
-  ];
+  sceneItems    : any[] = [];
+  festivalItems : any[] = [];
 
-  constructor() { }
+  constructor(
+    private http  : HttpService,
+    private cache : CacheService,
+    private router: Router
+  ) {
+    cache.get('/market/scencesList').subscribe(res => this.sceneItems = res);
+    cache.get('/market/festivalList').subscribe(res => this.festivalItems = res);
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd && event.url === '/home/marketing/activity') {
+        this.searchSubmit();
+      }
+    })
+  }
 
   ngOnInit() {
   }
@@ -41,14 +46,28 @@ export class ActivityComponent implements OnInit {
     } else {
       this.queryForm[control].splice(this.queryForm[control].indexOf(id), 1);
     }
+    this.searchSubmit();
+  }
+  queryCheckAll(checked: boolean, control: string): void {
+    this.queryForm[control] = [];
+    if (checked) { this.searchSubmit(); }
   }
 
-  /* --------------------- 点击搜索 --------------------- */
+  /* --------------------- 获取模板列表 --------------------- */
   searchSubmit(): void {
+    if (this.activityLoading) { return; }
+    this.activityLoading = true;
     let params = JSON.parse(JSON.stringify(this.queryForm));
-    params.scene = params.scene.join(',');
-    params.festival = params.festival.join(',');
-    console.log(params)
+    params.scencesId = params.scencesId.join(',');
+    params.festivalId = params.festivalId.join(',');
+    this.http.post('/market/marketingList', { paramJson: JSON.stringify(params) }).then(res => {
+      this.activityLoading = false;
+      if (res.code == 1000) {
+        this.activityItems = res.result.list;
+      }
+    }, err => {
+      this.activityLoading = false;
+    })
   }
 
 }

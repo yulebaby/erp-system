@@ -63,10 +63,13 @@
                 </nz-tooltip>
                 <div class="card-footer">
                   <button *ngIf="item.status != 1" nz-button [nzType]="'dashed'" style="width: 45%;" [routerLink]="{outlets: {aux: 'create/' + item.id}}">编辑</button>
-                  <nz-popconfirm *ngIf="item.status != 1" [nzTitle]="'确定要发布这个活动吗？'" (nzOnConfirm)="confirm()">
-                    <button nz-popconfirm nz-button [nzType]="'primary'" style="width: 45%;">发布</button>
+                  <nz-popconfirm *ngIf="item.status != 1" [nzTitle]="'确定要发布这个活动吗？'" (nzOnConfirm)="releaseTemplate(item)">
+                    <button nz-popconfirm nz-button [nzType]="'primary'" style="width: 45%;" [nzLoading]="item.loading">发布</button>
                   </nz-popconfirm>
-                  <button *ngIf="item.status == 1" nz-button [nzType]="'dashed'" style="width: 80%;">取消发布</button>
+
+                  <nz-popconfirm *ngIf="item.status == 1" [nzTitle]="'确定要取消发布这个活动吗？'" (nzOnConfirm)="cancelRelease(item)">
+                    <button nz-popconfirm nz-button [nzType]="'dashed'" style="width: 80%;" [nzLoading]="item.loading">取消发布</button>
+                  </nz-popconfirm>
                 </div>
               </div>
             </ng-template>

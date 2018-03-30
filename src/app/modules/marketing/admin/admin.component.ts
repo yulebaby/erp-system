@@ -1,3 +1,4 @@
+import { NzMessageService } from 'ng-zorro-antd';
 import { Router, NavigationEnd } from '@angular/router';
 import { HttpService } from './../../../relax/services/http/http.service';
 import { Component, OnInit } from '@angular/core';
@@ -21,9 +22,10 @@ export class AdminComponent implements OnInit {
   festivalItems : any[] = [];
 
   constructor(
-    private http  : HttpService,
-    private cache : CacheService,
-    private router: Router
+    private http    : HttpService,
+    private cache   : CacheService,
+    private router  : Router,
+    private message : NzMessageService
   ) {
     cache.get('/market/scencesList').subscribe(res => this.sceneItems = res);
     cache.get('/market/festivalList').subscribe(res => this.festivalItems = res);
@@ -65,6 +67,34 @@ export class AdminComponent implements OnInit {
       }
     }, err => {
       this.adminLoading = false;
+    })
+  }
+
+
+  /* ----------------------- 发布模板 ----------------------- */
+  releaseTemplate(tmpl): void {
+    tmpl.loading = true;
+    this.http.post('/market/addActivity', { paramJson: JSON.stringify(tmpl), type: 1 }).then(res => {
+      this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
+      tmpl.loading = false;
+      if (res.code == 1000) {
+        tmpl.status = 1;
+      }
+    }, err => {
+      tmpl.loading = false;
+    })
+  }
+  /* ----------------------- 取消发布 ----------------------- */
+  cancelRelease(tmpl): void {
+    tmpl.loading = true;
+    this.http.post('/market/cancelRelease', { paramJson: JSON.stringify({ id: tmpl.id }) }).then(res => {
+      this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
+      tmpl.loading = false;
+      if (res.code == 1000) {
+        tmpl.status = 0;
+      }
+    }, err => {
+      tmpl.loading = false;
     })
   }
 
