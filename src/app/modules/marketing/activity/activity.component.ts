@@ -1,3 +1,4 @@
+import { NzMessageService } from 'ng-zorro-antd';
 import { Router, NavigationEnd } from '@angular/router';
 import { HttpService } from './../../../relax/services/http/http.service';
 import { Component, OnInit } from '@angular/core';
@@ -22,9 +23,10 @@ export class ActivityComponent implements OnInit {
   festivalItems : any[] = [];
 
   constructor(
-    private http  : HttpService,
-    private cache : CacheService,
-    private router: Router
+    private http    : HttpService,
+    private cache   : CacheService,
+    private router  : Router,
+    private message : NzMessageService
   ) {
     cache.get('/market/scencesList').subscribe(res => this.sceneItems = res);
     cache.get('/market/festivalList').subscribe(res => this.festivalItems = res);
@@ -53,7 +55,7 @@ export class ActivityComponent implements OnInit {
     if (checked) { this.searchSubmit(); }
   }
 
-  /* --------------------- 获取模板列表 --------------------- */
+  /* --------------------- 获取活动列表 --------------------- */
   searchSubmit(): void {
     if (this.activityLoading) { return; }
     this.activityLoading = true;
@@ -69,5 +71,20 @@ export class ActivityComponent implements OnInit {
       this.activityLoading = false;
     })
   }
+
+  /* ---------------------- 取消参加 ---------------------- */
+  // cancelActivity(item): void {
+  //   if (item.loading) { return; }
+  //   item.loading = true;
+  //   this.http.post('/market/cancelActivity', { paramJson: JSON.stringify({ id: item.id }) }).then(res => {
+  //     this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
+  //     item.loading = false;
+  //     if (res.code == 1000) {
+  //       // item.status = 0;
+  //     }
+  //   }, err => {
+  //     item.loading = false;
+  //   })
+  // }
 
 }

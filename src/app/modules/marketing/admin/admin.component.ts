@@ -73,6 +73,7 @@ export class AdminComponent implements OnInit {
 
   /* ----------------------- 发布模板 ----------------------- */
   releaseTemplate(tmpl): void {
+    if (tmpl.loading) { return; }
     tmpl.loading = true;
     this.http.post('/market/addActivity', { paramJson: JSON.stringify(tmpl), type: 1 }).then(res => {
       this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
@@ -86,6 +87,7 @@ export class AdminComponent implements OnInit {
   }
   /* ----------------------- 取消发布 ----------------------- */
   cancelRelease(tmpl): void {
+    if (tmpl.loading) { return; }
     tmpl.loading = true;
     this.http.post('/market/cancelRelease', { paramJson: JSON.stringify({ id: tmpl.id }) }).then(res => {
       this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);

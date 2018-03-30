@@ -44,14 +44,20 @@
                 </div>
               </div>
               <div class="custom-card">
-                <h3>{{ item.name }}</h3>
+                <h3>
+                  {{ item.name }}
+                </h3>
                 <p>
                   <nz-tooltip [nzTitle]="item.introduce">
                     <p nz-tooltip>{{ item.introduce }}</p>
                   </nz-tooltip>
                 </p>
-                <div style="margin-top: 16px; margin-bottom: 6px; text-align: center;">
-                  <button nz-button [nzType]="'primary'" style="width: 80%;" [routerLink]="{outlets: {aux: 'join/0'}}">我要参加</button>
+                <div style="margin-top: 16px; margin-bottom: 6px; text-align: center;" [ngSwitch]="item.status">
+                  <button *ngSwitchCase="0" nz-button [nzType]="'primary'" style="width: 80%;" [routerLink]="{outlets: {aux: 'join/0'}}">我要参加</button>
+                  <nz-popconfirm *ngSwitchCase="1" [nzTitle]="'确定要取消参加这个活动吗？'" (nzOnConfirm)="cancelActivity(item)">
+                    <button nz-popconfirm nz-button [nzType]="'dashed'" style="width: 80%;" [nzLoading]="item.loading">取消参加</button>
+                  </nz-popconfirm>
+                  <button *ngSwitchDefault nz-button [nzType]="'primary'" style="width: 80%;" disabled>已下线</button>
                 </div>
               </div>
             </ng-template>
