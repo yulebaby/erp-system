@@ -136,6 +136,14 @@
         text-overflow: ellipsis;
         cursor: pointer;
     }
+    .card-footer {
+        margin-top: 16px;
+        margin-bottom: 6px;
+        text-align: center;
+        button {
+            width: 100%;
+        }
+    }
 }
 
 :host ::ng-deep .ant-card-body {

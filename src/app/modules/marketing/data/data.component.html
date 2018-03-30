@@ -1,6 +1,6 @@
 <cm-query [node]="queryNode" (onSubmit)="CmTable.request($event)"></cm-query>
 
-<cm-table #CmTable [thead]="tableNode" [allowSpace]="false" url="/market/activityStaticsList">
+<cm-table #CmTable [thead]="tableNode" url="/market/activityStaticsList">
     <ng-container>
         <tbody nz-tbody>
             <ng-template ngFor let-data [ngForOf]="CmTable.dataSet">

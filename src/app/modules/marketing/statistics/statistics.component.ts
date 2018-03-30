@@ -1,3 +1,5 @@
+import { environment } from './../../../../environments/environment';
+import { HttpService } from './../../../relax/services/http/http.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
@@ -55,7 +57,8 @@ export class StatisticsComponent implements OnInit {
   @ViewChild('CmTable') CmTable;
 
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private http: HttpService
   ) { }
 
   paramsDefault;
@@ -64,6 +67,10 @@ export class StatisticsComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((res: any) => {
       this.paramsDefault = { activityId: res.params.id };
     })
+  }
+
+  exportEffectiveUser(): void {
+    window.open(`${environment.domain}/market/exportEffectiveUser?id=${this.paramsDefault.activityId}`);
   }
 
 
