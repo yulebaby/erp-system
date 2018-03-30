@@ -2,7 +2,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { HttpClient } from '@angular/common/http';
 import { HttpService } from './../../../relax/services/http/http.service';
 import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { CacheService } from '../../../relax/services/cache/cache.service';
@@ -49,7 +49,8 @@ export class CreateComponent implements OnInit {
     private http      : HttpService,
     private httpClient: HttpClient,
     private format    : DatePipe,
-    private message   : NzMessageService
+    private message   : NzMessageService,
+    private router    : Router
   ) {
     /* ------------------- 初始化表单模型 ------------------- */
     this.tmplFormModel = fb.group({
@@ -129,7 +130,6 @@ export class CreateComponent implements OnInit {
           activityCustomizeInfo[item.valueKey[1]] = activityCustomizeInfo[item.key][1];
         }
       });
-      console.log(activityCustomizeInfo)
       /* ---------------- 深拷贝模板表单数据; 合并模板/活动数据 ---------------- */
       let params = JSON.parse(JSON.stringify(this.tmplFormModel.value));
       params.address = params.agreement + params.address;
@@ -161,7 +161,7 @@ export class CreateComponent implements OnInit {
     })
   }
 
-  /* ------------------- 根据模板配置文件实例化活动表单模型 ------------------- */
+  /* ------------------ 根据模板配置文件实例化活动表单模型 ------------------ */
   activityFormModelInit(e: TmplDataset, ident?: boolean): void {
     this._tmplDataset = e;
     this.tmplFormModel.patchValue({
@@ -189,6 +189,16 @@ export class CreateComponent implements OnInit {
         this.activityFormModel.addControl(item.key, new FormControl('', validators));
       }
     });
+  }
+
+  /* ----------------------------- 发布模板 ----------------------------- */
+  releaseTemplate(): void {
+    this.http.post('/market/addActivity', { paramJson: JSON.stringify(this._saveResult.result), type: 1 }).then(res => {
+      this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
+      if (res.code == 1000) {
+        this.router.navigateByUrl('/home/marketing/admin');
+      }
+    })
   }
 
 }
@@ -236,5 +246,7 @@ interface TmplDataset {
  * @method 编辑的时候会自动根据模板地址验证一次,所以需要加上判断;当前验证的地址和回显的数据地址是否是同一个地址,如果是同一个地址则可以回显自定义信息的数据
  * 
  * @method 保存的时候;模板地址'address'会自动拼接上'http://'或者'https://'
+ * @method 保存的时候;如果自定义信息有时间区间选项,则需要把时间转换成yyyy-MM-dd格式,用于回显;否则回显后无法修改时间
+ * @method 时间区间'rangepicker'默认值只能为时间戳格式,否则没办法修改时间
  * 
  */

@@ -158,7 +158,9 @@
           <p>{{ _saveResult?.code == 1000 ? '保存成功,请返回活动列表查看或直接发布' : _saveResult?.info || '请核对并修改信息后，再重新提交。' }}</p>
           <div class="result-btn">
               <button nz-button *ngIf="_saveResult?.code == 1000" [nzType]="'primary'" nzSize="large" routerLink="/home/marketing/admin">返回列表</button>
-              <button nz-button *ngIf="_saveResult?.code == 1000" [nzType]="'primary'" nzSize="large">直接发布</button>
+              <nz-popconfirm *ngIf="_saveResult?.code == 1000" [nzTitle]="'确定要发布这个模板吗？'" (nzOnConfirm)="releaseTemplate()">
+                <button nz-popconfirm nz-button [nzType]="'primary'" nzSize="large" >直接发布</button>
+              </nz-popconfirm>
               <button nz-button *ngIf="_saveResult?.code != 1000" [nzType]="'primary'" nzSize="large" (click)="current = 0">返回修改</button>
           </div>
         </div>

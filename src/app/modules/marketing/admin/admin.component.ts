@@ -1,3 +1,4 @@
+import { Router, NavigationEnd } from '@angular/router';
 import { HttpService } from './../../../relax/services/http/http.service';
 import { Component, OnInit } from '@angular/core';
 import { CacheService } from '../../../relax/services/cache/cache.service';
@@ -21,15 +22,19 @@ export class AdminComponent implements OnInit {
 
   constructor(
     private http  : HttpService,
-    private cache : CacheService
+    private cache : CacheService,
+    private router: Router
   ) {
     cache.get('/market/scencesList').subscribe(res => this.sceneItems = res);
     cache.get('/market/festivalList').subscribe(res => this.festivalItems = res);
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd && event.url === '/home/marketing/admin') {
+        this.searchSubmit();
+      }
+    })
   }
 
   ngOnInit() {
-
-    this.searchSubmit();
   }
 
   /* --------------------- 选择查询条件 --------------------- */
@@ -48,6 +53,7 @@ export class AdminComponent implements OnInit {
 
   /* --------------------- 获取模板列表 --------------------- */
   searchSubmit(): void {
+    if (this.adminLoading) { return; }
     this.adminLoading = true;
     let params = JSON.parse(JSON.stringify(this.queryForm));
     params.scencesId = params.scencesId.join(',');
