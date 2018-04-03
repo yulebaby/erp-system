@@ -22,7 +22,8 @@
         "styles.scss"
       ],
       "scripts": [
-        "assets/js/aes.js"
+        "assets/js/aes.js",
+        "assets/js/aliyun-oss-sdk-4.4.4.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

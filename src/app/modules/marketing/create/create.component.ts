@@ -1,13 +1,12 @@
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService, UploadFile } from 'ng-zorro-antd';
 import { HttpClient } from '@angular/common/http';
 import { HttpService } from './../../../relax/services/http/http.service';
-import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { CacheService } from '../../../relax/services/cache/cache.service';
 import { DatePipe } from '@angular/common';
-import { Subject } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 
 @Component({
@@ -54,10 +53,10 @@ export class CreateComponent implements OnInit {
   ) {
     /* ------------------- 初始化表单模型 ------------------- */
     this.tmplFormModel = fb.group({
-      activityName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],     // 活动名称
       name        : ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],     // 模板名称
       introduce   : ['', [Validators.required, Validators.maxLength(100)]],                             // 模板介绍
       thumbnail   : [''],                                                                               // 缩略图
+      standardDiagram: [''],                                                                            // 推广标准图
       address     : ['', [Validators.required, Validators.pattern(/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:\/~\+#]*[\w\-\@?^=%&\/~\+#])?/)], [this._tmplAsyncValidator]],
       scencesId   : ['', [Validators.required]],                                  // 模板场景
       festivalId  : ['', [Validators.required]],                                  // 模板节日
@@ -117,7 +116,6 @@ export class CreateComponent implements OnInit {
     } else {
       /* --------------------- 深拷贝活动表单数据 --------------------- */
       let activityCustomizeInfo = JSON.parse(JSON.stringify(this.activityFormModel.value));
-      activityCustomizeInfo.activityName = this.tmplFormModel.get('activityName').value;
       /* --------------------- 修改时间格式 --------------------- */
       this._tmplDataset.configItems.map( (item: any) => {
         if (item.type === 'datepicker') {
@@ -199,6 +197,26 @@ export class CreateComponent implements OnInit {
         this.router.navigateByUrl('/home/marketing/admin');
       }
     })
+  }
+
+
+
+  /* ----------------------------- 上传图片 ----------------------------- */
+  fileList = [{
+    uid: -1,
+    name: 'xxx.png',
+    status: 'done',
+    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+  }];
+  previewImage = '';
+  previewVisible = false;
+
+  handlePreview = (file: UploadFile) => {
+    this.previewImage = file.url || file.thumbUrl;
+    this.previewVisible = true;
+  }
+  beforeUpload = (file, fileList): boolean => {
+    return false;
   }
 
 }

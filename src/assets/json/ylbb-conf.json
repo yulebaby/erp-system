@@ -4,39 +4,22 @@
     "thumbnail": "https://ss1.bdstatic.com/kvoZeXSm1A5BphGlnYG/skin/760.jpg?2",
     "configItems": [
         {
-            "label": "xxxxx",
+            "label": "活动名称",
             "type": "input",
-            "key": "sssss",
+            "key": "activityName",
             "placeholder": "请输入活动名称",
-            "errorText": "请输入2-10位字符!",
+            "errorText": "请输入2-20位字符!",
             "required": true,
-            "pattern": "^[0-9]*$"
+            "pattern": "^.{2,20}$"
         },
         {
-            "label": "活动价格",
-            "type": "select",
-            "key": "price",
-            "options": [
-                {
-                    "id": 1,
-                    "name": "01-10"
-                },
-                {
-                    "id": 2,
-                    "name": "10-20"
-                }
-            ],
-            "optionsKey": {
-              "label": "name",
-              "value": "id"
-            },
-            "required": true
-        },
-        {
-            "label": "生日",
-            "type": "datepicker",
-            "key": "time",
-            "required": true
+            "label": "活动原价",
+            "type": "input",
+            "key": "originalPrice",
+            "placeholder": "请输入活动原价",
+            "errorText": "请输入正确的原价!",
+            "required": true,
+            "pattern": "(^[1-9]([0-9]+)?(\\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\\.[0-9]([0-9])?$)"
         },
         {
             "label": "活动日期",
