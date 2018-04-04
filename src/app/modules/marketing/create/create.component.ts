@@ -43,6 +43,8 @@ export class CreateComponent implements OnInit {
 
 
   private aliOssClient;
+
+  fileList = [];
   
 
   constructor(
@@ -102,6 +104,14 @@ export class CreateComponent implements OnInit {
             res.result.address = res.result.address.substr(0, 4) == 'http' ? res.result.address.split('://')[1] : res.result.address;
             this.lookTemplateInfo = res.result;
             this.tmplFormModel.patchValue(res.result);
+            res.result.standardDiagram.split(',').map((item: any, idx) => {
+              this.fileList.push({
+                uid: idx,
+                name: item,
+                status: 'done',
+                url: item
+              });
+            });
           }
         }, err => {
           this.lookTemplateInfoLoading = false;
@@ -148,6 +158,13 @@ export class CreateComponent implements OnInit {
       });
       /* ---------------- 深拷贝模板表单数据; 合并模板/活动数据 ---------------- */
       let params = JSON.parse(JSON.stringify(this.tmplFormModel.value));
+      if (this.fileList.length) {
+        let standardDiagram = [];
+        this.fileList.map( (item: any) => {
+          standardDiagram.push(item.url ? item.url : item.response.url);
+        })
+        params.standardDiagram = standardDiagram.join(',');
+      }
       params.address = params.agreement + params.address;
       params.activityCustomizeInfo = JSON.stringify(activityCustomizeInfo);
       if (this._activityId != '0') { params.id = this._activityId; }
@@ -220,7 +237,6 @@ export class CreateComponent implements OnInit {
 
 
   /* ----------------------------- 上传图片 ----------------------------- */
-  fileList = [];
   previewImage = '';
   previewVisible = false;
 
@@ -229,7 +245,6 @@ export class CreateComponent implements OnInit {
     this.previewVisible = true;
   }
   upload = (file: any) => {
-
     let fileType = file.file.name.split('.')[file.file.name.split('.').length - 1].toLowerCase();
     let fileName = `${new Date().getTime() + this.mathRand()}.${fileType}`;
     this.aliOssClient.multipartUpload(fileName, file.file, { 
@@ -240,11 +255,12 @@ export class CreateComponent implements OnInit {
         }
       }
     }).then(res => {
-      file.onSuccess({}, {
+      let url = res.url ? res.url : `http://${res.bucket}.oss-cn-beijing.aliyuncs.com/${res.name}`;
+      file.onSuccess({
         uid: file.file.uid,
         name: fileName,
         status: 'done',
-        url: res.url
+        url: url
       });
     }, err => {
       file.onError();
