@@ -13,6 +13,15 @@
             "pattern": "^.{2,20}$"
         },
         {
+            "label": "活动价格",
+            "type": "input",
+            "key": "activityPrice",
+            "placeholder": "请输入活动价格",
+            "errorText": "请输入正确的价格!",
+            "required": true,
+            "pattern": "(^[1-9]([0-9]+)?(\\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\\.[0-9]([0-9])?$)"
+        },
+        {
             "label": "活动原价",
             "type": "input",
             "key": "originalPrice",

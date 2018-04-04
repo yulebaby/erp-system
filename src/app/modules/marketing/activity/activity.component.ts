@@ -72,19 +72,38 @@ export class ActivityComponent implements OnInit {
     })
   }
 
+  joinActivity(item: any): void {
+    if (item.loading) { return; }
+    item.loading = true;
+    this.http.post('/market/joinActivity', { paramJson: JSON.stringify({ id: item.id }) }).then(res => {
+      item.loading = false;
+    }, err => {
+      item.loading = false;
+    })
+  }
+
   /* ---------------------- 取消参加 ---------------------- */
-  // cancelActivity(item): void {
-  //   if (item.loading) { return; }
-  //   item.loading = true;
-  //   this.http.post('/market/cancelActivity', { paramJson: JSON.stringify({ id: item.id }) }).then(res => {
-  //     this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
-  //     item.loading = false;
-  //     if (res.code == 1000) {
-  //       // item.status = 0;
-  //     }
-  //   }, err => {
-  //     item.loading = false;
-  //   })
-  // }
+  cancelActivity(item): void {
+    if (item.loading) { return; }
+    item.loading = true;
+    this.http.post('/market/cancelActivity', { paramJson: JSON.stringify({ id: item.id }) }).then(res => {
+      this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
+      item.loading = false;
+      if (res.code == 1000) {
+        item.status = 0;
+      }
+    }, err => {
+      item.loading = false;
+    })
+  }
+
+
+  previewImage = '';
+  previewVisible = false;
+
+  downloadImg(item: any): void {
+    // this.previewImage = 'assets/index'
+    this.previewVisible = true;
+  }
 
 }

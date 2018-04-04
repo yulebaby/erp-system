@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        img {
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+        }    
+    </style>
+    <h1 id="name"></h1>
+    <div id="img"></div>
+    <script>
+        var getQueryString = function (name) {
+            var reg = new RegExp("(^|&)" + name.toLowerCase() + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).toLowerCase().match(reg);
+            if (r != null) { return unescape(r[2]); }
+            return null;
+        }
+
+        var img = getQueryString('img') ? getQueryString('img').split(',') : '';
+        var name = getQueryString('name') || '';
+
+        document.getElementById('name').innerText = name;
+
+        if (img instanceof Array) {
+            var str = '';
+            for (var i = 0; i < img.length; i++) {
+                str += '<img src="'+ img[i] +'">';
+            }
+            document.getElementById('img').innerHTML(str);
+        }
+    </script>
+</body>
+</html>
