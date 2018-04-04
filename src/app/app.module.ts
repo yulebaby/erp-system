@@ -56,7 +56,7 @@ import { NoopInterceptor } from './relax/services/http/http.intercept';
       useClass: NoopInterceptor,
       multi: true,
     },
-    { provide: NZ_MESSAGE_CONFIG, useValue: { nzDuration: 3000, nzMaxStack: 2 } }
+    { provide: NZ_MESSAGE_CONFIG, useValue: { nzDuration: 3000, nzMaxStack: 1 } }
   ],
   bootstrap: [AppComponent]
 })

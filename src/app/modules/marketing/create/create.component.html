@@ -51,16 +51,16 @@
 
             <div nz-form-item nz-row>
               <div nz-form-label nz-col [nzSpan]="6">
-                <label nz-form-item-required>推广标准图</label>
+                <label>推广标准图</label>
               </div>
               <div nz-form-control nz-col [nzSpan]="18">
-                <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" [nzBeforeUpload]="beforeUpload" nzListType="picture-card" [(nzFileList)]="fileList" [nzPreview]="handlePreview">
+                <nz-upload [nzCustomRequest]="upload" nzListType="picture-card" [(nzFileList)]="fileList" [nzPreview]="handlePreview">
                   <i class="anticon anticon-plus" style="font-size: 32px; color: #999;"></i>
                   <div class="ant-upload-text">选择图片</div>
                 </nz-upload>
-                <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+                <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible = false">
                   <ng-template #modalContent>
-                    <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+                    <img [src]="previewImage" [style.width]="'100%'" />
                   </ng-template>
                 </nz-modal>
               </div>

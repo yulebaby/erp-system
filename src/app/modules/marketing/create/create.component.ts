@@ -8,6 +8,7 @@ import { CacheService } from '../../../relax/services/cache/cache.service';
 import { DatePipe } from '@angular/common';
 import { Subscription, Observable } from 'rxjs';
 
+declare const OSS;
 
 @Component({
   selector: 'app-create',
@@ -36,9 +37,12 @@ export class CreateComponent implements OnInit {
   _saveResult;
 
 
-  /* ---------------- 场景/节日数据 ---------------- */
+  /* ------------- 场景/节日数据 ------------- */
   scencesList: any[];
   festivalList: any[];
+
+
+  private aliOssClient;
   
 
   constructor(
@@ -64,6 +68,20 @@ export class CreateComponent implements OnInit {
       agreement   : ['http://']
     });
     this.activityFormModel = fb.group({});
+
+    /* ----------------- 获取OSS上传凭证 ----------------- */
+    httpClient.get<any>('http://oss.beibeiyue.com/oss/getOSSToken?type=4').subscribe(res => {
+      if (res.result == 0) {
+        let creds = res.data;
+        this.aliOssClient = new OSS.Wrapper({
+          region: 'oss-cn-beijing',
+          accessKeyId: creds.accessKeyId,
+          accessKeySecret: creds.accessKeySecret,
+          stsToken: creds.securityToken,
+          bucket: 'ylbb-business'
+        });
+      }
+    })
   }
 
 
@@ -202,12 +220,7 @@ export class CreateComponent implements OnInit {
 
 
   /* ----------------------------- 上传图片 ----------------------------- */
-  fileList = [{
-    uid: -1,
-    name: 'xxx.png',
-    status: 'done',
-    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-  }];
+  fileList = [];
   previewImage = '';
   previewVisible = false;
 
@@ -215,8 +228,37 @@ export class CreateComponent implements OnInit {
     this.previewImage = file.url || file.thumbUrl;
     this.previewVisible = true;
   }
-  beforeUpload = (file, fileList): boolean => {
-    return false;
+  upload = (file: any) => {
+
+    let fileType = file.file.name.split('.')[file.file.name.split('.').length - 1].toLowerCase();
+    let fileName = `${new Date().getTime() + this.mathRand()}.${fileType}`;
+    this.aliOssClient.multipartUpload(fileName, file.file, { 
+      progress: (p) => {
+        return function (done) {
+          file.onProgress({ percent: Math.floor(p * 100) })
+          done();
+        }
+      }
+    }).then(res => {
+      file.onSuccess({}, {
+        uid: file.file.uid,
+        name: fileName,
+        status: 'done',
+        url: res.url
+      });
+    }, err => {
+      file.onError();
+      this.message.error('图片上传失败');
+    })
+  }
+
+  /* ------------------- 生成6位随机数 ------------------- */
+  private mathRand(): string {
+    let num = '';
+    for (let i = 0; i < 6; i++) {
+      num += Math.floor(Math.random() * 10);
+    }
+    return num;
   }
 
 }
@@ -266,5 +308,7 @@ interface TmplDataset {
  * @method 保存的时候;模板地址'address'会自动拼接上'http://'或者'https://'
  * @method 保存的时候;如果自定义信息有时间区间选项,则需要把时间转换成yyyy-MM-dd格式,用于回显;否则回显后无法修改时间
  * @method 时间区间'rangepicker'默认值只能为时间戳格式,否则没办法修改时间
+ * 
+ * @method 保存的时候;推广图地址会由数组转换成字符串,以逗号分隔;回显的时候再由字符串转换成数组
  * 
  */
