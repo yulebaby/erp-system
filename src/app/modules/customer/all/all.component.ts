@@ -164,10 +164,6 @@ export class AllCustomerComponent implements OnInit {
       width : '120px'
     },
     {
-      name  : '跟进销售',
-      width : '120px'
-    },
-    {
       name  : '收集者',
       width : '120px'
     }
