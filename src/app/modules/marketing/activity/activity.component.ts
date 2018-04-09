@@ -97,13 +97,4 @@ export class ActivityComponent implements OnInit {
     })
   }
 
-
-  previewImage = '';
-  previewVisible = false;
-
-  downloadImg(item: any): void {
-    // this.previewImage = 'assets/index'
-    this.previewVisible = true;
-  }
-
 }
