@@ -19,6 +19,8 @@ export class CmQueryComponent implements OnInit {
 
   _queryForm            : FormGroup;
 
+  _showSlideBtn         : boolean;
+
 
 
   constructor(
@@ -31,7 +33,13 @@ export class CmQueryComponent implements OnInit {
   ngOnInit() {
     this._queryForm = this.fb.group({});
     this._node.map((res: any, idx) => {
-      this._queryForm.addControl(res.key, new FormControl(res.default || ''));
+      if (res.isHide) { this._showSlideBtn = true; }
+      if (res.type === 'numbetween') {
+        this._queryForm.addControl(res.valueKey[0], new FormControl(res.default ? res.default[0] : ''));
+        this._queryForm.addControl(res.valueKey[1], new FormControl(res.default ? res.default[1] : ''));
+      } else {
+        this._queryForm.addControl(res.key, new FormControl(res.default || ''));
+      }
       if (res.type === 'select') {
         res.optionKey = res.optionKey || { label: 'name', value: 'id' };
         if (res.optionsUrl) {
@@ -63,6 +71,10 @@ export class CmQueryComponent implements OnInit {
             queryForm[res.valueKey[1]] = this.datePipe.transform(queryForm[res.key][1].getTime(), 'yyyy-MM-dd');
           }
         }
+        if (res.type === 'numbetween') {
+          if (!queryForm[res.valueKey[0]]) delete queryForm[res.valueKey[0]];
+          if (!queryForm[res.valueKey[1]]) delete queryForm[res.valueKey[1]];
+        }
         delete queryForm[res.key];
       }
       if (queryForm[res.key] === '' || queryForm[res.key] === null || queryForm[res.key] === undefined) {
@@ -72,6 +84,12 @@ export class CmQueryComponent implements OnInit {
 
     console.log('抛出查询条件', queryForm);
     this.onSubmit.emit(queryForm);
+  }
+
+  numbetweenBlur(key: string): void {
+    let initValue = {};
+    if (this._queryForm.get(key).value == 0) { initValue[key] = ''; } 
+    this._queryForm.patchValue(initValue)
   }
 
 }

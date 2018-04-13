@@ -2,6 +2,30 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { HttpService } from './../../services/http/http.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+/**
+ * @class CmTableComponent
+ * 
+ * @Input thead         => thead 展示                            必填              array                 []
+ *                          => name  展示文字
+ *                          => width 最佳宽 单位px                
+ * 
+ * @Input url           => Request 请求地址                       必填             string                 无
+ * 
+ * @Input paramsDefault => 默认请求数据                            可选             object                {}
+ * 
+ * @Input checkedItems  => 列表选中数组                            可选             array                 []
+ * 
+ * @Input checkKey      => 选中时,记录列表中的字段名称               可选             string                无
+ * 
+ * @Input expand        => 是否有展开按钮                          可选             boolean               false
+ * 
+ * @Input checked       => 是否有选中/全选按钮                      可选             boolean               false
+ * 
+ * @Input allowSpace    => 是否允许换行                            可选             boolean               true
+ * 
+ * @Output checkedItems => 抛出选中的数据                          可选             EventEmitter          new EventEmitter
+ */
+
 @Component({
   selector: 'cm-table',
   templateUrl: './cm-table.component.html',
@@ -13,7 +37,10 @@ export class CmTableComponent implements OnInit {
 
   @Input('url') _url          : string;
 
-  @Input('params') _params    : object = {};
+  @Input() paramsDefault      : any = {};
+
+  // @Input('params') _params    : object = {};
+  _params                     : object = {};
 
   @Input() checkedItems       : any[];
 
@@ -48,7 +75,7 @@ export class CmTableComponent implements OnInit {
   _request(isReset?: boolean): void {
     if (this._pageInfo.loading) { return; }
     this._pageInfo.loading = true;
-    let params = Object.assign({ paramJson: JSON.stringify(this._params) }, { pageNum: isReset ? 1 : this._pageInfo.pageNum, pageSize: this._pageInfo.pageSize });
+    let params = Object.assign({ paramJson: JSON.stringify(Object.assign(this._params, this.paramsDefault)) }, { pageNum: isReset ? 1 : this._pageInfo.pageNum, pageSize: this._pageInfo.pageSize });
     this.http.post(this._url, params).then(res => {
       if (res.code == 1000) {
         this.dataSet = res.result.list;

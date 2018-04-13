@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="header">
+    <div class="search-input">
+      <nz-input nzPlaceHolder="请输入活动名称" [(ngModel)]="queryForm.name" [nzType]="'search'" (nzOnSearch)="searchSubmit()">
+        <ng-template #addOnAfter>
+          <button nz-button [nzType]="'primary'" (click)="searchSubmit()">
+            <span class="search-text">搜 索</span>
+          </button>
+        </ng-template>
+      </nz-input>
+    </div>
+    <div class="search-form">
+      <div class="form-item">
+        <div class="item-label">场景:</div>
+        <div class="item-content">
+          <nz-checkable-tag [nzChecked]="!queryForm.scencesId.length || queryForm.scencesId.length === sceneItems.length" (nzChange)="queryCheckAll($event, 'scencesId')">全部</nz-checkable-tag>
+          <nz-checkable-tag *ngFor="let item of sceneItems" [nzChecked]="queryForm.scencesId.indexOf(item.id) > -1" (nzChange)="queryCheckChange($event, 'scencesId', item.id)">{{ item.name }}</nz-checkable-tag>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="item-label">节日:</div>
+        <div class="item-content">
+          <nz-checkable-tag [nzChecked]="!queryForm.festivalId.length || queryForm.festivalId.length === festivalItems.length" (nzChange)="queryCheckAll($event, 'festivalId')">全部</nz-checkable-tag>
+          <nz-checkable-tag *ngFor="let item of festivalItems" [nzChecked]="queryForm.festivalId.indexOf(item.id) > -1" (nzChange)="queryCheckChange($event, 'festivalId', item.id)">{{ item.name }}</nz-checkable-tag>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content" nz-row>
+    <div class="add-btn" [routerLink]="{outlets: {aux: 'create/0'}}">
+      <p><i class="anticon anticon-plus"></i>新建活动</p>
+    </div>
+    <nz-spin [nzSpinning]="adminLoading" nzTip="正在加载模板数据...">
+      <div class="content-not-found" [hidden]="adminItems.length">
+        <i class="anticon anticon-frown-o"></i>无结果!
+      </div>
+
+      <div nz-col [nzXs]="24" [nzSm]="8" [nzLg]="6" [nzXl]="4" *ngFor="let item of adminItems">
+        <div class="card-item">
+          <nz-card>
+            <ng-template #body>
+              <div class="custom-image">
+                <img class="thumbnail" [src]="item.thumbnail" />
+                <div class="qrcode">
+                  <img src="http://qr.liantu.com/api.php?text={{item.address}}/index.html" />
+                </div>
+                <p>{{ item.shopNum ? '已有' + item.shopNum + '家门店参与' : '暂无门店参与' }}</p>
+              </div>
+              <div class="custom-card">
+                <h3>
+                  {{ item.name }}
+                  <nz-tag [nzColor]="item.status == 1 ? '#2db7f5' : ''">
+                    <ng-container [ngSwitch]="item.status">
+                      <ng-container *ngSwitchCase="0">未发布</ng-container>
+                      <ng-container *ngSwitchCase="1">已发布</ng-container>
+                      <ng-container *ngSwitchDefault>已下线</ng-container>
+                    </ng-container>
+                  </nz-tag>
+                </h3>
+                <nz-tooltip [nzTitle]="item.introduce">
+                  <p nz-tooltip>{{ item.introduce }}</p>
+                </nz-tooltip>
+                <div class="card-footer" [ngSwitch]="item.status">
+                  <nz-popconfirm *ngSwitchCase="1" [nzTitle]="'确定要取消发布这个活动吗？'" (nzOnConfirm)="cancelRelease(item)">
+                    <button nz-popconfirm nz-button [nzType]="'dashed'" style="width: 80%;" [nzLoading]="item.loading">取消发布</button>
+                  </nz-popconfirm>
+                  <ng-container *ngSwitchDefault>
+                    <button nz-button [nzType]="'dashed'" style="width: 45%;" [routerLink]="{outlets: {aux: 'create/' + item.id}}">编辑</button>
+                    <nz-popconfirm [nzTitle]="'确定要发布这个活动吗？'" (nzOnConfirm)="releaseTemplate(item)">
+                      <button nz-popconfirm nz-button [nzType]="'primary'" style="width: 45%;" [nzLoading]="item.loading">发布</button>
+                    </nz-popconfirm>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-template>
+          </nz-card>
+        </div>
+      </div>
+    </nz-spin>
+
+  </div>
+</div>
+
+<router-outlet name="aux"></router-outlet>

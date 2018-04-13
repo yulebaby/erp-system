@@ -5,25 +5,29 @@
   <ul nz-menu [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed" nzTheme='dark'>
     <li nz-menu-item [routerLink]="['/home']" [nzSelected]="baseRouter.toPath == '/home'">
       <span title>
-        <i class="anticon anticon-mail"></i>
+        <i class="anticon anticon-home"></i>
         <span>首页</span>
       </span>
     </li>
     <li nz-submenu [nzOpen]="baseRouter.toPath.indexOf('/home/customer') > -1">
       <span title>
-        <i class="anticon anticon-appstore"></i>
+        <i class="anticon anticon-team"></i>
         <span>客户管理</span>
       </span>
       <ul>
         <li nz-menu-item routerLink="/home/customer/all" [nzSelected]="baseRouter.toPath == '/home/customer/all'"><span>潜在客户</span></li>
-        <!-- <li nz-menu-item routerLink="/home/customer/unassigned"><span [ngStyle]="{'margin-left': '24px'}">待分配客户</span></li>
-        <li nz-menu-item routerLink="/home/customer/allocated"><span [ngStyle]="{'margin-left': '24px'}">已分配客户</span></li> -->
         <li nz-menu-item routerLink="/home/customer/nointention" [nzSelected]="baseRouter.toPath == '/home/customer/nointention'"><span>无意向客户</span></li>
-        <!-- <li nz-menu-item routerLink="/home/customer/tracking-record"><span>跟踪记录</span></li>
-        <li nz-menu-item routerLink="/home/customer/all"><span>到访</span></li>
-        <li nz-menu-item routerLink="/home/customer/public-sea-pool"><span>公海池</span></li>
-        <li nz-menu-item routerLink="/home/customer/recycle-bin"><span>回收站</span></li>
-        <li nz-menu-item routerLink="/home/customer/distribution"><span>分配规则设置</span></li> -->
+      </ul>
+    </li>
+    <li nz-submenu [nzOpen]="baseRouter.toPath.indexOf('/home/marketing') > -1">
+      <span title>
+        <i class="anticon anticon-area-chart"></i>
+        <span>推广活动</span>
+      </span>
+      <ul>
+        <li nz-menu-item routerLink="/home/marketing/activity" [nzSelected]="baseRouter.toPath.indexOf('/home/marketing/activity') > -1"><span>活动</span></li>
+        <!-- <li nz-menu-item routerLink="/home/marketing/admin" [nzSelected]="baseRouter.toPath.indexOf('/home/marketing/admin') > -1"><span>管理</span></li> -->
+        <li nz-menu-item routerLink="/home/marketing/data" [nzSelected]="baseRouter.toPath.indexOf('/home/marketing/data') > -1"><span>数据</span></li>
       </ul>
     </li>
   </ul>

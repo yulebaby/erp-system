@@ -4,11 +4,11 @@
     background: #fff;
     box-shadow: 0 0 5px #ccc;
     position: fixed;
-    top: 0;
+    top: 64px;
     right: 0;
     z-index: 999;
     animation: slideIn .5s;
-    padding: 20px;
+    padding: 20px 20px 84px;
 
     .box {
         display: flex;
@@ -187,7 +187,7 @@
 
 
 @keyframes slideIn {
-    0%  {transform: translate3d(900px, 0, 0)}
+    0%  {transform: translate3d(960px, 0, 0)}
     100%{transform: none;}
 }
 

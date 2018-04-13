@@ -9,11 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CmTableComponent } from './components/cm-table/cm-table.component';
 import { CmQuoteComponent } from './components/cm-quote/cm-quote.component';
 import { CmGettelComponent } from './components/cm-gettel/cm-gettel.component';
+import { CmSlideComponent } from './components/cm-slide/cm-slide.component';
+import { CmTitleComponent } from './components/cm-title/cm-title.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     ReactiveFormsModule,
     NgZorroAntdModule
   ],
@@ -22,7 +26,9 @@ import { CmGettelComponent } from './components/cm-gettel/cm-gettel.component';
     CmQueryComponent,
     CmTableComponent,
     CmQuoteComponent,
-    CmGettelComponent
+    CmGettelComponent,
+    CmSlideComponent,
+    CmTitleComponent
   ],
   providers: [
     HttpService,
@@ -34,7 +40,9 @@ import { CmGettelComponent } from './components/cm-gettel/cm-gettel.component';
     CmQueryComponent,
     CmTableComponent,
     CmQuoteComponent,
-    CmGettelComponent
+    CmGettelComponent,
+    CmSlideComponent,
+    CmTitleComponent
   ]
 })
 export class RelaxModule { }

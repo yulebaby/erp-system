@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="header">
+    <div class="search-input">
+      <nz-input nzPlaceHolder="请输入活动名称" [(ngModel)]="queryForm.name" [nzType]="'search'" (nzOnSearch)="searchSubmit()">
+        <ng-template #addOnAfter>
+          <button nz-button [nzType]="'primary'" (click)="searchSubmit()">
+            <span>搜 索</span>
+          </button>
+        </ng-template>
+      </nz-input>
+    </div>
+    <div class="search-form">
+      <div class="form-item">
+        <div class="item-label">场景:</div>
+        <div class="item-content">
+          <nz-checkable-tag [nzChecked]="!queryForm.scencesId.length || queryForm.scencesId.length === sceneItems.length" (nzChange)="queryCheckAll($event, 'scencesId')">全部</nz-checkable-tag>
+          <nz-checkable-tag *ngFor="let item of sceneItems" [nzChecked]="queryForm.scencesId.indexOf(item.id) > -1"  (nzChange)="queryCheckChange($event, 'scencesId', item.id)">{{ item.name }}</nz-checkable-tag>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="item-label">节日:</div>
+        <div class="item-content">
+          <nz-checkable-tag [nzChecked]="!queryForm.festivalId.length || queryForm.festivalId.length === festivalItems.length" (nzChange)="queryCheckAll($event, 'festivalId')">全部</nz-checkable-tag>
+          <nz-checkable-tag *ngFor="let item of festivalItems" [nzChecked]="queryForm.festivalId.indexOf(item.id) > -1" (nzChange)="queryCheckChange($event, 'festivalId', item.id)">{{ item.name }}</nz-checkable-tag>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content" nz-row>
+
+    <nz-spin [nzSpinning]="activityLoading" nzTip="正在加载模板数据...">
+      <div class="content-not-found" [hidden]="activityItems.length">
+        <i class="anticon anticon-frown-o"></i>无结果!
+      </div>
+      <div nz-col [nzXs]="24" [nzSm]="8" [nzLg]="6" [nzXl]="4" *ngFor="let item of activityItems">
+        <div class="card-item">
+          <nz-card>
+            <ng-template #body>
+              <div class="custom-image">
+                <img class="thumbnail" [src]="item.thumbnail" />
+                <div class="qrcode">
+                  <img src="http://qr.liantu.com/api.php?text=http://wx.beibeiyue.com/download.html?img={{ item.shopPicture }}&name={{ item.shopName }}" />
+                </div>
+              </div>
+              <div class="custom-card">
+                <h3>
+                  {{ item.name }}
+                </h3>
+                <p>
+                  <nz-tooltip [nzTitle]="item.introduce">
+                    <p nz-tooltip>{{ item.introduce }}</p>
+                  </nz-tooltip>
+                </p>
+                <div class="card-footer" [ngSwitch]="item.status">
+                  <nz-popconfirm *ngSwitchCase="0" [nzTitle]="'确定要参加这个活动吗？'" (nzOnConfirm)="joinActivity(item)">
+                    <button nz-popconfirm nz-button [nzType]="'primary'" [nzLoading]="item.loading">我要参加</button>
+                  </nz-popconfirm>
+                  <nz-popconfirm *ngSwitchCase="1" [nzTitle]="'确定要取消参加这个活动吗？'" (nzOnConfirm)="cancelActivity(item)">
+                    <!-- <button nz-popconfirm nz-button [nzType]="'dashed'" [nzLoading]="item.loading" style="width: 48%; padding: 0; text-align: center;">取消参加</button>
+                    <button nz-button [nzType]="'primary'" style="width: 48%; padding: 0; text-align: center;" (click)="downloadImg(item)">下载推广图</button> -->
+                  </nz-popconfirm>
+                  <button *ngSwitchDefault nz-button disabled>已下线</button>
+                </div>
+              </div>
+            </ng-template>
+          </nz-card>
+        </div>
+      </div>
+    </nz-spin>
+  </div>
+</div>
+
+<router-outlet name="aux"></router-outlet>
