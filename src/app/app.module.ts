@@ -22,6 +22,7 @@ import { FooterComponent } from './base/footer/footer.component';
 import { BreadcrumbComponent } from './base/content/breadcrumb/breadcrumb.component';
 import { BaseComponent } from './base/base.component';
 import { NoopInterceptor } from './relax/services/http/http.intercept';
+import { ViserModule } from 'viser-ng';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { NoopInterceptor } from './relax/services/http/http.intercept';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    NgZorroAntdModule.forRoot()
+    NgZorroAntdModule.forRoot(),
+    ViserModule
   ],
   providers: [
     AppRouterService,

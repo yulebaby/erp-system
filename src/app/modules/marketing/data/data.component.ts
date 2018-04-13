@@ -1,4 +1,13 @@
+import { HttpService } from './../../../relax/services/http/http.service';
 import { Component, OnInit } from '@angular/core';
+
+import { DataSet } from '@antv/data-set';
+
+const scale = [{
+  dataKey: 'percent',
+  min: 0,
+  formatter: '.0%',
+}];
 
 @Component({
   selector: 'app-data',
@@ -35,7 +44,7 @@ export class DataComponent implements OnInit {
     }
   ]
 
-    tableNode: any[]    = [
+  tableNode: any[]    = [
     {
       name  : '活动名称',
       width : '140px'
@@ -54,17 +63,60 @@ export class DataComponent implements OnInit {
     },
     {
       name  : '活动时间',
-      width : '60px'
+      width : '240px'
     },
     {
       name  : '创建时间',
-      width : '100px'
+      width : '120px'
+    },
+    {
+      name  : '统计',
+      width : '80px'
     }
   ]
 
-  constructor() { }
+  constructor(
+    private http: HttpService
+  ) { }
 
   ngOnInit() {
+  }
+
+  /* ------------------- Viser 图标配置信息 ------------------- */
+  forceFit: boolean = true;
+  scale = scale;
+  pieStyle = {
+    stroke: "#fff",
+    lineWidth: 1,
+  };
+  labelConfig = ['percent', {
+    formatter: (val, item) => {
+      return `${item.point.collector} (${item.point.amount})`;
+    },
+  }];
+
+  visibleChart(e, item): void {
+    if (e && !item.chartInfo && !item.loading) {
+      item.loading = true;
+      this.http.post('/market/activityDataRank', { paramJson: JSON.stringify({ activityId: item.activityId }) }).then(res => {
+        if (res.code == 1000) {
+          const sourceData = res.result.list;
+          const dv = new DataSet.View().source(sourceData);
+          dv.transform({
+            type: 'percent',
+            field: 'amount',
+            dimension: 'collector',
+            as: 'percent'
+          });
+          const data = dv.rows;
+          
+          item.chartInfo = data;
+        }
+        item.loading = false;
+      }, err => {
+        item.loading = false;
+      })
+    }
   }
 
 }

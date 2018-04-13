@@ -7,12 +7,32 @@
                 <tr nz-tbody-tr>
                     <td><a href="javascript: void(0);">{{ data.activityName }}</a></td>
                     <td>{{ data.activityStatus }}</td>
-                    <td><a href="javascript: void(0);" [routerLink]="['/home/marketing/data/statistics', data.id]">{{ data.effectiveUser }}</a></td>
+                    <td><nz-tag [routerLink]="['/home/marketing/data/statistics', data.id]" [nzColor]="'blue'">{{ data.effectiveUser }}</nz-tag></td>
                     <td>{{ data.views }}</td>
                     <td>{{ data.activityStartTime + ' 至 ' + data.activityEndTime }}</td>
                     <td>{{ data.createTime }}</td>
+                    <td>
+                        <nz-popover [nzTrigger]="'hover'" nzPlacement="left" (nzVisibleChange)="visibleChart($event, data)">
+                            <button nz-popover nz-button [nzType]="'primary'" [nzShape]="'circle'"><i class="anticon anticon-pie-chart"></i></button>
+                            <ng-template #nzTemplate>
+                                <nz-spin [nzSpinning]="!data.chartInfo" [nzTip]="'正在读取数据...'">
+                                    <div style="width: 550px; height: 440px;">
+                                        <h4 style="text-align: center; line-height: 40px; font-size: 16px; color: #666; border-bottom: solid 1px #eee;">有效客户: <span style="font-size: 20px;">{{data.effectiveUser}}</span></h4>
+                                        <v-chart [forceFit]="forceFit" [height]="400" [width]="550" [data]="data.chartInfo" [scale]="scale">
+                                            <v-tooltip [showTitle]="false"></v-tooltip>
+                                            <v-axis></v-axis>
+                                            <v-pie position="percent" color="collector" [style]="pieStyle" [label]="labelConfig"></v-pie>
+                                            <v-coord type="theta" [radius]="0.75" [innerRadius]="0.6"></v-coord>
+                                            <v-legend dataKey="collector"></v-legend>
+                                        </v-chart>
+                                    </div>
+                                </nz-spin>
+                            </ng-template>
+                        </nz-popover>
+                    </td>
                 </tr>
             </ng-template>
         </tbody>
     </ng-container>
 </cm-table>
+
