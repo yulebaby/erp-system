@@ -2,7 +2,7 @@ import { AppUserService } from './../../app-user.service';
 import { AppRouterService } from './../../app-router.service';
 import { HttpService } from './../../relax/services/http/http.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 declare const CryptoJS;
 
@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
     private baseRouter : AppRouterService,
     private router     : Router,
     private fb         : FormBuilder = new FormBuilder(),
-    private user       : AppUserService
+    private user       : AppUserService,
+    private activated  : ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -35,6 +36,12 @@ export class LoginComponent implements OnInit {
     } catch (e) {
       this._loginFormInit();
     } 
+
+    this.activated.queryParamMap.subscribe( (query: any) => {
+      if (query.params.authCode){
+        this._login(query.params.authCode);
+      }
+    });
 
   }
 
@@ -58,28 +65,36 @@ export class LoginComponent implements OnInit {
       this.loginForm.controls[i].markAsDirty();
     }
 
-    if (this.loginForm.valid && !this.loginLoading) {
-      this.loginLoading = true;
-
-      /* ------------------ AES加密密码 ------------------ */
-      let params = JSON.parse(JSON.stringify(this.loginForm.value));
-      params.password = this._encrypt(params.password);
-      this.http.post('/auth/login', params).then(res => {
-        this.loginLoading = false;
-        if (res.code == 1000) {
-          this.user.setUser(res.result);
-          /* ------------------ 存储用户名密码 ------------------ */
-          if (params.remember) {
-            window.localStorage.setItem('username', JSON.stringify(this.loginForm.value));
-          }
-          this.router.navigateByUrl(this.baseRouter.loginSource || '/home');
-        } else {
-          this.loginError = res.info;
-        }
-      }, err => {
-        this.loginLoading = false;
-      })
+    if (this.loginForm.valid) {
+      this._login();
     }
+  }
+  private _login(authCode?: string | boolean): void {
+    if (this.loginLoading) { return; }
+    this.loginLoading = true;
+    /* --------- 根据authCode是否存在,判断是否为免密登录 --------- */
+    let params;
+    if (authCode) {
+      params = { authCode: authCode };
+    } else {
+      params = JSON.parse(JSON.stringify(this.loginForm.value));
+      params.password = this._encrypt(params.password);
+    }
+    this.http.post('/auth/login', params).then(res => {
+      this.loginLoading = false;
+      if (res.code == 1000) {
+        this.user.setUser(res.result);
+        /* ------------------ 存储用户名密码 ------------------ */
+        if (params.remember && !authCode) {
+          window.localStorage.setItem('username', JSON.stringify(this.loginForm.value));
+        }
+        this.router.navigateByUrl(this.baseRouter.loginSource || '/home');
+      } else {
+        this.loginError = res.info;
+      }
+    }, err => {
+      this.loginLoading = false;
+    })
   }
 
   /* ------------------------ AES加密 ------------------------ */
