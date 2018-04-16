@@ -1,4 +1,3 @@
-import { CityAddressService } from './../../../../relax/services/global-data/city-address.service';
 import { HttpService } from './../../../../relax/services/http/http.service';
 import { Component, OnInit, AfterContentChecked, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -13,17 +12,12 @@ export class StoreInfoComponent implements OnInit, AfterContentChecked {
 
   public formModel: FormGroup;
 
-  public cityAddressItems: object[];
+  public cityAddressItems: object[] = [];
 
   constructor(
     private fb: FormBuilder = new FormBuilder(),
-    private http: HttpService,
-    private cityAddress: CityAddressService
+    private http: HttpService
   ) {
-    /* ------------------ 获取省市区集合 ------------------ */
-    cityAddress.getCityItems().then( res => {
-      this.cityAddressItems = res;
-    })
   }
 
   ngOnInit() {

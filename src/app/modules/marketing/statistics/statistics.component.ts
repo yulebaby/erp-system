@@ -66,6 +66,14 @@ export class StatisticsComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((res: any) => {
       this.paramsDefault = { activityId: res.params.id };
+      this.queryNode.push({
+        label: '贡献者',
+        key: 'collectorId',
+        type: 'select',
+        optionsUrl: `/market/activityDataRank?paramJson=${JSON.stringify({ activityId: res.params.id })}`,
+        optionKey: { label: 'collector', value: 'collector' }, 
+        placeholder: '请选择贡献者',
+      })
     })
   }
 

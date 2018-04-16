@@ -63,7 +63,7 @@ export class DataComponent implements OnInit {
     },
     {
       name  : '活动时间',
-      width : '240px'
+      width : '200px'
     },
     {
       name  : '创建时间',
@@ -100,7 +100,7 @@ export class DataComponent implements OnInit {
       item.loading = true;
       this.http.post('/market/activityDataRank', { paramJson: JSON.stringify({ activityId: item.activityId }) }).then(res => {
         if (res.code == 1000) {
-          const sourceData = res.result.list;
+          const sourceData = res.result;
           const dv = new DataSet.View().source(sourceData);
           dv.transform({
             type: 'percent',
@@ -118,5 +118,7 @@ export class DataComponent implements OnInit {
       })
     }
   }
+
+
 
 }
