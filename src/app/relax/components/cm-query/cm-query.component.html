@@ -19,7 +19,7 @@
             
             <ng-container *ngIf="control.type === 'select'">
               <nz-select nzSize="large" [formControlName]="control.key" [nzPlaceHolder]="control.placeholder" nzShowSearch nzAllowClear>
-                <nz-option *ngFor="let option of control.options" [nzLabel]="option[control.optionKey?.label]" [nzValue]="option[control.optionKey?.value]"></nz-option>
+                <nz-option *ngFor="let option of control.options" [nzLabel]="option[control.optionKey?.label]" [nzValue]="option[control.optionKey?.value]" [nzDisabled]="option?.disabled"></nz-option>
               </nz-select>
             </ng-container>
 

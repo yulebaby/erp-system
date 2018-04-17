@@ -6,9 +6,12 @@
             <ng-template ngFor let-data [ngForOf]="CmTable.dataSet">
                 <tr nz-tbody-tr>
                     <td><a href="javascript: void(0);">{{ data.activityName }}</a></td>
-                    <td>{{ data.activityStatus }}</td>
+                    <td [ngSwitch]="data.activityStatus">
+                        <nz-tag *ngSwitchCase="0">未发布</nz-tag>
+                        <nz-tag *ngSwitchCase="1" [nzColor]="'#2db7f5'">已发布</nz-tag>
+                        <nz-tag *ngSwitchDefault [nzColor]="'#f50'">已下线</nz-tag>
+                    </td>
                     <td><nz-tag [routerLink]="['/home/marketing/data/statistics', data.id]" [nzColor]="'blue'">{{ data.effectiveUser }}</nz-tag></td>
-                    <td>{{ data.views }}</td>
                     <td>{{ data.activityStartTime + ' 至 ' + data.activityEndTime }}</td>
                     <td>{{ data.createTime }}</td>
                     <td>

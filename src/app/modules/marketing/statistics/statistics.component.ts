@@ -76,6 +76,7 @@ export class StatisticsComponent implements OnInit {
         noCache: true,
         optionsResult(options) {
           options.map(option => {
+            option.disabled = option.amount == 0;
             option.collectorString = `${option.collector} ( ${option.amount} )`;
           });
         }

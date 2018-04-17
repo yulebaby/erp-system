@@ -58,10 +58,6 @@ export class DataComponent implements OnInit {
       width : '100px'
     },
     {
-      name  : '浏览数',
-      width : '60px'
-    },
-    {
       name  : '活动时间',
       width : '200px'
     },
