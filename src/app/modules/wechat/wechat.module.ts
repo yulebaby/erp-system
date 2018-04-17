@@ -1,4 +1,3 @@
-import { CityAddressService } from './../../relax/services/global-data/city-address.service';
 import { HttpService } from './../../relax/services/http/http.service';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgModule } from '@angular/core';
@@ -21,8 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   declarations: [ WechatProgramComponent, StoreInfoComponent, StoreActivityComponent, StoreEffectComponent ],
   providers: [
-    HttpService,
-    CityAddressService
+    HttpService
   ]
 })
 export class WechatModule { }

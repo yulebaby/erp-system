@@ -1,3 +1,4 @@
+import { EventService } from './services/event/event.service';
 import { CacheService } from './services/cache/cache.service';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { HttpService } from './services/http/http.service';
@@ -33,6 +34,7 @@ import { RouterModule } from '@angular/router';
   providers: [
     HttpService,
     CacheService,
+    EventService,
     DatePipe
   ],
   exports: [

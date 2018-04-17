@@ -1,3 +1,4 @@
+import { ViserModule } from 'viser-ng';
 import { RelaxModule } from './../../relax/relax.module';
 import { MarketingRoutingModule } from './marketing-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -18,7 +19,8 @@ import { JoinComponent } from './join/join.component';
     ReactiveFormsModule,
     NgZorroAntdModule,
     MarketingRoutingModule,
-    RelaxModule
+    RelaxModule,
+    ViserModule
   ],
   declarations: [ActivityComponent, DataComponent, AdminComponent, CreateComponent, StatisticsComponent, JoinComponent]
 })

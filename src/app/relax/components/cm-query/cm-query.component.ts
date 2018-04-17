@@ -42,9 +42,15 @@ export class CmQueryComponent implements OnInit {
       }
       if (res.type === 'select') {
         res.optionKey = res.optionKey || { label: 'name', value: 'id' };
-        if (res.optionsUrl) {
-          this.cache.get(res.optionsUrl).subscribe( result => {
+        if (res.optionsUrl && res.noCache) {
+          this.http.post(res.optionsUrl).then(result => {
+            res.options = (res.options || []).concat(result.result);
+            res.optionsResult && res.optionsResult(res.options);
+          })
+        } else if (res.optionsUrl) {
+          this.cache.get(res.optionsUrl).subscribe(result => {
             res.options = (res.options || []).concat(result);
+            res.optionsResult && res.optionsResult(res.options);
           })
         }
       }
