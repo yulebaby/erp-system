@@ -1,5 +1,5 @@
-import { AppUserService } from './../../app-user.service';
-import { AppRouterService } from './../../app-router.service';
+import { AppUserService } from './../../core/app-user.service';
+import { AppRouterService } from './../../core/app-router.service';
 import { HttpService } from './../../relax/services/http/http.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';

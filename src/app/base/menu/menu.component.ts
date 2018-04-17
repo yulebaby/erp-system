@@ -1,4 +1,4 @@
-import { AppRouterService } from './../../app-router.service';
+import { AppRouterService } from './../../core/app-router.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

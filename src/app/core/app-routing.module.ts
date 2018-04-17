@@ -1,6 +1,6 @@
-import { IndexComponent } from './base/index/index.component';
-import { LoginComponent } from './base/login/login.component';
-import { BaseComponent } from './base/base.component';
+import { IndexComponent } from './../base/index/index.component';
+import { LoginComponent } from './../base/login/login.component';
+import { BaseComponent } from './../base/base.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 

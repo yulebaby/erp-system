@@ -2,7 +2,7 @@ import { AppUserService } from './app-user.service';
 import { AppRouterService } from './app-router.service';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
-import { HttpService } from './relax/services/http/http.service';
+import { HttpService } from './../relax/services/http/http.service';
 import { Component } from '@angular/core';
 
 @Component({

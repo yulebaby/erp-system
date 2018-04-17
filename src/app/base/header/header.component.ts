@@ -1,4 +1,4 @@
-import { AppUserService } from './../../app-user.service';
+import { AppUserService } from './../../core/app-user.service';
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 
 @Component({
