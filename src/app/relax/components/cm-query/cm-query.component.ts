@@ -45,6 +45,7 @@ export class CmQueryComponent implements OnInit {
         if (res.optionsUrl) {
           this.cache.get(res.optionsUrl).subscribe( result => {
             res.options = (res.options || []).concat(result);
+            res.optionsResult && res.optionsResult(res.options);
           })
         }
       }

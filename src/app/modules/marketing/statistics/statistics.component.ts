@@ -49,7 +49,7 @@ export class StatisticsComponent implements OnInit {
       width : '120px'
     },
     {
-      name  : '贡献者',
+      name  : '收集者',
       width : '120px'
     }
   ]
@@ -67,13 +67,18 @@ export class StatisticsComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((res: any) => {
       this.paramsDefault = { activityId: res.params.id };
       this.queryNode.push({
-        label: '贡献者',
-        key: 'collectorId',
+        label: '收集者',
+        key: 'collector',
         type: 'select',
         optionsUrl: `/market/activityDataRank?paramJson=${JSON.stringify({ activityId: res.params.id })}`,
-        optionKey: { label: 'collector', value: 'collector' }, 
-        placeholder: '请选择贡献者',
-      })
+        optionKey: { label: 'collectorString', value: 'collector' }, 
+        placeholder: '请选择收集者',
+        optionsResult(options) {
+          options.map(option => {
+            option.collectorString = `${option.collector} ( ${option.amount} )`;
+          });
+        }
+      });
     })
   }
 

@@ -1,4 +1,4 @@
-<cm-query [node]="queryNode" (onSubmit)="CmTable.request($event)">
+<cm-query #CmQuery [node]="queryNode" (onSubmit)="CmTable.request($event)">
   <button nz-button nzSize="large" nzType="primary" [style.margin-left]="'8px'" (click)="exportEffectiveUser()">导出数据</button>
 </cm-query>
 
