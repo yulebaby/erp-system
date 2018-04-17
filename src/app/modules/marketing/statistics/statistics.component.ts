@@ -73,6 +73,7 @@ export class StatisticsComponent implements OnInit {
         optionsUrl: `/market/activityDataRank?paramJson=${JSON.stringify({ activityId: res.params.id })}`,
         optionKey: { label: 'collectorString', value: 'collector' }, 
         placeholder: '请选择收集者',
+        noCache: true,
         optionsResult(options) {
           options.map(option => {
             option.collectorString = `${option.collector} ( ${option.amount} )`;
