@@ -14,7 +14,7 @@
           <td nz-td nzCheckbox>
             <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="CmTable.isChecked($event)"></label>
           </td>
-          <td><a href="javascript: void(0);" [routerLink]="{outlets: {aux: 'preview/' + data.id}}">{{ data.nick }}</a></td>
+          <td>{{ data.nick }}</td>
           <td>{{ data.name || '--' }}</td>
           <td>{{ data.birthday || '--' }}</td>
           <td><i class="iconfont" [title]="data.sex" [ngClass]="[ data.sex === '男' ? 'icon-nan' : 'icon-nv']"></i></td>
