@@ -40,7 +40,7 @@
               <div class="custom-image">
                 <img class="thumbnail" [src]="item.thumbnail" />
                 <div class="qrcode" *ngIf="item.joinStatus == 1">
-                  <img *ngIf="item.name != '4月份鱼人游活动'" src="http://qr.liantu.com/api.php?text=http://erp.beibeiyue.com/download-wx.html?activityId={{ item.id }}&storeId={{ item.shopName }}">
+                  <img *ngIf="item.name != '4月份鱼人游活动'" src="http://qr.liantu.com/api.php?text=http://erp.beibeiyue.com/download-wx.html?id={{ item.id }}|{{ item.storeId }}">
                   <img *ngIf="item.name == '4月份鱼人游活动'" src="http://qr.liantu.com/api.php?text=http://erp.beibeiyue.com/download-h5.html?img={{ item.shopPicture }}&name={{ item.shopName }}" />
                   />
                 </div>
