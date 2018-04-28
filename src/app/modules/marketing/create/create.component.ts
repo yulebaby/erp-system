@@ -63,7 +63,7 @@ export class CreateComponent implements OnInit {
       introduce   : ['', [Validators.required, Validators.maxLength(100)]],                             // 模板介绍
       thumbnail   : [''],                                                                               // 缩略图
       standardDiagram: [''],                                                                            // 推广标准图
-      address     : ['', [Validators.required, Validators.pattern(/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:\/~\+#]*[\w\-\@?^=%&\/~\+#])?/)], [this._tmplAsyncValidator]],
+      address     : [''],
       scencesId   : ['', [Validators.required]],                                  // 模板场景
       festivalId  : ['', [Validators.required]],                                  // 模板节日
       isPermit    : ['1'],                                                        // 是否允许用户自定义字段
@@ -145,17 +145,17 @@ export class CreateComponent implements OnInit {
       /* --------------------- 深拷贝活动表单数据 --------------------- */
       let activityCustomizeInfo = JSON.parse(JSON.stringify(this.activityFormModel.value));
       /* --------------------- 修改时间格式 --------------------- */
-      this._tmplDataset.configItems.map( (item: any) => {
-        if (item.type === 'datepicker') {
-          activityCustomizeInfo[item.key] = this.format.transform(activityCustomizeInfo[item.key], 'yyyy-MM-dd');
-        }
-        if (item.type === 'rangepicker') {
-          activityCustomizeInfo[item.key][0] = this.format.transform(activityCustomizeInfo[item.key][0], 'yyyy-MM-dd');
-          activityCustomizeInfo[item.key][1] = this.format.transform(activityCustomizeInfo[item.key][1], 'yyyy-MM-dd');
-          activityCustomizeInfo[item.valueKey[0]] = activityCustomizeInfo[item.key][0];
-          activityCustomizeInfo[item.valueKey[1]] = activityCustomizeInfo[item.key][1];
-        }
-      });
+      // this._tmplDataset.configItems.map( (item: any) => {
+      //   if (item.type === 'datepicker') {
+      //     activityCustomizeInfo[item.key] = this.format.transform(activityCustomizeInfo[item.key], 'yyyy-MM-dd');
+      //   }
+      //   if (item.type === 'rangepicker') {
+      //     activityCustomizeInfo[item.key][0] = this.format.transform(activityCustomizeInfo[item.key][0], 'yyyy-MM-dd');
+      //     activityCustomizeInfo[item.key][1] = this.format.transform(activityCustomizeInfo[item.key][1], 'yyyy-MM-dd');
+      //     activityCustomizeInfo[item.valueKey[0]] = activityCustomizeInfo[item.key][0];
+      //     activityCustomizeInfo[item.valueKey[1]] = activityCustomizeInfo[item.key][1];
+      //   }
+      // });
       /* ---------------- 深拷贝模板表单数据; 合并模板/活动数据 ---------------- */
       let params = JSON.parse(JSON.stringify(this.tmplFormModel.value));
       if (this.fileList.length) {

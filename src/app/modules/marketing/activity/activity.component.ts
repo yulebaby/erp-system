@@ -1,3 +1,4 @@
+import { AppUserService } from './../../../core/app-user.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router, NavigationEnd } from '@angular/router';
 import { HttpService } from './../../../relax/services/http/http.service';
@@ -21,6 +22,7 @@ export class ActivityComponent implements OnInit {
   };
   sceneItems    : any[] = [];
   festivalItems : any[] = [];
+
 
   constructor(
     private http    : HttpService,
@@ -72,13 +74,28 @@ export class ActivityComponent implements OnInit {
     })
   }
 
+  isVisible = false;
+  activityJoinForm = {
+    price: 29.9,
+    originalPrice: 198
+  }
+  activityItem;
   joinActivity(item: any): void {
-    if (item.loading) { return; }
-    item.loading = true;
-    this.http.post('/market/joinActivity', { paramJson: JSON.stringify({ id: item.id }) }).then(res => {
-      item.loading = false;
+    this.activityItem = item;
+    this.isVisible = true;
+  }
+  handleOk(): void {
+    if (this.activityItem.loading) { return; }
+    this.activityItem.loading = true;
+    let params = Object.assign({ id: this.activityItem.id }, this.activityJoinForm);
+    this.http.post('/market/joinActivity', { paramJson: JSON.stringify(params) }).then((res:any) => {
+      this.message.create(res.code == 1000 ? 'success': 'warning', res.info);
+      if (res.code == 1000) { this.searchSubmit(); }
+      this.activityItem.loading = false;
+      this.isVisible = false;
     }, err => {
-      item.loading = false;
+      this.activityItem.loading = false;
+      this.isVisible = false;
     })
   }
 

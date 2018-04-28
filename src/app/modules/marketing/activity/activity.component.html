@@ -34,13 +34,15 @@
         <i class="anticon anticon-frown-o"></i>无结果!
       </div>
       <div nz-col [nzXs]="24" [nzSm]="8" [nzLg]="6" [nzXl]="4" *ngFor="let item of activityItems">
-        <div class="card-item">
+        <div class="card-item" *ngIf="item.status != -1">
           <nz-card>
             <ng-template #body>
               <div class="custom-image">
                 <img class="thumbnail" [src]="item.thumbnail" />
-                <div class="qrcode">
-                  <img src="http://qr.liantu.com/api.php?text=http://wx.beibeiyue.com/download.html?img={{ item.shopPicture }}&name={{ item.shopName }}" />
+                <div class="qrcode" *ngIf="item.joinStatus == 1">
+                  <img *ngIf="item.name != '4月份鱼人游活动'" src="http://qr.liantu.com/api.php?text=http://erp.beibeiyue.com/download-wx.html?activityId={{ item.id }}&storeId={{ item.shopName }}">
+                  <img *ngIf="item.name == '4月份鱼人游活动'" src="http://qr.liantu.com/api.php?text=http://erp.beibeiyue.com/download-h5.html?img={{ item.shopPicture }}&name={{ item.shopName }}" />
+                  />
                 </div>
               </div>
               <div class="custom-card">
@@ -52,15 +54,8 @@
                     <p nz-tooltip>{{ item.introduce }}</p>
                   </nz-tooltip>
                 </p>
-                <div class="card-footer" [ngSwitch]="item.status">
-                  <nz-popconfirm *ngSwitchCase="0" [nzTitle]="'确定要参加这个活动吗？'" (nzOnConfirm)="joinActivity(item)">
-                    <button nz-popconfirm nz-button [nzType]="'primary'" [nzLoading]="item.loading">我要参加</button>
-                  </nz-popconfirm>
-                  <nz-popconfirm *ngSwitchCase="1" [nzTitle]="'确定要取消参加这个活动吗？'" (nzOnConfirm)="cancelActivity(item)">
-                    <!-- <button nz-popconfirm nz-button [nzType]="'dashed'" [nzLoading]="item.loading" style="width: 48%; padding: 0; text-align: center;">取消参加</button>
-                    <button nz-button [nzType]="'primary'" style="width: 48%; padding: 0; text-align: center;" (click)="downloadImg(item)">下载推广图</button> -->
-                  </nz-popconfirm>
-                  <button *ngSwitchDefault nz-button disabled>已下线</button>
+                <div class="card-footer">
+                  <button nz-button [nzType]="'primary'" *ngIf="item.joinStatus == 0" (click)="joinActivity(item)" [nzLoading]="item.loading">我要参加</button>
                 </div>
               </div>
             </ng-template>
@@ -72,3 +67,51 @@
 </div>
 
 <router-outlet name="aux"></router-outlet>
+
+<nz-modal [nzVisible]="isVisible" nzTitle="参加活动" [nzContent]="modalContent" [nzFooter]="modalFooter">
+  <ng-template #modalContent>
+      <div nz-row style="margin-bottom: 16px;">
+        <div nz-col [nzSm]="6" [nzXs]="24" style="line-height: 30px; text-align: right; padding-right: 12px;">
+          <label>活动价格:</label>
+        </div>
+        <div nz-col [nzSm]="10" [nzXs]="24">
+          <nz-select [(ngModel)]="activityJoinForm.price" nzSize="large" nzPlaceHolder="请选择活动价格" style="width: 100%;">
+            <nz-option [nzLabel]="29.9" [nzValue]="29.9"></nz-option>
+            <nz-option [nzLabel]="39.9" [nzValue]="39.9"></nz-option>
+            <nz-option [nzLabel]="48" [nzValue]="48"></nz-option>
+            <nz-option [nzLabel]="58" [nzValue]="58"></nz-option>
+            <nz-option [nzLabel]="68" [nzValue]="68"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+      <div nz-row style="margin-bottom: 16px;">
+        <div nz-col [nzSm]="6" [nzXs]="24" style="line-height: 30px; text-align: right; padding-right: 12px;">
+          <label>活动原价:</label>
+        </div>
+        <div nz-col [nzSm]="10" [nzXs]="24">
+          <nz-select [(ngModel)]="activityJoinForm.originalPrice" nzSize="large" nzPlaceHolder="请选择活动价格" style="width: 100%;">
+            <nz-option [nzLabel]="68" [nzValue]="68"></nz-option>
+            <nz-option [nzLabel]="73" [nzValue]="73"></nz-option>
+            <nz-option [nzLabel]="77" [nzValue]="77"></nz-option>
+            <nz-option [nzLabel]="78" [nzValue]="78"></nz-option>
+            <nz-option [nzLabel]="88" [nzValue]="88"></nz-option>
+            <nz-option [nzLabel]="98" [nzValue]="98"></nz-option>
+            <nz-option [nzLabel]="108" [nzValue]="108"></nz-option>
+            <nz-option [nzLabel]="118" [nzValue]="118"></nz-option>
+            <nz-option [nzLabel]="128" [nzValue]="128"></nz-option>
+            <nz-option [nzLabel]="138" [nzValue]="138"></nz-option>
+            <nz-option [nzLabel]="158" [nzValue]="158"></nz-option>
+            <nz-option [nzLabel]="198" [nzValue]="198"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="isVisible = false">
+      返 回
+    </button>
+    <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="handleOk($event)" [nzLoading]="activityItem?.loading">
+      提 交
+    </button>
+  </ng-template>
+</nz-modal>
