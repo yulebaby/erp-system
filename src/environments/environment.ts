@@ -7,5 +7,5 @@ export const environment = {
   production: false,
   name: 'dev',
   version: '1.0.0',
-  domain: 'http://192.168.1.148:8383'
+  domain: 'http://192.168.1.149:8383'
 };

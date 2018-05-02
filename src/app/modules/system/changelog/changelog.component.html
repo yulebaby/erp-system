@@ -11,93 +11,26 @@
     <h4>发布周期</h4>
     <div class="markdown">
       <ul>
-        <li>每周末会进行日常 bugfix 更新。（如果有紧急的 bugfix，则任何时候都可发布）。</li>
-        <li>每月发布一个带有新特性的向下兼容的版本。</li>
+        <li>每周末会进行日常 bugfix 更新（如果有紧急的 bugfix，则任何时候都可发布）。</li>
+        <li>定期发布一个带有新特性的向下兼容的版本（逐步迁移旧版ERP系统功能）。</li>
         <li>含有破坏性升级的版本更新不在发布周期内。</li>
       </ul>
     </div>
     <div class="changelog">
       <nz-timeline>
-        <nz-timeline-item>
+        <nz-timeline-item *ngFor="let item of changelog">
           <div class="item">
-            <h3>3.0.15<nz-tag>2018-03-22</nz-tag></h3>
-            <h4>新增功能</h4>
+            <h3>{{ item.version }}<nz-tag>{{ item.time }}</nz-tag></h3>
+            <h4 *ngIf="item.features && item.features.length">新增功能</h4>
             <div class="markdown">
               <ul>
-                <li>每周末会进行日常 bugfix 更新。（如果有紧急的 bugfix，则任何时候都可发布）。</li>
-                <li>每月发布一个带有新特性的向下兼容的版本。</li>
-                <li>含有破坏性升级的版本更新不在发布周期内。</li>
+                <li *ngFor="let log of item.features">{{ log }}</li>
               </ul>
             </div>
-            <h4>Bug修复</h4>
+            <h4 *ngIf="item.fixes && item.fixes.length">Bug修复</h4>
             <div class="markdown">
               <ul>
-                <li>每周末会进行日常 bugfix 更新。（如果有紧急的 bugfix，则任何时候都可发布）。</li>
-                <li>每月发布一个带有新特性的向下兼容的版本。</li>
-                <li>含有破坏性升级的版本更新不在发布周期内。</li>
-              </ul>
-            </div>
-          </div>
-        </nz-timeline-item>
-        <nz-timeline-item>
-          <div class="item">
-            <h3>3.0.15<nz-tag>2018-03-22</nz-tag></h3>
-            <h4>新增功能</h4>
-            <div class="markdown">
-              <ul>
-                <li>每周末会进行日常 bugfix 更新。（如果有紧急的 bugfix，则任何时候都可发布）。</li>
-                <li>每月发布一个带有新特性的向下兼容的版本。</li>
-                <li>含有破坏性升级的版本更新不在发布周期内。</li>
-              </ul>
-            </div>
-            <h4>Bug修复</h4>
-            <div class="markdown">
-              <ul>
-                <li>每周末会进行日常 bugfix 更新。（如果有紧急的 bugfix，则任何时候都可发布）。</li>
-                <li>每月发布一个带有新特性的向下兼容的版本。</li>
-                <li>含有破坏性升级的版本更新不在发布周期内。</li>
-              </ul>
-            </div>
-          </div>
-        </nz-timeline-item>
-        <nz-timeline-item>
-          <div class="item">
-            <h3>2.1.13<nz-tag>2018-03-22</nz-tag></h3>
-            <h4>新增功能</h4>
-            <div class="markdown">
-              <ul>
-                <li>每周末会进行日常 bugfix 更新。（如果有紧急的 bugfix，则任何时候都可发布）。</li>
-                <li>每月发布一个带有新特性的向下兼容的版本。</li>
-                <li>含有破坏性升级的版本更新不在发布周期内。</li>
-              </ul>
-            </div>
-            <h4>Bug修复</h4>
-            <div class="markdown">
-              <ul>
-                <li>每周末会进行日常 bugfix 更新。（如果有紧急的 bugfix，则任何时候都可发布）。</li>
-                <li>每月发布一个带有新特性的向下兼容的版本。</li>
-                <li>含有破坏性升级的版本更新不在发布周期内。</li>
-              </ul>
-            </div>
-          </div>
-        </nz-timeline-item>
-        <nz-timeline-item>
-          <div class="item">
-            <h3>1.0.0<nz-tag>2018-03-22</nz-tag></h3>
-            <h4>新增功能</h4>
-            <div class="markdown">
-              <ul>
-                <li>每周末会进行日常 bugfix 更新。（如果有紧急的 bugfix，则任何时候都可发布）。</li>
-                <li>每月发布一个带有新特性的向下兼容的版本。</li>
-                <li>含有破坏性升级的版本更新不在发布周期内。</li>
-              </ul>
-            </div>
-            <h4>Bug修复</h4>
-            <div class="markdown">
-              <ul>
-                <li>每周末会进行日常 bugfix 更新。（如果有紧急的 bugfix，则任何时候都可发布）。</li>
-                <li>每月发布一个带有新特性的向下兼容的版本。</li>
-                <li>含有破坏性升级的版本更新不在发布周期内。</li>
+                <li *ngFor="let log of item.fixes">{{ log }}</li>
               </ul>
             </div>
           </div>
