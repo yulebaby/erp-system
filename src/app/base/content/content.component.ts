@@ -1,3 +1,4 @@
+import { AppRouterService } from './../../core/app-router.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd, ActivatedRoute } from '@angular/router';
 
@@ -16,9 +17,12 @@ export class ContentComponent implements OnInit {
    */
   public breadcrumb: object[] = [];
 
+
+
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private routerService: AppRouterService
   ) {
     router.events
       .filter(event => event instanceof NavigationEnd)
@@ -38,8 +42,9 @@ export class ContentComponent implements OnInit {
       })
   }
 
+  routerObj;
   ngOnInit() {
-    
+    this.routerObj = this.routerService;
   }
 
 }

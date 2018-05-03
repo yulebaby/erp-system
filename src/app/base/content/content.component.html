@@ -1,7 +1,9 @@
-<div class="ui-content" [ngClass]="{ 'has-breadcrumb': breadcrumb.length }">
-  <app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
-  <div>
-    <router-outlet></router-outlet>
-  </div>
-</div>
 
+<nz-spin [nzTip]="'正在加载页面...'" [nzSpinning]="routerObj.toPath != routerObj.goPath">
+  <div class="ui-content" [ngClass]="{ 'has-breadcrumb': breadcrumb.length }">
+    <app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</nz-spin>

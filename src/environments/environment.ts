@@ -7,5 +7,6 @@ export const environment = {
   production: false,
   name: 'dev',
   version: '1.0.0',
-  domain: 'http://192.168.1.149:8383'
+  domain: 'http://192.168.1.149:8383',
+  externalServer: 'http://localhost:8088/assets'
 };

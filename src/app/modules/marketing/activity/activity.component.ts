@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { AppUserService } from './../../../core/app-user.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router, NavigationEnd } from '@angular/router';
@@ -22,6 +23,8 @@ export class ActivityComponent implements OnInit {
   };
   sceneItems    : any[] = [];
   festivalItems : any[] = [];
+
+  externalServer = environment.externalServer;
 
 
   constructor(
