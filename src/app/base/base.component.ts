@@ -11,10 +11,6 @@ export class BaseComponent implements OnInit {
 
   themeColor: boolean | number;
 
-  themeColorChange(e): void {
-    this.themeColor = e;
-  }
-
   constructor() { }
 
   ngOnInit() {

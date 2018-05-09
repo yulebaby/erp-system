@@ -7,7 +7,7 @@
       <app-header [(isCollapsed)]="isCollapsed"></app-header>
     </nz-header>
     <nz-content>
-      <app-content (themeColor)="themeColorChange($event)"></app-content>
+      <app-content (themeColor)="themeColor = $event"></app-content>
     </nz-content>
     <nz-footer>
       <app-footer></app-footer>
