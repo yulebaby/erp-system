@@ -13,6 +13,7 @@ import { CmGettelComponent } from './components/cm-gettel/cm-gettel.component';
 import { CmSlideComponent } from './components/cm-slide/cm-slide.component';
 import { CmTitleComponent } from './components/cm-title/cm-title.component';
 import { RouterModule } from '@angular/router';
+import { CmGetphoneDirective } from './directives/cm-getphone.directive';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { RouterModule } from '@angular/router';
     CmQuoteComponent,
     CmGettelComponent,
     CmSlideComponent,
-    CmTitleComponent
+    CmTitleComponent,
+    CmGetphoneDirective
   ],
   providers: [
     HttpService,
@@ -44,7 +46,8 @@ import { RouterModule } from '@angular/router';
     CmQuoteComponent,
     CmGettelComponent,
     CmSlideComponent,
-    CmTitleComponent
+    CmTitleComponent,
+    CmGetphoneDirective
   ]
 })
 export class RelaxModule { }

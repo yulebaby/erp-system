@@ -6,6 +6,35 @@
   <base href="./">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    (function () {
+      var explorer = window.navigator.userAgent.toLowerCase(), browserInfo;
+      if (explorer.indexOf('msie') >= 0) {
+        var ver = explorer.match(/msie ([\d.]+)/)[1];
+        browserInfo =  { type: 'IE', version: ver };
+      } else if (explorer.indexOf('firefox') >= 0) {
+        var ver = explorer.match(/firefox\/([\d.]+)/)[1];
+        browserInfo =  { type: 'Firefox', version: ver };
+      } else if (explorer.indexOf('chrome') >= 0) {
+        var ver = explorer.match(/chrome\/([\d.]+)/)[1];
+        browserInfo =  { type: 'Chrome', version: ver };
+      } else if (explorer.indexOf('opera') >= 0) {
+        var ver = explorer.match(/opera.([\d.]+)/)[1];
+        browserInfo =  { type: 'Opera', version: ver };
+      } else if (explorer.indexOf('Safari') >= 0) {
+        var ver = explorer.match(/version\/([\d.]+)/)[1];
+        browserInfo =  { type: 'Safari', version: ver };
+      }
+      if (
+        (browserInfo.type === 'IE' && Number(browserInfo.version.split('.')[0]) < 10) || 
+        (browserInfo.type === 'Chrome' && Number(browserInfo.version.split('.')[0]) < 45) ||
+        (browserInfo.type === 'Firefox' && Number(browserInfo.version.split('.')[0]) < 51) ||
+        (browserInfo.type === 'Opera' && Number(browserInfo.version.split('.')[0]) < 32)
+        ) {
+        window.location.href = './assets/download-browser.html';
+      }
+    })();
+  </script>
 </head>
 <body>
   <app-root>

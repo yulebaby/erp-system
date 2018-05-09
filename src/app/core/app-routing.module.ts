@@ -21,7 +21,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        data: { title: '首页' },
+        // data: { title: '首页' },
         component: IndexComponent
       },
       {

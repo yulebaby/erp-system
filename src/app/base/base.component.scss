@@ -8,6 +8,8 @@
 .ant-layout-header {
   background: #fff;
   padding: 0;
+  box-shadow: rgba(0, 21, 41, 0.08) 0px 1px 4px;
+  z-index: 1;
 }
 /* menu */
 .ant-layout-sider {
@@ -22,5 +24,5 @@
 
 .ant-layout-footer {
   padding: 0;
-  background: #fff;
+  background: none;
 }

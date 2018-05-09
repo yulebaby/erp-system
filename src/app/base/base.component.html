@@ -2,12 +2,12 @@
   <nz-sider [nzWidth]="isCollapsed ? 64 : 240">
     <app-menu [isCollapsed]="isCollapsed"></app-menu>
   </nz-sider>
-  <nz-layout>
+  <nz-layout [style.background]="themeColor ? '#fff' : '#f0f2f5'">
     <nz-header>
       <app-header [(isCollapsed)]="isCollapsed"></app-header>
     </nz-header>
     <nz-content>
-      <app-content></app-content>
+      <app-content (themeColor)="themeColorChange($event)"></app-content>
     </nz-content>
     <nz-footer>
       <app-footer></app-footer>

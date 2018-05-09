@@ -1,5 +1,5 @@
 import { AppRouterService } from './../../core/app-router.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd, ActivatedRoute } from '@angular/router';
 
 import 'rxjs/add/operator/filter';
@@ -17,7 +17,7 @@ export class ContentComponent implements OnInit {
    */
   public breadcrumb: object[] = [];
 
-
+  @Output() themeColor: EventEmitter<boolean | number> = new EventEmitter()
 
   constructor(
     private router: Router,
@@ -38,7 +38,9 @@ export class ContentComponent implements OnInit {
         return routeData;
       })
       .subscribe(event => {
-        this.breadcrumb = event;
+        this.breadcrumb = event[0]['title'] ? event : [];
+        console.log('抛出结果:',this.breadcrumb.length)
+        this.themeColor.emit(this.breadcrumb.length);
       })
   }
 

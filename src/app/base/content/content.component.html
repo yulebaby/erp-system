@@ -1,5 +1,5 @@
 
-<nz-spin [nzTip]="'正在加载页面...'" [nzSpinning]="routerObj.toPath != routerObj.goPath">
+<nz-spin [nzTip]="'正在加载页面...'" [nzSize]="'large'" [nzSpinning]="routerObj.toPath != routerObj.goPath">
   <div class="ui-content" [ngClass]="{ 'has-breadcrumb': breadcrumb.length }">
     <app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
     <div>
