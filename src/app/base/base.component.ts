@@ -13,7 +13,6 @@ export class BaseComponent implements OnInit {
 
   themeColorChange(e): void {
     this.themeColor = e;
-    console.log(e)
   }
 
   constructor() { }

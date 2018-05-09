@@ -39,7 +39,6 @@ export class ContentComponent implements OnInit {
       })
       .subscribe(event => {
         this.breadcrumb = event[0]['title'] ? event : [];
-        console.log('抛出结果:',this.breadcrumb.length)
         this.themeColor.emit(this.breadcrumb.length);
       })
   }

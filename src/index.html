@@ -6,6 +6,7 @@
   <base href="./">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!--[if lte IE 9]><script>window.location.href = './assets/download-browser.html';</script><![endif]-->
   <script>
     (function () {
       var explorer = window.navigator.userAgent.toLowerCase(), browserInfo;
@@ -26,7 +27,6 @@
         browserInfo =  { type: 'Safari', version: ver };
       }
       if (
-        (browserInfo.type === 'IE' && Number(browserInfo.version.split('.')[0]) < 10) || 
         (browserInfo.type === 'Chrome' && Number(browserInfo.version.split('.')[0]) < 45) ||
         (browserInfo.type === 'Firefox' && Number(browserInfo.version.split('.')[0]) < 51) ||
         (browserInfo.type === 'Opera' && Number(browserInfo.version.split('.')[0]) < 32)
