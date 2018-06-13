@@ -79,9 +79,11 @@ export class ActivityComponent implements OnInit {
 
   isVisible = false;
   activityJoinForm = {
-    price: 29.9,
-    originalPrice: 198
+    coupon: null,
+    originalPrice: null,
+    bossPhone: null
   }
+  
   activityItem;
   joinActivity(item: any): void {
     this.activityItem = item;
@@ -89,6 +91,15 @@ export class ActivityComponent implements OnInit {
   }
   handleOk(): void {
     if (this.activityItem.loading) { return; }
+
+    if (!(this.activityJoinForm.coupon > 0)) { this.message.warning('请输入正确的代金券价格'); return; }
+    if (!(this.activityJoinForm.originalPrice > 0)) { this.message.warning('请输入正确的活动价格'); return; }
+    if (!(/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/).test(this.activityJoinForm.bossPhone)) { this.message.warning('请输入正确的电话号码'); return; }
+
+    Object.keys(this.activityJoinForm).map(res => {
+      this.activityJoinForm[res] = Number(this.activityJoinForm[res]);
+    });
+
     this.activityItem.loading = true;
     let params = Object.assign({ id: this.activityItem.id }, this.activityJoinForm);
     this.http.post('/market/joinActivity', { paramJson: JSON.stringify(params) }).then((res:any) => {
@@ -110,7 +121,7 @@ export class ActivityComponent implements OnInit {
       this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
       item.loading = false;
       if (res.code == 1000) {
-        item.status = 0;
+        item.joinStatus = 0;
       }
     }, err => {
       item.loading = false;
