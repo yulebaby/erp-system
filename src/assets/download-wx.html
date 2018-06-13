@@ -37,7 +37,8 @@
 		$(function(){
 			$.ajax({
 				type:"get",
-				url:"http://erp.beibeiyue.com/market/storePictureInfo",
+				url:"http://newbss.beibeiyue.com/market/storePictureInfo",
+				// url: 'http://192.168.1.164:8383/market/storePictureInfo',
 				async:true,
 				data:{
 					paramJson:JSON.stringify({
@@ -48,7 +49,7 @@
 				success:function(res){
 					bgimg = res.result.standardDiagram;
 					qrcode = res.result.qrcode;
-					price = res.result.price;
+					price = res.result.coupon;
 					originalPrice = res.result.originalPrice;
 					shopName = res.result.shopName;
 					detailAddress = res.result.detailAddress;
@@ -71,29 +72,28 @@
 					var ctx = canvas.getContext('2d');
 					ctx.drawImage(imgbg, 0, 0, canvas.width, canvas.height);
 					ctx.drawImage(qrcodeimg,canvas.width*0.35,canvas.height*0.48,canvas.width*0.3,canvas.width*0.3);
-					ctx.font = "40px 微软雅黑";
-					ctx.fillStyle = '#f87b29';
-					ctx.textAlign = 'center';
-					ctx.fillText('￥'+price,canvas.width*0.5,canvas.height*0.83);
+					ctx.font = "48px 微软雅黑";
+					ctx.fillStyle = '#FF1F52';
+					ctx.textAlign = 'left';
+					ctx.fillText('￥'+price,canvas.width*0.05,canvas.height*0.91);
 					ctx.font = "20px 微软雅黑";
 					ctx.fillStyle = '#cdcdcd';
-					ctx.textAlign = 'start';
-					ctx.fillText('￥'+originalPrice,canvas.width*0.58,canvas.height*0.83);
+					ctx.textAlign = 'left';
+					ctx.fillText('体验价',canvas.width*0.18,canvas.height*0.91);
 					ctx.moveTo(canvas.width*0.58,canvas.height*0.83-5);
 					ctx.lineTo(canvas.width*0.58+58,canvas.height*0.83-5);
 					ctx.strokeStyle = '#cdcdcd';
 					ctx.stroke();
-					ctx.textAlign = 'center';
-					ctx.fillStyle = '#497bd4';
-					ctx.font = "30px 微软雅黑";
-					ctx.fillText(shopName,canvas.width*0.5,canvas.height*0.87);
-					ctx.fillStyle = '#8c8c8c';
-					ctx.font = "22px 微软雅黑";
-					ctx.fillText(detailAddress,canvas.width*0.5,canvas.height*0.91);
+					ctx.textAlign = 'left';
+					ctx.fillStyle = '#000';
+					ctx.font = "36px 微软雅黑";
+					ctx.fillText(shopName,canvas.width*0.05,canvas.height*0.84);
+					ctx.fillStyle = '#989898';
+					ctx.font = "28px 微软雅黑";
+					ctx.fillText(detailAddress,canvas.width*0.05,canvas.height*0.96);
 
 					var dataURL = canvas.toDataURL('image/png');
 					$('#img').attr('src', dataURL).css('opacity', 1);
-					// canvas.style.display = 'none';
 				}
 			};
 		}
