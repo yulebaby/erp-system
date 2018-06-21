@@ -78,7 +78,7 @@
 					ctx.font = "20px 微软雅黑";
 					ctx.fillStyle = '#cdcdcd';
 					ctx.textAlign = 'left';
-					ctx.fillText('单游价',canvas.width*0.2,canvas.height*0.91);
+					ctx.fillText('单游价',canvas.width*0.22,canvas.height*0.91);
 					ctx.moveTo(canvas.width*0.58,canvas.height*0.83-5);
 					ctx.lineTo(canvas.width*0.58+58,canvas.height*0.83-5);
 					ctx.strokeStyle = '#cdcdcd';
@@ -90,6 +90,12 @@
 					ctx.fillStyle = '#989898';
 					ctx.font = "28px 微软雅黑";
 					ctx.fillText(detailAddress,canvas.width*0.05,canvas.height*0.96);
+
+					
+					ctx.font = "148px 微软雅黑";
+					ctx.fillStyle = '#FF1F52';
+					ctx.textAlign = 'left';
+					ctx.fillText(price, canvas.width * 0.22, canvas.height * 0.37);
 
 					var dataURL = canvas.toDataURL('image/png');
 					$('#img').attr('src', dataURL).css('opacity', 1);
