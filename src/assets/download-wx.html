@@ -58,7 +58,6 @@
 			});
 		})
 
-		
 		function hcanvas(){
 			var imgbg = new Image();
 			imgbg.setAttribute('crossOrigin', 'anonymous');
@@ -75,11 +74,11 @@
 					ctx.font = "48px 微软雅黑";
 					ctx.fillStyle = '#FF1F52';
 					ctx.textAlign = 'left';
-					ctx.fillText('￥'+price,canvas.width*0.05,canvas.height*0.91);
+					ctx.fillText('￥'+ originalPrice,canvas.width*0.05,canvas.height*0.91);
 					ctx.font = "20px 微软雅黑";
 					ctx.fillStyle = '#cdcdcd';
 					ctx.textAlign = 'left';
-					ctx.fillText('体验价',canvas.width*0.18,canvas.height*0.91);
+					ctx.fillText('单游价',canvas.width*0.2,canvas.height*0.91);
 					ctx.moveTo(canvas.width*0.58,canvas.height*0.83-5);
 					ctx.lineTo(canvas.width*0.58+58,canvas.height*0.83-5);
 					ctx.strokeStyle = '#cdcdcd';
