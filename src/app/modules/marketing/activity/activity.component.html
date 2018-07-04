@@ -39,11 +39,9 @@
             <ng-template #body>
               <div class="custom-image">
                 <img class="thumbnail" [src]="item.thumbnail" />
-                <div class="qrcode" *ngIf="item.joinStatus == 1">
-                  <img *ngIf="item.name != '4月份鱼人游活动'" src="http://qr.liantu.com/api.php?text={{ externalServer }}/download-wx.html?id={{ item.id }}|{{ item.storeId }}">
-                  <img *ngIf="item.name == '4月份鱼人游活动'" src="http://qr.liantu.com/api.php?text={{ externalServer }}/download-h5.html?img={{ item.shopPicture }}&name={{ item.shopName }}" />
-                  />
-                </div>
+                <!-- <div class="qrcode" *ngIf="item.joinStatus == 1">
+                  <img src="http://qr.liantu.com/api.php?text={{ externalServer }}/download-wx.html?id={{ item.id }}|{{ item.storeId }}">
+                </div> -->
               </div>
               <div class="custom-card">
                 <h3>
@@ -56,6 +54,7 @@
                 </p>
                 <div class="card-footer">
                   <button nz-button [nzType]="'primary'" *ngIf="item.joinStatus == 0" (click)="joinActivity(item)" [nzLoading]="item.loading">我要参加</button>
+                  <button nz-button *ngIf="item.joinStatus == 1" (click)="cancelActivity(item)" [nzLoading]="item.loading">取消参加</button>
                 </div>
               </div>
             </ng-template>
@@ -72,37 +71,10 @@
   <ng-template #modalContent>
       <div nz-row style="margin-bottom: 16px;">
         <div nz-col [nzSm]="6" [nzXs]="24" style="line-height: 30px; text-align: right; padding-right: 12px;">
-          <label>活动价格:</label>
+          <label>接收短信手机号:</label>
         </div>
         <div nz-col [nzSm]="10" [nzXs]="24">
-          <nz-select [(ngModel)]="activityJoinForm.price" nzSize="large" nzPlaceHolder="请选择活动价格" style="width: 100%;">
-            <nz-option [nzLabel]="29.9" [nzValue]="29.9"></nz-option>
-            <nz-option [nzLabel]="39.9" [nzValue]="39.9"></nz-option>
-            <nz-option [nzLabel]="48" [nzValue]="48"></nz-option>
-            <nz-option [nzLabel]="58" [nzValue]="58"></nz-option>
-            <nz-option [nzLabel]="68" [nzValue]="68"></nz-option>
-          </nz-select>
-        </div>
-      </div>
-      <div nz-row style="margin-bottom: 16px;">
-        <div nz-col [nzSm]="6" [nzXs]="24" style="line-height: 30px; text-align: right; padding-right: 12px;">
-          <label>活动原价:</label>
-        </div>
-        <div nz-col [nzSm]="10" [nzXs]="24">
-          <nz-select [(ngModel)]="activityJoinForm.originalPrice" nzSize="large" nzPlaceHolder="请选择活动价格" style="width: 100%;">
-            <nz-option [nzLabel]="68" [nzValue]="68"></nz-option>
-            <nz-option [nzLabel]="73" [nzValue]="73"></nz-option>
-            <nz-option [nzLabel]="77" [nzValue]="77"></nz-option>
-            <nz-option [nzLabel]="78" [nzValue]="78"></nz-option>
-            <nz-option [nzLabel]="88" [nzValue]="88"></nz-option>
-            <nz-option [nzLabel]="98" [nzValue]="98"></nz-option>
-            <nz-option [nzLabel]="108" [nzValue]="108"></nz-option>
-            <nz-option [nzLabel]="118" [nzValue]="118"></nz-option>
-            <nz-option [nzLabel]="128" [nzValue]="128"></nz-option>
-            <nz-option [nzLabel]="138" [nzValue]="138"></nz-option>
-            <nz-option [nzLabel]="158" [nzValue]="158"></nz-option>
-            <nz-option [nzLabel]="198" [nzValue]="198"></nz-option>
-          </nz-select>
+          <nz-input [(ngModel)]="activityJoinForm.bossPhone" nzSize="large" nzPlaceHolder="请选择活动价格" style="width: 100%;"></nz-input>
         </div>
       </div>
   </ng-template>
